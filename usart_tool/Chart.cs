@@ -9,9 +9,10 @@ namespace usart_tool
 {
     class Chart
     {
-        public int test;
-        DataTable dt = default(DataTable);
-        public void reflashChart(System.Windows.Forms.DataVisualization.Charting.Chart data, int time, float value1, float value2, float value3, float value4)
+        DataTable dt = new DataTable();
+        public Datas[] chartdata = new Datas[100];
+        bool creatflag = true;
+        public void reflashChart(System.Windows.Forms.DataVisualization.Charting.Chart data, int time, int ID1, int ID2, int ID3, int ID4)
         {
             // Zoom into the X axis
             data.ChartAreas[0].AxisX.ScaleView.Zoom(1, 3);
@@ -30,8 +31,8 @@ namespace usart_tool
             data.ChartAreas[0].AxisY.ScrollBar.IsPositionedInside = true;
 
             // 设置滚动条的大小
-            data.ChartAreas["ChartArea1"].AxisX.ScrollBar.Size = 10;
-            data.ChartAreas["ChartArea1"].AxisY.ScrollBar.Size = 10;
+            data.ChartAreas["ChartArea1"].AxisX.ScrollBar.Size = 20;
+            data.ChartAreas["ChartArea1"].AxisY.ScrollBar.Size = 20;
 
             // 设置滚动条的按钮的风格，下面代码是将所有滚动条上的按钮都显示出来
             //data.ChartAreas["Default"].AxisX.ScrollBar.ButtonStyle //ScrollBarButtonStyle.All;
@@ -42,7 +43,7 @@ namespace usart_tool
             data.ChartAreas["ChartArea1"].AxisY.ScaleView.SmallScrollSize = double.NaN;
             data.ChartAreas["ChartArea1"].AxisY.ScaleView.SmallScrollMinSize = 1;
 
-            dt = CreateDataTable(time,value1,value2,value3,value4);
+            dt = CreateDataTable(data, time, ID1, ID2, ID3, ID4);
             //设置图表的数据源
             data.DataSource = dt;
 
@@ -58,29 +59,31 @@ namespace usart_tool
             data.Series[2].XValueMember = "time";
             data.Series[3].XValueMember = "time";
 
-            //绑定数据
-            data.DataBind();
+            //绑定数据
+            data.DataBind();
         }
-        public DataTable CreateDataTable(int time,float value1, float value2, float value3, float value4)
+        public DataTable CreateDataTable(System.Windows.Forms.DataVisualization.Charting.Chart data, int time,int ID1, int ID2, int ID3, int ID4)
         {
-            DataTable dt = new DataTable();
+            if (creatflag)
+            {
+                dt.Columns.Add("time");
+                dt.Columns.Add("Volume1");
+                dt.Columns.Add("Volume2");
+                dt.Columns.Add("Volume3");
+                dt.Columns.Add("Volume4");
+                creatflag = false;
+            }
 
-            dt.Columns.Add("time");
-            dt.Columns.Add("Volume1");
-            dt.Columns.Add("Volume2");
-            dt.Columns.Add("Volume3");
-            dt.Columns.Add("Volume4");
-
-
-                DataRow dr;
-                dr = dt.NewRow();
-                dr["time"] = time;
-                dr["Volume1"] = value1 ;
-                dr["Volume2"] = value2;
-                dr["Volume3"] =value3;
-                dr["Volume4"] = value4;
-                dt.Rows.Add(dr);
-
+            
+            DataRow dr;
+            dr = dt.NewRow();
+            dr["time"] = time;
+            dr["Volume1"] = chartdata[ID1].num;
+            dr["Volume2"] = chartdata[ID2].num;
+            dr["Volume3"] = chartdata[ID3].num;
+            dr["Volume4"] = chartdata[ID4].num;
+            dt.Rows.Add(dr);
+           
             return dt;
         }
     }

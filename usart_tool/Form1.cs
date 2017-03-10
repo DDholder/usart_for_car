@@ -408,6 +408,9 @@ namespace usart_tool
             {
                 buff[i] = 0;
             }
+            data_init();
+            for(int i=0;i<100;i++)
+            table.chartdata[i].name = data[i].name;
         }
 
         void Display(int[,] image_buff)
@@ -435,14 +438,15 @@ namespace usart_tool
         {
             if (replaystate == "record")
             {
-                if (n < 600)
+                if (time < 600)
                 {
+                    record_pro.Text = time.ToString() + "/600";
                     progressBar1.Value = time;
                     buff[time] = 1;
-                    data[11].num *= 1.5f;
-                    data[12].num += 1f;
-                    data[21].num /= 0.9f;
-                    data[22].num -= 1.1f;
+                    data[11].num += 20f;
+                    data[12].num += 10f;
+                    data[21].num -= 20f;
+                    data[22].num -= 10f;
                 }
                 Recorddata(time);
                 time++;
@@ -451,8 +455,10 @@ namespace usart_tool
             {
                 if (retime < time)
                 {
-                    progressBar1.Value = retime;
-                    play(retime);
+                    play_bar.Maximum = time;
+                    play_bar.Value = retime;
+                    play_pro.Text = retime.ToString() + "/" + time.ToString();
+                    play(retime,"kp","ki","power","speed");
                     retime++;
                 }
             }
@@ -471,11 +477,40 @@ namespace usart_tool
                 fps[time].img[i] = buff[i];
             }
         }
-        void play(int num)
+        void play(int num, string name1, string name2, string name3, string name4)
         {
             Changemap(fps[num].img);
             Display(map);
-            table.reflashChart(chart1, num, fps[num].value[11], fps[num].value[12], fps[num].value[21], fps[num].value[22]);
+            reflashchartdata(num, name1, name2, name3, name4);
+        }
+
+        private void play_bar_Scroll(object sender, EventArgs e)
+        {
+            retime = play_bar.Value;
+            if(play_pause.Text=="play")
+            {
+                play_pro.Text = retime.ToString() + "/" + time.ToString();
+                play(retime, "kp", "ki", "power", "speed");
+            }
+        }
+
+        void reflashchartdata(int num,string name1, string name2, string name3, string name4)
+        {
+            int ID1 = 0, ID2 = 0, ID3 = 0, ID4 = 0;
+            for (int i = 0; i < 100; i++)
+            {
+                
+                table.chartdata[i].num = fps[num].value[i];
+                if (data[i].name == name1) ID1 = i;
+                if (data[i].name == name2) ID2 = i;
+                if (data[i].name == name3) ID3 = i;
+                if (data[i].name == name4) ID4 = i;
+            }
+            chart1.Series[0].Name = data[ID1].name;
+            chart1.Series[1].Name = data[ID2].name;
+            chart1.Series[2].Name = data[ID3].name;
+            chart1.Series[3].Name = data[ID4].name;
+            table.reflashChart(chart1, num, ID1, ID2, ID3, ID4);
         }
     }
 }
