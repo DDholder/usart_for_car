@@ -31,10 +31,11 @@ namespace usart_tool
         /// //////////////////变量声明/////////////////////////////////////
         Datas[] data = new Datas[100];
         points[] fps = new points[600];
+        int ID1 = 0, ID2 = 0, ID3 = 0, ID4 = 0, ID5 = 0, ID6 = 0, ID7 = 0, ID8 = 0, ID9 = 0, ID10 = 0;
         int[] buff = new int[600];
         int[,] map = new int[80, 60];
         int imgbuffnum = 0;
-       public int time = 0, retime = 0;
+        public int time = 0, retime = 0;
         int[,] imgground = new int[600, 600];
         int n = 0;
         string replaystate = "record";
@@ -56,7 +57,7 @@ namespace usart_tool
             data[21].name = "speed";
             data[21].num = 10;
             data[22].name = "power";
-            data[22].num = 1000;            
+            data[22].num = 1000;
         }
         private void Button1_Click(object sender, EventArgs e)
         {
@@ -138,9 +139,10 @@ namespace usart_tool
                 receive_text.ScrollToCaret();
             };
             this.Invoke(showReceive);
+            Readstring(portRead, portRead.Length);
         }
         //解读参数
-        void Readstring(byte[] str, int n)
+        void Readstring(string str, int n)
         {
             int group, no, num = 0, k = 1, end = 0, start = 0, ID;
             if (str[0] == '$')
@@ -188,7 +190,7 @@ namespace usart_tool
 
         }
         //串口解读图像
-        void Readpic(byte[] str, int n)
+        void Readpic(string str, int n)
         {
             int k = 1, start = 0, end = 0, sum = 0;
             for (int j = 0; j < n; j++)
@@ -258,31 +260,31 @@ namespace usart_tool
             {
                 id = int.Parse(sendID0.Text);
                 n = int.Parse(sendnum0.Text);
-                serialPort1.Write(sendnum(id / 10, id % 10, n));
+                serialPort1.WriteLine(sendnum(id / 10, id % 10, n));
             }
             if (sendID1.Text != "error")
             {
                 id = int.Parse(sendID1.Text);
                 n = int.Parse(sendnum1.Text);
-                serialPort1.Write(sendnum(id / 10, id % 10, n));
+                serialPort1.WriteLine(sendnum(id / 10, id % 10, n));
             }
             if (sendID2.Text != "error")
             {
                 id = int.Parse(sendID2.Text);
                 n = int.Parse(sendnum2.Text);
-                serialPort1.Write(sendnum(id / 10, id % 10, n));
+                serialPort1.WriteLine(sendnum(id / 10, id % 10, n));
             }
             if (sendID3.Text != "error")
             {
                 id = int.Parse(sendID3.Text);
                 n = int.Parse(sendnum3.Text);
-                serialPort1.Write(sendnum(id / 10, id % 10, n));
+                serialPort1.WriteLine(sendnum(id / 10, id % 10, n));
             }
             if (sendID4.Text != "error")
             {
                 id = int.Parse(sendID4.Text);
                 n = int.Parse(sendnum4.Text);
-                serialPort1.Write(sendnum(id / 10, id % 10, n));
+                serialPort1.WriteLine(sendnum(id / 10, id % 10, n));
             }
         }
 
@@ -409,8 +411,8 @@ namespace usart_tool
                 buff[i] = 0;
             }
             data_init();
-            for(int i=0;i<100;i++)
-            table.chartdata[i].name = data[i].name;
+            for (int i = 0; i < 100; i++)
+                table.chartdata[i].name = data[i].name;
         }
 
         void Display(int[,] image_buff)
@@ -458,7 +460,7 @@ namespace usart_tool
                     play_bar.Maximum = time;
                     play_bar.Value = retime;
                     play_pro.Text = retime.ToString() + "/" + time.ToString();
-                    play(retime,"kp","ki","power","speed");
+                    play(retime, "kp", "ki", "power", "speed");
                     retime++;
                 }
             }
@@ -479,27 +481,66 @@ namespace usart_tool
         }
         void play(int num, string name1, string name2, string name3, string name4)
         {
-            Changemap(fps[num].img);
-            Display(map);
-            reflashchartdata(num, name1, name2, name3, name4);
+            if (ImgEng.Checked)
+            {
+                Changemap(fps[num].img);
+                Display(map);
+            }
+            if (ChartEng.Checked)
+                Reflashchartdata(num, name1, name2, name3, name4);
+            DataReplay(num,"kp", "ki", "kd", "speed", "power");
         }
 
         private void play_bar_Scroll(object sender, EventArgs e)
         {
             retime = play_bar.Value;
-            if(play_pause.Text=="play")
+            if (play_pause.Text == "play"&&retime<time)
             {
                 play_pro.Text = retime.ToString() + "/" + time.ToString();
                 play(retime, "kp", "ki", "power", "speed");
             }
         }
 
-        void reflashchartdata(int num,string name1, string name2, string name3, string name4)
+        private void PnUp_Click(object sender, EventArgs e)
         {
-            int ID1 = 0, ID2 = 0, ID3 = 0, ID4 = 0;
+            retime--;
+            if (play_pause.Text == "play" && retime < time&&retime>0)
+            {
+                play_pro.Text = retime.ToString() + "/" + time.ToString();
+                play(retime, "kp", "ki", "power", "speed");
+            }
+        }
+
+        private void UgDn_Click(object sender, EventArgs e)
+        {
+            retime++;
+            if (play_pause.Text == "play" && retime < time )
+            {
+                play_pro.Text = retime.ToString() + "/" + time.ToString();
+                play(retime, "kp", "ki", "power", "speed");
+            }
+        }
+
+        private void Datatimer_Tick(object sender, EventArgs e)
+        {
+                showdatas();
+        }
+
+        private void Enabledatashow_EnabledChanged(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void Enabledatashow_CheckedChanged(object sender, EventArgs e)
+        {
+            if (Enabledatashow.Checked) Datatimer.Enabled = true;
+            else Datatimer.Enabled = false;
+        }
+
+        void Reflashchartdata(int num, string name1 = "null", string name2 = "null", string name3 = "null", string name4 = "null")
+        {
             for (int i = 0; i < 100; i++)
             {
-                
                 table.chartdata[i].num = fps[num].value[i];
                 if (data[i].name == name1) ID1 = i;
                 if (data[i].name == name2) ID2 = i;
@@ -511,6 +552,44 @@ namespace usart_tool
             chart1.Series[2].Name = data[ID3].name;
             chart1.Series[3].Name = data[ID4].name;
             table.reflashChart(chart1, num, ID1, ID2, ID3, ID4);
+        }
+        void DataReplay(int num,string s1 = "null", string s2 = "null", string s3 = "null", string s4 = "null", string s5="null", string s6="null", string s7 = "null", string s8 = "null", string s9 = "null", string s10 = "null")
+        {
+            for (int i = 0; i < 100; i++)
+            {
+                table.chartdata[i].num = fps[num].value[i];
+                if (data[i].name == s1) ID1 = i;
+                if (data[i].name == s2) ID2 = i;
+                if (data[i].name == s3) ID3 = i;
+                if (data[i].name == s4) ID4 = i;
+                if (data[i].name == s5) ID5 = i;
+                if (data[i].name == s6) ID6 = i;
+                if (data[i].name == s7) ID7 = i;
+                if (data[i].name == s8) ID8 = i;
+                if (data[i].name == s9) ID9 = i;
+                if (data[i].name == s10) ID10 = i;
+
+            }
+            label4.Text = s1;
+            label5.Text = s2;
+            label6.Text = s3;
+            label7.Text = s4;
+            label8.Text = s5;
+            label9.Text = s6;
+            label10.Text = s7;
+            label11.Text = s8;
+            label12.Text = s9;
+            label13.Text = s10;
+            textBox1.Text = fps[num].value[ID1].ToString();
+            textBox2.Text = fps[num].value[ID2].ToString();
+            textBox3.Text = fps[num].value[ID3].ToString();
+            textBox4.Text = fps[num].value[ID4].ToString();
+            textBox5.Text = fps[num].value[ID5].ToString();
+            textBox6.Text = fps[num].value[ID6].ToString();
+            textBox7.Text = fps[num].value[ID7].ToString();
+            textBox8.Text = fps[num].value[ID8].ToString();
+            textBox9.Text = fps[num].value[ID9].ToString();
+            textBox10.Text = fps[num].value[ID10].ToString();
         }
     }
 }
