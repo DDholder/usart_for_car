@@ -6,6 +6,7 @@ using System.Drawing;
 using System.IO.Ports;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -20,6 +21,8 @@ namespace usart_tool
     {
         public float[] value;
         public int[] img;
+        public float elecnum1;
+        public float elecnum2;
     }
     public partial class Form1 : Form
     {
@@ -29,23 +32,27 @@ namespace usart_tool
         }
         /******************************************************************/
         /// //////////////////变量声明/////////////////////////////////////
-        Datas[] data = new Datas[100];
-        points[] fps = new points[600];
+        Datas[] data = new Datas[102];//变量数值
+        points[] fps = new points[600];//600帧数据
+        //10个记录变量ID
         int ID1 = 0, ID2 = 0, ID3 = 0, ID4 = 0, ID5 = 0, ID6 = 0, ID7 = 0, ID8 = 0, ID9 = 0, ID10 = 0;
-        int[] buff = new int[600];
-        int[,] map = new int[80, 60];
-        int imgbuffnum = 0;
-        public int time = 0, retime = 0;
-        int[,] imgground = new int[600, 600];
-        int n = 0;
-        string replaystate = "record";
+        int[] buff = new int[600];//串口读出的图像
+        int[,] map = new int[80, 60];//解压后图像
+        int imgbuffnum = 0;//接受到的图像数组数
+        public int time = 0, retime = 0;//记录时间和回放时间
+        float elec1 = 10, elec2 = 20;//两个电感值
+        int area = 1000;//电感范围
+        string replaystate = "record";//记录状态
         Chart table = new Chart();
         /*****************************************************************/
+      
+        //**************************参数初始化与定义************************//
         //参数初始化与定义
         //在这里设置参数的编号和显示值
         //例：设参数Speed_Kd为编号23的变量，
         //data[23].name="Speed_Kd";
         //data[23].num=Speed_Kd;
+        //！！！注意:90，91为两个电感专用ID
         void data_init()
         {
             data[11].name = "kp";
@@ -58,6 +65,10 @@ namespace usart_tool
             data[21].num = 10;
             data[22].name = "power";
             data[22].num = 1000;
+            data[90].name = "elec1";
+            data[90].num = elec1;
+            data[91].name = "elec2";
+            data[91].num = elec2;
         }
         private void Button1_Click(object sender, EventArgs e)
         {
@@ -137,6 +148,7 @@ namespace usart_tool
             {
                 receive_text.AppendText(portRead);
                 receive_text.ScrollToCaret();
+                label3.Text = elec1.ToString();
             };
             this.Invoke(showReceive);
             Readstring(portRead, portRead.Length);
@@ -197,7 +209,7 @@ namespace usart_tool
             {
                 if (str[j] == '!')
                 {
-                    if ((str[j + 1] == '#') || imgbuffnum == 640)
+                    if ((str[j + 1] == '#') || imgbuffnum == 600)
                         imgbuffnum = 0;
                     for (int i = j - 1; str[i] != '*'; i--)
                     {
@@ -211,6 +223,7 @@ namespace usart_tool
                 }
             }
         }
+        //**********************刷新待发送参数*******************************//
         //刷新待发送参数
         //识别成功的参数名显示出参数ID
         //未识别成功的参数显示error
@@ -287,7 +300,7 @@ namespace usart_tool
                 serialPort1.WriteLine(sendnum(id / 10, id % 10, n));
             }
         }
-
+        //解压图像
         void Changemap(int[] imgbuff)
         {
             for (int i = 0; i < 60; i++)
@@ -308,17 +321,28 @@ namespace usart_tool
                 }
             }
         }
+        //*******************按格式整合参数******************************//
         //按格式整合参数
         //sendnum(ID十位, ID个位, 数值)
         //输出   "$ID十位.ID个位@数值! "
         //例：ID为56数值为74
         //sendnum(5,6,74);
-        string sendnum(int group, int no, int num)
+        string sendnum(int group, int no, float num)
         {
             string str = "$" + group.ToString() + "." + no.ToString() + "@" + num.ToString() + "!";
             return str;
         }
-
+        //********************发送电感值********************************//
+        //发送电感值
+        //send_elec(第一个值,第二个值);
+        //例：第一个值15，第二个值68
+        //send_elec(15,68);
+        void send_elec(float ad1, float ad2)
+        {
+            serialPort1.Write(sendnum(9, 0, ad1) + '\n');
+            Thread.Sleep(10);
+            serialPort1.Write(sendnum(9, 1, ad2) + '\n');
+        }
         private void play_pause_Click(object sender, EventArgs e)
         {
             if (Record_timer.Enabled == false)
@@ -362,22 +386,24 @@ namespace usart_tool
                 Record_timer.Enabled = false;
             }
         }
-
+        //*********************更改参数//////////////////////////////////////
         //更改参数
         //待改参数=changenum(待改参数名）;
         //例：Speed_Kd=changenum("Speed_Kd");
         float changenum(string name)
         {
             float n = 0;
-            for (int i = 0; i < 100; i++)
+            for (int i = 0; i < 102; i++)
             {
                 if (data[i].name == name)
                 {
                     n = data[i].num;
+                    break;
                 }
             }
             return n;
         }
+       //****************************显示参数*****************************//
         //显示参数
         //只显示ID十位为下拉列表的参数
         void showdatas()
@@ -436,6 +462,16 @@ namespace usart_tool
             }
         }
 
+        private void button2_Click(object sender, EventArgs e)
+        {
+            send_elec(30, 40);
+        }
+
+        private void tabPage6_Click(object sender, EventArgs e)
+        {
+
+        }
+
         private void Record_timer_Tick(object sender, EventArgs e)
         {
             if (replaystate == "record")
@@ -449,6 +485,8 @@ namespace usart_tool
                     data[12].num += 10f;
                     data[21].num -= 20f;
                     data[22].num -= 10f;
+                    elec1 += 10;
+                    elec2 -= 10;
                 }
                 Recorddata(time);
                 time++;
@@ -460,7 +498,9 @@ namespace usart_tool
                     play_bar.Maximum = time;
                     play_bar.Value = retime;
                     play_pro.Text = retime.ToString() + "/" + time.ToString();
-                    play(retime, "kp", "ki", "power", "speed");
+                    play(retime);
+                    if (ChartEng.Checked)
+                        Reflashchartdata(retime);
                     retime++;
                 }
             }
@@ -474,61 +514,74 @@ namespace usart_tool
             {
                 fps[num].value[i] = data[i].num;
             }
-            for (int i = 0; i < 600; i++)
+            if (PlayMode.Text == "摄像头")
+                for (int i = 0; i < 600; i++)
+                {
+                    fps[time].img[i] = buff[i];
+                }
+            if (PlayMode.Text == "电感")
             {
-                fps[time].img[i] = buff[i];
+                fps[time].elecnum1 = elec1;
+                fps[time].elecnum2 = elec2;
             }
         }
-        void play(int num, string name1, string name2, string name3, string name4)
+        void play(int num)
         {
             if (ImgEng.Checked)
             {
-                Changemap(fps[num].img);
-                Display(map);
+                if (PlayMode.Text == "摄像头")
+                {
+                    Changemap(fps[num].img);
+                    Display(map);
+                }
+                if (PlayMode.Text == "电感")
+                {
+                    if (fps[num].elecnum1 < area && fps[num].elecnum1 > -area)
+                        ElecTrack1.Value = (int)fps[num].elecnum1 + area;
+                    if (fps[num].elecnum2 < area && fps[num].elecnum2 > -area)
+                        ElecTrack2.Value = (int)fps[num].elecnum2 + area;
+                }
             }
-            if (ChartEng.Checked)
-                Reflashchartdata(num, name1, name2, name3, name4);
-            DataReplay(num,"kp", "ki", "kd", "speed", "power");
+            DataReplay(num);
         }
-
         private void play_bar_Scroll(object sender, EventArgs e)
         {
             retime = play_bar.Value;
-            if (play_pause.Text == "play"&&retime<time)
+            if (play_pause.Text == "play" && retime < time)
             {
                 play_pro.Text = retime.ToString() + "/" + time.ToString();
-                play(retime, "kp", "ki", "power", "speed");
+                play(retime);
             }
         }
 
         private void PnUp_Click(object sender, EventArgs e)
         {
             retime--;
-            if (play_pause.Text == "play" && retime < time&&retime>0)
+            if (play_pause.Text == "play" && retime < time && retime > 0)
             {
                 play_pro.Text = retime.ToString() + "/" + time.ToString();
-                play(retime, "kp", "ki", "power", "speed");
+                play(retime);
             }
         }
 
         private void UgDn_Click(object sender, EventArgs e)
         {
             retime++;
-            if (play_pause.Text == "play" && retime < time )
+            if (play_pause.Text == "play" && retime < time)
             {
                 play_pro.Text = retime.ToString() + "/" + time.ToString();
-                play(retime, "kp", "ki", "power", "speed");
+                play(retime);
             }
         }
 
         private void Datatimer_Tick(object sender, EventArgs e)
         {
-                showdatas();
+            showdatas();
         }
 
         private void Enabledatashow_EnabledChanged(object sender, EventArgs e)
         {
-            
+
         }
 
         private void Enabledatashow_CheckedChanged(object sender, EventArgs e)
@@ -537,24 +590,39 @@ namespace usart_tool
             else Datatimer.Enabled = false;
         }
 
-        void Reflashchartdata(int num, string name1 = "null", string name2 = "null", string name3 = "null", string name4 = "null")
+        void Reflashchartdata(int num)
         {
+            string name1 = textBox11.Text;
+            string name2 = textBox12.Text;
+            string name3 = textBox13.Text;
+            string name4 = textBox14.Text;
+            int cID1 = 0, cID2 = 0, cID3 = 0, cID4 = 0;
             for (int i = 0; i < 100; i++)
             {
                 table.chartdata[i].num = fps[num].value[i];
-                if (data[i].name == name1) ID1 = i;
-                if (data[i].name == name2) ID2 = i;
-                if (data[i].name == name3) ID3 = i;
-                if (data[i].name == name4) ID4 = i;
+                if (data[i].name == name1) cID1 = i;
+                if (data[i].name == name2) cID2 = i;
+                if (data[i].name == name3) cID3 = i;
+                if (data[i].name == name4) cID4 = i;
             }
-            chart1.Series[0].Name = data[ID1].name;
-            chart1.Series[1].Name = data[ID2].name;
-            chart1.Series[2].Name = data[ID3].name;
-            chart1.Series[3].Name = data[ID4].name;
-            table.reflashChart(chart1, num, ID1, ID2, ID3, ID4);
+            chart1.Series[0].Name = data[cID1].name;
+            chart1.Series[1].Name = data[cID2].name;
+            chart1.Series[2].Name = data[cID3].name;
+            chart1.Series[3].Name = data[cID4].name;
+            table.reflashChart(chart1, num, cID1, cID2, cID3, cID4);
         }
-        void DataReplay(int num,string s1 = "null", string s2 = "null", string s3 = "null", string s4 = "null", string s5="null", string s6="null", string s7 = "null", string s8 = "null", string s9 = "null", string s10 = "null")
+        void DataReplay(int num)
         {
+            string s1 = textBox1.Text;
+            string s2 = textBox2.Text;
+            string s3 = textBox3.Text;
+            string s4 = textBox4.Text;
+            string s5 = textBox5.Text;
+            string s6 = textBox6.Text;
+            string s7 = textBox7.Text;
+            string s8 = textBox8.Text;
+            string s9 = textBox9.Text;
+            string s10 = textBox10.Text;
             for (int i = 0; i < 100; i++)
             {
                 table.chartdata[i].num = fps[num].value[i];
@@ -570,26 +638,16 @@ namespace usart_tool
                 if (data[i].name == s10) ID10 = i;
 
             }
-            label4.Text = s1;
-            label5.Text = s2;
-            label6.Text = s3;
-            label7.Text = s4;
-            label8.Text = s5;
-            label9.Text = s6;
-            label10.Text = s7;
-            label11.Text = s8;
-            label12.Text = s9;
-            label13.Text = s10;
-            textBox1.Text = fps[num].value[ID1].ToString();
-            textBox2.Text = fps[num].value[ID2].ToString();
-            textBox3.Text = fps[num].value[ID3].ToString();
-            textBox4.Text = fps[num].value[ID4].ToString();
-            textBox5.Text = fps[num].value[ID5].ToString();
-            textBox6.Text = fps[num].value[ID6].ToString();
-            textBox7.Text = fps[num].value[ID7].ToString();
-            textBox8.Text = fps[num].value[ID8].ToString();
-            textBox9.Text = fps[num].value[ID9].ToString();
-            textBox10.Text = fps[num].value[ID10].ToString();
+            label4.Text = fps[num].value[ID1].ToString();
+            label5.Text = fps[num].value[ID2].ToString();
+            label6.Text = fps[num].value[ID3].ToString();
+            label7.Text = fps[num].value[ID4].ToString();
+            label8.Text = fps[num].value[ID5].ToString();
+            label9.Text = fps[num].value[ID6].ToString();
+            label10.Text = fps[num].value[ID7].ToString();
+            label11.Text = fps[num].value[ID8].ToString();
+            label12.Text = fps[num].value[ID9].ToString();
+            label13.Text = fps[num].value[ID10].ToString();
         }
     }
 }

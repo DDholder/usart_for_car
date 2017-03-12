@@ -29,12 +29,12 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea5 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend5 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series17 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series18 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series19 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series20 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.button1 = new System.Windows.Forms.Button();
             this.serialPort1 = new System.IO.Ports.SerialPort(this.components);
             this.comboBoxSerialPortName = new System.Windows.Forms.ComboBox();
@@ -91,39 +91,11 @@
             this.dataname4 = new System.Windows.Forms.Label();
             this.dataname5 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.UgDn = new System.Windows.Forms.Button();
-            this.PnUp = new System.Windows.Forms.Button();
-            this.ChartEng = new System.Windows.Forms.CheckBox();
-            this.ImgEng = new System.Windows.Forms.CheckBox();
-            this.play_pro = new System.Windows.Forms.Label();
-            this.record_pro = new System.Windows.Forms.Label();
-            this.play_bar = new System.Windows.Forms.TrackBar();
-            this.Record = new System.Windows.Forms.Button();
-            this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            this.play_pause = new System.Windows.Forms.Button();
-            this.ImgBox = new System.Windows.Forms.PictureBox();
-            this.progressBar1 = new System.Windows.Forms.ProgressBar();
-            this.Record_timer = new System.Windows.Forms.Timer(this.components);
-            this.label3 = new System.Windows.Forms.Label();
-            this.Datatimer = new System.Windows.Forms.Timer(this.components);
-            this.tabControl2 = new System.Windows.Forms.TabControl();
-            this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.tabPage4 = new System.Windows.Forms.TabPage();
-            this.trackBar1 = new System.Windows.Forms.TrackBar();
-            this.trackBar2 = new System.Windows.Forms.TrackBar();
+            this.PlayMode = new System.Windows.Forms.ComboBox();
             this.tabControl3 = new System.Windows.Forms.TabControl();
             this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.tabPage6 = new System.Windows.Forms.TabPage();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.textBox4 = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.textBox5 = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.textBox6 = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
@@ -134,6 +106,40 @@
             this.textBox8 = new System.Windows.Forms.TextBox();
             this.textBox9 = new System.Windows.Forms.TextBox();
             this.textBox10 = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.textBox5 = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.textBox4 = new System.Windows.Forms.TextBox();
+            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.tabControl2 = new System.Windows.Forms.TabControl();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.ImgBox = new System.Windows.Forms.PictureBox();
+            this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.ElecTrack2 = new System.Windows.Forms.TrackBar();
+            this.ElecTrack1 = new System.Windows.Forms.TrackBar();
+            this.UgDn = new System.Windows.Forms.Button();
+            this.PnUp = new System.Windows.Forms.Button();
+            this.ChartEng = new System.Windows.Forms.CheckBox();
+            this.ImgEng = new System.Windows.Forms.CheckBox();
+            this.play_pro = new System.Windows.Forms.Label();
+            this.record_pro = new System.Windows.Forms.Label();
+            this.play_bar = new System.Windows.Forms.TrackBar();
+            this.Record = new System.Windows.Forms.Button();
+            this.play_pause = new System.Windows.Forms.Button();
+            this.progressBar1 = new System.Windows.Forms.ProgressBar();
+            this.Record_timer = new System.Windows.Forms.Timer(this.components);
+            this.label3 = new System.Windows.Forms.Label();
+            this.Datatimer = new System.Windows.Forms.Timer(this.components);
+            this.button2 = new System.Windows.Forms.Button();
+            this.textBox11 = new System.Windows.Forms.TextBox();
+            this.textBox12 = new System.Windows.Forms.TextBox();
+            this.textBox13 = new System.Windows.Forms.TextBox();
+            this.textBox14 = new System.Windows.Forms.TextBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -141,17 +147,17 @@
             this.groupBox1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.tabPage2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.play_bar)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ImgBox)).BeginInit();
-            this.tabControl2.SuspendLayout();
-            this.tabPage3.SuspendLayout();
-            this.tabPage4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar2)).BeginInit();
             this.tabControl3.SuspendLayout();
             this.tabPage5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             this.tabPage6.SuspendLayout();
+            this.tabControl2.SuspendLayout();
+            this.tabPage3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ImgBox)).BeginInit();
+            this.tabPage4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ElecTrack2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ElecTrack1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.play_bar)).BeginInit();
             this.SuspendLayout();
             // 
             // button1
@@ -660,6 +666,7 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.PlayMode);
             this.tabPage2.Controls.Add(this.tabControl3);
             this.tabPage2.Controls.Add(this.tabControl2);
             this.tabPage2.Controls.Add(this.UgDn);
@@ -680,208 +687,16 @@
             this.tabPage2.Text = "记录";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
-            // UgDn
+            // PlayMode
             // 
-            this.UgDn.Location = new System.Drawing.Point(254, 460);
-            this.UgDn.Name = "UgDn";
-            this.UgDn.Size = new System.Drawing.Size(75, 23);
-            this.UgDn.TabIndex = 11;
-            this.UgDn.Text = "UgDn";
-            this.UgDn.UseVisualStyleBackColor = true;
-            this.UgDn.Click += new System.EventHandler(this.UgDn_Click);
-            // 
-            // PnUp
-            // 
-            this.PnUp.Location = new System.Drawing.Point(63, 460);
-            this.PnUp.Name = "PnUp";
-            this.PnUp.Size = new System.Drawing.Size(75, 23);
-            this.PnUp.TabIndex = 10;
-            this.PnUp.Text = "PgUp";
-            this.PnUp.UseVisualStyleBackColor = true;
-            this.PnUp.Click += new System.EventHandler(this.PnUp_Click);
-            // 
-            // ChartEng
-            // 
-            this.ChartEng.AutoSize = true;
-            this.ChartEng.Location = new System.Drawing.Point(270, 305);
-            this.ChartEng.Name = "ChartEng";
-            this.ChartEng.Size = new System.Drawing.Size(89, 19);
-            this.ChartEng.TabIndex = 9;
-            this.ChartEng.Text = "查看图表";
-            this.ChartEng.UseVisualStyleBackColor = true;
-            // 
-            // ImgEng
-            // 
-            this.ImgEng.AutoSize = true;
-            this.ImgEng.Location = new System.Drawing.Point(43, 305);
-            this.ImgEng.Name = "ImgEng";
-            this.ImgEng.Size = new System.Drawing.Size(89, 19);
-            this.ImgEng.TabIndex = 8;
-            this.ImgEng.Text = "查看图像";
-            this.ImgEng.UseVisualStyleBackColor = true;
-            // 
-            // play_pro
-            // 
-            this.play_pro.AutoSize = true;
-            this.play_pro.Location = new System.Drawing.Point(170, 306);
-            this.play_pro.Name = "play_pro";
-            this.play_pro.Size = new System.Drawing.Size(55, 15);
-            this.play_pro.TabIndex = 7;
-            this.play_pro.Text = "label4";
-            // 
-            // record_pro
-            // 
-            this.record_pro.AutoSize = true;
-            this.record_pro.Location = new System.Drawing.Point(368, 480);
-            this.record_pro.Name = "record_pro";
-            this.record_pro.Size = new System.Drawing.Size(55, 15);
-            this.record_pro.TabIndex = 6;
-            this.record_pro.Text = "label4";
-            // 
-            // play_bar
-            // 
-            this.play_bar.Location = new System.Drawing.Point(10, 333);
-            this.play_bar.Name = "play_bar";
-            this.play_bar.Size = new System.Drawing.Size(353, 56);
-            this.play_bar.TabIndex = 5;
-            this.play_bar.Scroll += new System.EventHandler(this.play_bar_Scroll);
-            // 
-            // Record
-            // 
-            this.Record.Location = new System.Drawing.Point(12, 501);
-            this.Record.Name = "Record";
-            this.Record.Size = new System.Drawing.Size(81, 23);
-            this.Record.TabIndex = 4;
-            this.Record.Text = "Record";
-            this.Record.UseVisualStyleBackColor = true;
-            this.Record.Click += new System.EventHandler(this.Record_Click);
-            // 
-            // chart1
-            // 
-            chartArea5.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea5);
-            legend5.Name = "Legend1";
-            this.chart1.Legends.Add(legend5);
-            this.chart1.Location = new System.Drawing.Point(10, 9);
-            this.chart1.Name = "chart1";
-            series17.ChartArea = "ChartArea1";
-            series17.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series17.Legend = "Legend1";
-            series17.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Square;
-            series17.Name = "Series1";
-            series18.ChartArea = "ChartArea1";
-            series18.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series18.Legend = "Legend1";
-            series18.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Circle;
-            series18.Name = "Series2";
-            series19.ChartArea = "ChartArea1";
-            series19.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series19.Legend = "Legend1";
-            series19.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Triangle;
-            series19.Name = "Series3";
-            series20.ChartArea = "ChartArea1";
-            series20.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series20.Legend = "Legend1";
-            series20.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Star4;
-            series20.Name = "Series4";
-            this.chart1.Series.Add(series17);
-            this.chart1.Series.Add(series18);
-            this.chart1.Series.Add(series19);
-            this.chart1.Series.Add(series20);
-            this.chart1.Size = new System.Drawing.Size(515, 372);
-            this.chart1.TabIndex = 3;
-            this.chart1.Text = "chart1";
-            // 
-            // play_pause
-            // 
-            this.play_pause.Location = new System.Drawing.Point(791, 501);
-            this.play_pause.Name = "play_pause";
-            this.play_pause.Size = new System.Drawing.Size(75, 23);
-            this.play_pause.TabIndex = 2;
-            this.play_pause.Text = "play";
-            this.play_pause.UseVisualStyleBackColor = true;
-            this.play_pause.Click += new System.EventHandler(this.play_pause_Click);
-            // 
-            // ImgBox
-            // 
-            this.ImgBox.Image = global::usart_tool.Properties.Resources.无标题;
-            this.ImgBox.Location = new System.Drawing.Point(5, 8);
-            this.ImgBox.Name = "ImgBox";
-            this.ImgBox.Size = new System.Drawing.Size(337, 249);
-            this.ImgBox.TabIndex = 1;
-            this.ImgBox.TabStop = false;
-            // 
-            // progressBar1
-            // 
-            this.progressBar1.Location = new System.Drawing.Point(99, 501);
-            this.progressBar1.Maximum = 600;
-            this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(667, 23);
-            this.progressBar1.TabIndex = 0;
-            // 
-            // Record_timer
-            // 
-            this.Record_timer.Tick += new System.EventHandler(this.Record_timer_Tick);
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(235, 559);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(55, 15);
-            this.label3.TabIndex = 61;
-            this.label3.Text = "label3";
-            // 
-            // Datatimer
-            // 
-            this.Datatimer.Tick += new System.EventHandler(this.Datatimer_Tick);
-            // 
-            // tabControl2
-            // 
-            this.tabControl2.Controls.Add(this.tabPage3);
-            this.tabControl2.Controls.Add(this.tabPage4);
-            this.tabControl2.Location = new System.Drawing.Point(6, 7);
-            this.tabControl2.Name = "tabControl2";
-            this.tabControl2.SelectedIndex = 0;
-            this.tabControl2.Size = new System.Drawing.Size(353, 292);
-            this.tabControl2.TabIndex = 12;
-            // 
-            // tabPage3
-            // 
-            this.tabPage3.Controls.Add(this.ImgBox);
-            this.tabPage3.Location = new System.Drawing.Point(4, 25);
-            this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(345, 263);
-            this.tabPage3.TabIndex = 0;
-            this.tabPage3.Text = "摄像头";
-            this.tabPage3.UseVisualStyleBackColor = true;
-            // 
-            // tabPage4
-            // 
-            this.tabPage4.Controls.Add(this.trackBar2);
-            this.tabPage4.Controls.Add(this.trackBar1);
-            this.tabPage4.Location = new System.Drawing.Point(4, 25);
-            this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(345, 263);
-            this.tabPage4.TabIndex = 1;
-            this.tabPage4.Text = "电感";
-            this.tabPage4.UseVisualStyleBackColor = true;
-            // 
-            // trackBar1
-            // 
-            this.trackBar1.Location = new System.Drawing.Point(6, 45);
-            this.trackBar1.Name = "trackBar1";
-            this.trackBar1.Size = new System.Drawing.Size(333, 56);
-            this.trackBar1.TabIndex = 0;
-            // 
-            // trackBar2
-            // 
-            this.trackBar2.Location = new System.Drawing.Point(6, 187);
-            this.trackBar2.Name = "trackBar2";
-            this.trackBar2.Size = new System.Drawing.Size(328, 56);
-            this.trackBar2.TabIndex = 1;
+            this.PlayMode.FormattingEnabled = true;
+            this.PlayMode.Items.AddRange(new object[] {
+            "摄像头",
+            "电感"});
+            this.PlayMode.Location = new System.Drawing.Point(17, 325);
+            this.PlayMode.Name = "PlayMode";
+            this.PlayMode.Size = new System.Drawing.Size(121, 23);
+            this.PlayMode.TabIndex = 14;
             // 
             // tabControl3
             // 
@@ -895,6 +710,10 @@
             // 
             // tabPage5
             // 
+            this.tabPage5.Controls.Add(this.textBox14);
+            this.tabPage5.Controls.Add(this.textBox13);
+            this.tabPage5.Controls.Add(this.textBox12);
+            this.tabPage5.Controls.Add(this.textBox11);
             this.tabPage5.Controls.Add(this.chart1);
             this.tabPage5.Location = new System.Drawing.Point(4, 25);
             this.tabPage5.Name = "tabPage5";
@@ -903,6 +722,42 @@
             this.tabPage5.TabIndex = 0;
             this.tabPage5.Text = "图表";
             this.tabPage5.UseVisualStyleBackColor = true;
+            // 
+            // chart1
+            // 
+            chartArea1.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea1);
+            legend1.Name = "Legend1";
+            this.chart1.Legends.Add(legend1);
+            this.chart1.Location = new System.Drawing.Point(10, 9);
+            this.chart1.Name = "chart1";
+            series1.ChartArea = "ChartArea1";
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series1.Legend = "Legend1";
+            series1.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Square;
+            series1.Name = "Series1";
+            series2.ChartArea = "ChartArea1";
+            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series2.Legend = "Legend1";
+            series2.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Circle;
+            series2.Name = "Series2";
+            series3.ChartArea = "ChartArea1";
+            series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series3.Legend = "Legend1";
+            series3.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Triangle;
+            series3.Name = "Series3";
+            series4.ChartArea = "ChartArea1";
+            series4.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series4.Legend = "Legend1";
+            series4.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Star4;
+            series4.Name = "Series4";
+            this.chart1.Series.Add(series1);
+            this.chart1.Series.Add(series2);
+            this.chart1.Series.Add(series3);
+            this.chart1.Series.Add(series4);
+            this.chart1.Size = new System.Drawing.Size(515, 334);
+            this.chart1.TabIndex = 3;
+            this.chart1.Text = "chart1";
             // 
             // tabPage6
             // 
@@ -933,91 +788,12 @@
             this.tabPage6.TabIndex = 1;
             this.tabPage6.Text = "数值";
             this.tabPage6.UseVisualStyleBackColor = true;
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(118, 22);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 25);
-            this.textBox1.TabIndex = 0;
-            // 
-            // textBox2
-            // 
-            this.textBox2.Location = new System.Drawing.Point(118, 94);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(100, 25);
-            this.textBox2.TabIndex = 1;
-            // 
-            // textBox3
-            // 
-            this.textBox3.Location = new System.Drawing.Point(118, 173);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(100, 25);
-            this.textBox3.TabIndex = 2;
-            // 
-            // textBox4
-            // 
-            this.textBox4.Location = new System.Drawing.Point(118, 241);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(100, 25);
-            this.textBox4.TabIndex = 3;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(30, 23);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(55, 15);
-            this.label4.TabIndex = 4;
-            this.label4.Text = "label4";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(30, 97);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(55, 15);
-            this.label5.TabIndex = 5;
-            this.label5.Text = "label5";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(30, 176);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(55, 15);
-            this.label6.TabIndex = 6;
-            this.label6.Text = "label6";
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(30, 244);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(55, 15);
-            this.label7.TabIndex = 7;
-            this.label7.Text = "label7";
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(30, 311);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(55, 15);
-            this.label8.TabIndex = 9;
-            this.label8.Text = "label8";
-            // 
-            // textBox5
-            // 
-            this.textBox5.Location = new System.Drawing.Point(118, 308);
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(100, 25);
-            this.textBox5.TabIndex = 8;
+            this.tabPage6.Click += new System.EventHandler(this.tabPage6_Click);
             // 
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(259, 311);
+            this.label9.Location = new System.Drawing.Point(434, 318);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(55, 15);
             this.label9.TabIndex = 19;
@@ -1025,7 +801,7 @@
             // 
             // textBox6
             // 
-            this.textBox6.Location = new System.Drawing.Point(366, 309);
+            this.textBox6.Location = new System.Drawing.Point(270, 308);
             this.textBox6.Name = "textBox6";
             this.textBox6.Size = new System.Drawing.Size(100, 25);
             this.textBox6.TabIndex = 18;
@@ -1033,7 +809,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(259, 244);
+            this.label10.Location = new System.Drawing.Point(434, 251);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(63, 15);
             this.label10.TabIndex = 17;
@@ -1042,7 +818,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(259, 176);
+            this.label11.Location = new System.Drawing.Point(434, 183);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(63, 15);
             this.label11.TabIndex = 16;
@@ -1051,7 +827,7 @@
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(259, 97);
+            this.label12.Location = new System.Drawing.Point(434, 104);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(63, 15);
             this.label12.TabIndex = 15;
@@ -1060,7 +836,7 @@
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(259, 23);
+            this.label13.Location = new System.Drawing.Point(434, 30);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(63, 15);
             this.label13.TabIndex = 14;
@@ -1068,37 +844,325 @@
             // 
             // textBox7
             // 
-            this.textBox7.Location = new System.Drawing.Point(366, 242);
+            this.textBox7.Location = new System.Drawing.Point(270, 241);
             this.textBox7.Name = "textBox7";
             this.textBox7.Size = new System.Drawing.Size(100, 25);
             this.textBox7.TabIndex = 13;
             // 
             // textBox8
             // 
-            this.textBox8.Location = new System.Drawing.Point(366, 174);
+            this.textBox8.Location = new System.Drawing.Point(270, 173);
             this.textBox8.Name = "textBox8";
             this.textBox8.Size = new System.Drawing.Size(100, 25);
             this.textBox8.TabIndex = 12;
             // 
             // textBox9
             // 
-            this.textBox9.Location = new System.Drawing.Point(366, 95);
+            this.textBox9.Location = new System.Drawing.Point(270, 94);
             this.textBox9.Name = "textBox9";
             this.textBox9.Size = new System.Drawing.Size(100, 25);
             this.textBox9.TabIndex = 11;
             // 
             // textBox10
             // 
-            this.textBox10.Location = new System.Drawing.Point(366, 23);
+            this.textBox10.Location = new System.Drawing.Point(270, 22);
             this.textBox10.Name = "textBox10";
             this.textBox10.Size = new System.Drawing.Size(100, 25);
             this.textBox10.TabIndex = 10;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(157, 312);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(55, 15);
+            this.label8.TabIndex = 9;
+            this.label8.Text = "label8";
+            // 
+            // textBox5
+            // 
+            this.textBox5.Location = new System.Drawing.Point(20, 308);
+            this.textBox5.Name = "textBox5";
+            this.textBox5.Size = new System.Drawing.Size(100, 25);
+            this.textBox5.TabIndex = 8;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(157, 245);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(55, 15);
+            this.label7.TabIndex = 7;
+            this.label7.Text = "label7";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(157, 177);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(55, 15);
+            this.label6.TabIndex = 6;
+            this.label6.Text = "label6";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(157, 98);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(55, 15);
+            this.label5.TabIndex = 5;
+            this.label5.Text = "label5";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(157, 24);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(55, 15);
+            this.label4.TabIndex = 4;
+            this.label4.Text = "label4";
+            // 
+            // textBox4
+            // 
+            this.textBox4.Location = new System.Drawing.Point(20, 241);
+            this.textBox4.Name = "textBox4";
+            this.textBox4.Size = new System.Drawing.Size(100, 25);
+            this.textBox4.TabIndex = 3;
+            // 
+            // textBox3
+            // 
+            this.textBox3.Location = new System.Drawing.Point(20, 173);
+            this.textBox3.Name = "textBox3";
+            this.textBox3.Size = new System.Drawing.Size(100, 25);
+            this.textBox3.TabIndex = 2;
+            // 
+            // textBox2
+            // 
+            this.textBox2.Location = new System.Drawing.Point(20, 94);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(100, 25);
+            this.textBox2.TabIndex = 1;
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(20, 22);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(100, 25);
+            this.textBox1.TabIndex = 0;
+            // 
+            // tabControl2
+            // 
+            this.tabControl2.Controls.Add(this.tabPage3);
+            this.tabControl2.Controls.Add(this.tabPage4);
+            this.tabControl2.Location = new System.Drawing.Point(6, 7);
+            this.tabControl2.Name = "tabControl2";
+            this.tabControl2.SelectedIndex = 0;
+            this.tabControl2.Size = new System.Drawing.Size(353, 292);
+            this.tabControl2.TabIndex = 12;
+            // 
+            // tabPage3
+            // 
+            this.tabPage3.Controls.Add(this.ImgBox);
+            this.tabPage3.Location = new System.Drawing.Point(4, 25);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage3.Size = new System.Drawing.Size(345, 263);
+            this.tabPage3.TabIndex = 0;
+            this.tabPage3.Text = "摄像头";
+            this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // ImgBox
+            // 
+            this.ImgBox.Image = global::usart_tool.Properties.Resources.无标题;
+            this.ImgBox.Location = new System.Drawing.Point(5, 8);
+            this.ImgBox.Name = "ImgBox";
+            this.ImgBox.Size = new System.Drawing.Size(337, 249);
+            this.ImgBox.TabIndex = 1;
+            this.ImgBox.TabStop = false;
+            // 
+            // tabPage4
+            // 
+            this.tabPage4.Controls.Add(this.ElecTrack2);
+            this.tabPage4.Controls.Add(this.ElecTrack1);
+            this.tabPage4.Location = new System.Drawing.Point(4, 25);
+            this.tabPage4.Name = "tabPage4";
+            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage4.Size = new System.Drawing.Size(345, 263);
+            this.tabPage4.TabIndex = 1;
+            this.tabPage4.Text = "电感";
+            this.tabPage4.UseVisualStyleBackColor = true;
+            // 
+            // ElecTrack2
+            // 
+            this.ElecTrack2.Location = new System.Drawing.Point(6, 187);
+            this.ElecTrack2.Maximum = 2000;
+            this.ElecTrack2.Name = "ElecTrack2";
+            this.ElecTrack2.Size = new System.Drawing.Size(328, 56);
+            this.ElecTrack2.TabIndex = 1;
+            // 
+            // ElecTrack1
+            // 
+            this.ElecTrack1.Location = new System.Drawing.Point(6, 45);
+            this.ElecTrack1.Maximum = 2000;
+            this.ElecTrack1.Name = "ElecTrack1";
+            this.ElecTrack1.Size = new System.Drawing.Size(333, 56);
+            this.ElecTrack1.TabIndex = 0;
+            // 
+            // UgDn
+            // 
+            this.UgDn.Location = new System.Drawing.Point(254, 460);
+            this.UgDn.Name = "UgDn";
+            this.UgDn.Size = new System.Drawing.Size(75, 23);
+            this.UgDn.TabIndex = 11;
+            this.UgDn.Text = "UgDn";
+            this.UgDn.UseVisualStyleBackColor = true;
+            this.UgDn.Click += new System.EventHandler(this.UgDn_Click);
+            // 
+            // PnUp
+            // 
+            this.PnUp.Location = new System.Drawing.Point(63, 460);
+            this.PnUp.Name = "PnUp";
+            this.PnUp.Size = new System.Drawing.Size(75, 23);
+            this.PnUp.TabIndex = 10;
+            this.PnUp.Text = "PgUp";
+            this.PnUp.UseVisualStyleBackColor = true;
+            this.PnUp.Click += new System.EventHandler(this.PnUp_Click);
+            // 
+            // ChartEng
+            // 
+            this.ChartEng.AutoSize = true;
+            this.ChartEng.Location = new System.Drawing.Point(260, 329);
+            this.ChartEng.Name = "ChartEng";
+            this.ChartEng.Size = new System.Drawing.Size(89, 19);
+            this.ChartEng.TabIndex = 9;
+            this.ChartEng.Text = "查看图表";
+            this.ChartEng.UseVisualStyleBackColor = true;
+            // 
+            // ImgEng
+            // 
+            this.ImgEng.AutoSize = true;
+            this.ImgEng.Location = new System.Drawing.Point(156, 329);
+            this.ImgEng.Name = "ImgEng";
+            this.ImgEng.Size = new System.Drawing.Size(89, 19);
+            this.ImgEng.TabIndex = 8;
+            this.ImgEng.Text = "查看图像";
+            this.ImgEng.UseVisualStyleBackColor = true;
+            // 
+            // play_pro
+            // 
+            this.play_pro.AutoSize = true;
+            this.play_pro.Location = new System.Drawing.Point(162, 460);
+            this.play_pro.Name = "play_pro";
+            this.play_pro.Size = new System.Drawing.Size(55, 15);
+            this.play_pro.TabIndex = 7;
+            this.play_pro.Text = "label4";
+            // 
+            // record_pro
+            // 
+            this.record_pro.AutoSize = true;
+            this.record_pro.Location = new System.Drawing.Point(368, 480);
+            this.record_pro.Name = "record_pro";
+            this.record_pro.Size = new System.Drawing.Size(55, 15);
+            this.record_pro.TabIndex = 6;
+            this.record_pro.Text = "label4";
+            // 
+            // play_bar
+            // 
+            this.play_bar.Location = new System.Drawing.Point(6, 375);
+            this.play_bar.Name = "play_bar";
+            this.play_bar.Size = new System.Drawing.Size(353, 56);
+            this.play_bar.TabIndex = 5;
+            this.play_bar.Scroll += new System.EventHandler(this.play_bar_Scroll);
+            // 
+            // Record
+            // 
+            this.Record.Location = new System.Drawing.Point(12, 501);
+            this.Record.Name = "Record";
+            this.Record.Size = new System.Drawing.Size(81, 23);
+            this.Record.TabIndex = 4;
+            this.Record.Text = "Record";
+            this.Record.UseVisualStyleBackColor = true;
+            this.Record.Click += new System.EventHandler(this.Record_Click);
+            // 
+            // play_pause
+            // 
+            this.play_pause.Location = new System.Drawing.Point(791, 501);
+            this.play_pause.Name = "play_pause";
+            this.play_pause.Size = new System.Drawing.Size(75, 23);
+            this.play_pause.TabIndex = 2;
+            this.play_pause.Text = "play";
+            this.play_pause.UseVisualStyleBackColor = true;
+            this.play_pause.Click += new System.EventHandler(this.play_pause_Click);
+            // 
+            // progressBar1
+            // 
+            this.progressBar1.Location = new System.Drawing.Point(99, 501);
+            this.progressBar1.Maximum = 600;
+            this.progressBar1.Name = "progressBar1";
+            this.progressBar1.Size = new System.Drawing.Size(667, 23);
+            this.progressBar1.TabIndex = 0;
+            // 
+            // Record_timer
+            // 
+            this.Record_timer.Tick += new System.EventHandler(this.Record_timer_Tick);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(235, 559);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(55, 15);
+            this.label3.TabIndex = 61;
+            this.label3.Text = "label3";
+            // 
+            // Datatimer
+            // 
+            this.Datatimer.Tick += new System.EventHandler(this.Datatimer_Tick);
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(70, 551);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(75, 23);
+            this.button2.TabIndex = 62;
+            this.button2.Text = "text";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // textBox11
+            // 
+            this.textBox11.Location = new System.Drawing.Point(10, 356);
+            this.textBox11.Name = "textBox11";
+            this.textBox11.Size = new System.Drawing.Size(100, 25);
+            this.textBox11.TabIndex = 4;
+            // 
+            // textBox12
+            // 
+            this.textBox12.Location = new System.Drawing.Point(132, 356);
+            this.textBox12.Name = "textBox12";
+            this.textBox12.Size = new System.Drawing.Size(100, 25);
+            this.textBox12.TabIndex = 5;
+            // 
+            // textBox13
+            // 
+            this.textBox13.Location = new System.Drawing.Point(253, 356);
+            this.textBox13.Name = "textBox13";
+            this.textBox13.Size = new System.Drawing.Size(100, 25);
+            this.textBox13.TabIndex = 6;
+            // 
+            // textBox14
+            // 
+            this.textBox14.Location = new System.Drawing.Point(375, 356);
+            this.textBox14.Name = "textBox14";
+            this.textBox14.Size = new System.Drawing.Size(100, 25);
+            this.textBox14.TabIndex = 7;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1304, 583);
+            this.Controls.Add(this.button2);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.label2);
@@ -1122,19 +1186,20 @@
             this.panel1.PerformLayout();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.play_bar)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ImgBox)).EndInit();
-            this.tabControl2.ResumeLayout(false);
-            this.tabPage3.ResumeLayout(false);
-            this.tabPage4.ResumeLayout(false);
-            this.tabPage4.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar2)).EndInit();
             this.tabControl3.ResumeLayout(false);
             this.tabPage5.ResumeLayout(false);
+            this.tabPage5.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
             this.tabPage6.ResumeLayout(false);
             this.tabPage6.PerformLayout();
+            this.tabControl2.ResumeLayout(false);
+            this.tabPage3.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.ImgBox)).EndInit();
+            this.tabPage4.ResumeLayout(false);
+            this.tabPage4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ElecTrack2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ElecTrack1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.play_bar)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1219,8 +1284,8 @@
         private System.Windows.Forms.TabControl tabControl2;
         private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.TabPage tabPage4;
-        private System.Windows.Forms.TrackBar trackBar2;
-        private System.Windows.Forms.TrackBar trackBar1;
+        private System.Windows.Forms.TrackBar ElecTrack2;
+        private System.Windows.Forms.TrackBar ElecTrack1;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label5;
@@ -1241,6 +1306,12 @@
         private System.Windows.Forms.TextBox textBox10;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.TextBox textBox5;
+        private System.Windows.Forms.ComboBox PlayMode;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.TextBox textBox14;
+        private System.Windows.Forms.TextBox textBox13;
+        private System.Windows.Forms.TextBox textBox12;
+        private System.Windows.Forms.TextBox textBox11;
     }
 }
 
