@@ -28,6 +28,7 @@ namespace usart_tool
     {
         public Form1()
         {
+
             InitializeComponent();
         }
         /******************************************************************/
@@ -44,6 +45,7 @@ namespace usart_tool
         int area = 1000;//电感范围
         string replaystate = "record";//记录状态
         Chart table = new Chart();
+        Scope Displayer;
         /*****************************************************************/
       
         //**************************参数初始化与定义************************//
@@ -471,6 +473,28 @@ namespace usart_tool
         {
 
         }
+        private void CreateNewDrawer()//创建ADC绘制窗口
+        {
+            Displayer = new Scope();//创建新对象
+            //Displayer.ShowMainWindow = new ShowWindow(ShowMe);//初始化类成员委托
+            //Displayer.HideMainWindow = new HideWindow(HideMe);
+            //Displayer.GetMainPos = new GetMainPos(GetMyPos);
+            //Displayer.CloseSerialPort = new ClosePort(ClosePort);
+            //Displayer.OpenSerialPort = new OpenPort(OpenPort);
+            //Displayer.GetMainWidth = new GetMainWidth(GetMyWidth);
+            Displayer.Show();//显示窗口
+        }
+        private void CreateDisplayer()
+        {
+            this.Left = 0;
+            CreateNewDrawer();
+            Rectangle Rect = Screen.GetWorkingArea(this);
+            Displayer.SetWindow(Rect.Width - this.Width, new Point(this.Width, this.Top));//设置绘制窗口宽度，以及坐标
+        }
+        private void button3_Click(object sender, EventArgs e)
+        {
+            CreateDisplayer();
+        }
 
         private void Record_timer_Tick(object sender, EventArgs e)
         {
@@ -487,6 +511,7 @@ namespace usart_tool
                     data[22].num -= 10f;
                     elec1 += 10;
                     elec2 -= 10;
+                    Displayer.AddData(elec1);
                 }
                 Recorddata(time);
                 time++;

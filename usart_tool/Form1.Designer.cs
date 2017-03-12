@@ -118,7 +118,6 @@
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.tabControl2 = new System.Windows.Forms.TabControl();
             this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.ImgBox = new System.Windows.Forms.PictureBox();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.ElecTrack2 = new System.Windows.Forms.TrackBar();
             this.ElecTrack1 = new System.Windows.Forms.TrackBar();
@@ -140,6 +139,9 @@
             this.textBox12 = new System.Windows.Forms.TextBox();
             this.textBox13 = new System.Windows.Forms.TextBox();
             this.textBox14 = new System.Windows.Forms.TextBox();
+            this.ImgBox = new System.Windows.Forms.PictureBox();
+            this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
+            this.button3 = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -153,11 +155,12 @@
             this.tabPage6.SuspendLayout();
             this.tabControl2.SuspendLayout();
             this.tabPage3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.ImgBox)).BeginInit();
             this.tabPage4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ElecTrack2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ElecTrack1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.play_bar)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ImgBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
             this.SuspendLayout();
             // 
             // button1
@@ -666,6 +669,7 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.button3);
             this.tabPage2.Controls.Add(this.PlayMode);
             this.tabPage2.Controls.Add(this.tabControl3);
             this.tabPage2.Controls.Add(this.tabControl2);
@@ -971,15 +975,6 @@
             this.tabPage3.Text = "摄像头";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
-            // ImgBox
-            // 
-            this.ImgBox.Image = global::usart_tool.Properties.Resources.无标题;
-            this.ImgBox.Location = new System.Drawing.Point(5, 8);
-            this.ImgBox.Name = "ImgBox";
-            this.ImgBox.Size = new System.Drawing.Size(337, 249);
-            this.ImgBox.TabIndex = 1;
-            this.ImgBox.TabStop = false;
-            // 
             // tabPage4
             // 
             this.tabPage4.Controls.Add(this.ElecTrack2);
@@ -1157,6 +1152,25 @@
             this.textBox14.Size = new System.Drawing.Size(100, 25);
             this.textBox14.TabIndex = 7;
             // 
+            // ImgBox
+            // 
+            this.ImgBox.Image = global::usart_tool.Properties.Resources.无标题;
+            this.ImgBox.Location = new System.Drawing.Point(5, 8);
+            this.ImgBox.Name = "ImgBox";
+            this.ImgBox.Size = new System.Drawing.Size(337, 249);
+            this.ImgBox.TabIndex = 1;
+            this.ImgBox.TabStop = false;
+            // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(634, 457);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(75, 23);
+            this.button3.TabIndex = 15;
+            this.button3.Text = "button3";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
@@ -1194,12 +1208,13 @@
             this.tabPage6.PerformLayout();
             this.tabControl2.ResumeLayout(false);
             this.tabPage3.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.ImgBox)).EndInit();
             this.tabPage4.ResumeLayout(false);
             this.tabPage4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ElecTrack2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ElecTrack1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.play_bar)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ImgBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1312,6 +1327,8 @@
         private System.Windows.Forms.TextBox textBox13;
         private System.Windows.Forms.TextBox textBox12;
         private System.Windows.Forms.TextBox textBox11;
+        private System.Windows.Forms.BindingSource bindingSource1;
+        private System.Windows.Forms.Button button3;
     }
 }
 
