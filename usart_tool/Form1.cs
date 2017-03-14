@@ -45,6 +45,11 @@ namespace usart_tool
         string replaystate = "record";//记录状态
         long renum = 0;
         int imgnumn = 0;
+        bool savestrflag = false;
+        string portstr = "";
+        char[] strend = { (char)0xaa, (char)0xbb, (char)0xcc };
+        List<byte> strlist = new List<byte>();
+        List<byte> strhandler = new List<byte>();
         Chart table = new Chart();
         Scope Displayer;
         /*****************************************************************/
@@ -146,11 +151,39 @@ namespace usart_tool
         {
             //string portRead = serialPort1.ReadExisting();
             //string portRead = serialPort1.ReadLine();
+
+            //for (int i = 0; i < portRead.Length; i++)
+            //{
+
+            //}
             int n = serialPort1.BytesToRead;
-            
-            byte[] portbyte=new byte[n];
+            byte[] portbyte = new byte[n];
             serialPort1.Read(portbyte, 0, n);
             string portRead = Encoding.UTF8.GetString(portbyte);
+            for (int i = 0; i < n; i++)
+            {
+                if (portbyte[i] == '*' || portbyte[i] == '$') savestrflag = true;
+                if (savestrflag)
+                    strlist.Add(portbyte[i]);
+                if (strlist.Count == 599)
+                {
+                    ;
+                }
+                if (strlist[strlist.Count-1] == 0xcc && strlist[strlist.Count - 2] == 0xbb && strlist[strlist.Count - 3] == 0xaa)
+                {
+                    savestrflag = false;
+                    byte[] bytehandler = strlist.ToArray();
+                    Readstring(bytehandler, bytehandler.Length-3);
+                    strlist.Clear();
+                    break;
+                }
+            }
+
+            //string[] portReadArr = portRead.Split(strend);
+            //if(savestrflag)
+            //{
+            //    portstr += portRead;
+            //}
             //string[] portReadArr = portRead.Split('!');
             renum += portRead.Length;
             Action showReceive = () =>
@@ -160,13 +193,12 @@ namespace usart_tool
                 label3.Text = renum.ToString();
             };
             this.Invoke(showReceive);
-            if (portRead[0] == '$' || portRead[0] == '*')
-                Readstring(portRead, portRead.Length);
+                
 
 
         }
         //解读参数
-        void Readstring(string str, int n)
+        void Readstring(byte[] str, int n)
         {
             int group, no, num = 0, k = 1, end = 0, start = 0, ID;
             if (str[0] == '$')
@@ -209,23 +241,28 @@ namespace usart_tool
             }
             else if (str[0] == '*')
             {
-                Readpic(str,n);
+                Readpic(str, n);
             }
 
         }
         //串口解读图像
-        void Readpic(string str,int n)
+        void Readpic(byte[] str, int n)
         {
             for (int i = 0; i < n; i++)
             {
                 //if (str[i] != 0xaa && str[i + 1] != 0xbb)
-                if(imgnumn+n<=600&&str[i]>=48&&str[i]<=57)
-                    buff[imgnumn+i] = str[i];
+                // if(imgnumn+n<=600&&str[i]>=48&&str[i]<=57)
+                if (i < 600)
+                    buff[i] = str[i + 1] + 11;
                 //else
                 //    break;
             }
             imgnumn += n;
             if (imgnumn >= 600) imgnumn = 0;
+            for (int i = 0; i < 600; i++)
+            {
+                buff[i] -= 11;
+            }
         }
         //**********************刷新待发送参数*******************************//
         //刷新待发送参数
