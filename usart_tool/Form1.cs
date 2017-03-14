@@ -9,7 +9,6 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
 namespace usart_tool
 {
     public struct Datas
@@ -44,10 +43,12 @@ namespace usart_tool
         float elec1 = 10, elec2 = 20;//两个电感值
         int area = 1000;//电感范围
         string replaystate = "record";//记录状态
+        long renum = 0;
+        int imgnumn = 0;
         Chart table = new Chart();
         Scope Displayer;
         /*****************************************************************/
-      
+
         //**************************参数初始化与定义************************//
         //参数初始化与定义
         //在这里设置参数的编号和显示值
@@ -144,16 +145,25 @@ namespace usart_tool
         private void SerialPort1_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
             //string portRead = serialPort1.ReadExisting();
-            string portRead = serialPort1.ReadLine();
-            string[] portReadArr = portRead.Split('!');
+            //string portRead = serialPort1.ReadLine();
+            int n = serialPort1.BytesToRead;
+            
+            byte[] portbyte=new byte[n];
+            serialPort1.Read(portbyte, 0, n);
+            string portRead = Encoding.UTF8.GetString(portbyte);
+            //string[] portReadArr = portRead.Split('!');
+            renum += portRead.Length;
             Action showReceive = () =>
             {
                 receive_text.AppendText(portRead);
                 receive_text.ScrollToCaret();
-                label3.Text = elec1.ToString();
+                label3.Text = renum.ToString();
             };
             this.Invoke(showReceive);
-            Readstring(portRead, portRead.Length);
+            if (portRead[0] == '$' || portRead[0] == '*')
+                Readstring(portRead, portRead.Length);
+
+
         }
         //解读参数
         void Readstring(string str, int n)
@@ -197,33 +207,25 @@ namespace usart_tool
                     start++;
                 }
             }
-            else
+            else if (str[0] == '*')
             {
-                Readpic(str, n);
+                Readpic(str,n);
             }
 
         }
         //串口解读图像
-        void Readpic(string str, int n)
+        void Readpic(string str,int n)
         {
-            int k = 1, start = 0, end = 0, sum = 0;
-            for (int j = 0; j < n; j++)
+            for (int i = 0; i < n; i++)
             {
-                if (str[j] == '!')
-                {
-                    if ((str[j + 1] == '#') || imgbuffnum == 600)
-                        imgbuffnum = 0;
-                    for (int i = j - 1; str[i] != '*'; i--)
-                    {
-                        sum += (str[i] - 48) * k;
-                        k *= 10;
-                    }
-                    buff[imgbuffnum] = sum;
-                    imgbuffnum++;
-                    sum = 0;
-                    k = 1;
-                }
+                //if (str[i] != 0xaa && str[i + 1] != 0xbb)
+                if(imgnumn+n<=600&&str[i]>=48&&str[i]<=57)
+                    buff[imgnumn+i] = str[i];
+                //else
+                //    break;
             }
+            imgnumn += n;
+            if (imgnumn >= 600) imgnumn = 0;
         }
         //**********************刷新待发送参数*******************************//
         //刷新待发送参数
@@ -322,6 +324,7 @@ namespace usart_tool
                     }
                 }
             }
+
         }
         //*******************按格式整合参数******************************//
         //按格式整合参数
@@ -405,7 +408,7 @@ namespace usart_tool
             }
             return n;
         }
-       //****************************显示参数*****************************//
+        //****************************显示参数*****************************//
         //显示参数
         //只显示ID十位为下拉列表的参数
         void showdatas()
@@ -434,10 +437,10 @@ namespace usart_tool
         }
         private void Form1_Load(object sender, EventArgs e)
         {
-            for (int i = 0; i < 600; i++)
-            {
-                buff[i] = 0;
-            }
+            //for (int i = 0; i < 600; i++)
+            //{
+            //    buff[i] = 0;
+            //}
             data_init();
             for (int i = 0; i < 100; i++)
                 table.chartdata[i].name = data[i].name;
@@ -446,6 +449,7 @@ namespace usart_tool
         void Display(int[,] image_buff)
         {
             Graphics g = ImgBox.CreateGraphics();
+
             for (int i = 0; i < 60; i++)
             {
                 for (int j = 0; j < 80; j++)
@@ -496,6 +500,12 @@ namespace usart_tool
             CreateDisplayer();
         }
 
+        private void button4_Click(object sender, EventArgs e)
+        {
+            Changemap(buff);
+            Display(map);
+        }
+
         private void Record_timer_Tick(object sender, EventArgs e)
         {
             if (replaystate == "record")
@@ -504,7 +514,7 @@ namespace usart_tool
                 {
                     record_pro.Text = time.ToString() + "/600";
                     progressBar1.Value = time;
-                    buff[time] = 1;
+                    // buff[time] = 1;
                     data[11].num += 20f;
                     data[12].num += 10f;
                     data[21].num -= 20f;
