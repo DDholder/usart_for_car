@@ -29,12 +29,12 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series5 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series6 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series7 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series8 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea6 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend6 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series21 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series22 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series23 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series24 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.button1 = new System.Windows.Forms.Button();
             this.serialPort1 = new System.IO.Ports.SerialPort(this.components);
             this.comboBoxSerialPortName = new System.Windows.Forms.ComboBox();
@@ -91,6 +91,8 @@
             this.dataname4 = new System.Windows.Forms.Label();
             this.dataname5 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.button5 = new System.Windows.Forms.Button();
+            this.Save_img = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.PlayMode = new System.Windows.Forms.ComboBox();
             this.tabControl3 = new System.Windows.Forms.TabControl();
@@ -144,6 +146,14 @@
             this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.button4 = new System.Windows.Forms.Button();
             this.label14 = new System.Windows.Forms.Label();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.文件ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.配置文件ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.打开配置文件ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.重新生成配置文件ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.记录文件ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.保存记录文件ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.打开记录文件ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -163,6 +173,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.ElecTrack1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.play_bar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // button1
@@ -182,7 +193,7 @@
             // comboBoxSerialPortName
             // 
             this.comboBoxSerialPortName.FormattingEnabled = true;
-            this.comboBoxSerialPortName.Location = new System.Drawing.Point(70, 17);
+            this.comboBoxSerialPortName.Location = new System.Drawing.Point(70, 31);
             this.comboBoxSerialPortName.Name = "comboBoxSerialPortName";
             this.comboBoxSerialPortName.Size = new System.Drawing.Size(121, 23);
             this.comboBoxSerialPortName.TabIndex = 1;
@@ -232,7 +243,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 20);
+            this.label1.Location = new System.Drawing.Point(12, 34);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(52, 15);
             this.label1.TabIndex = 6;
@@ -511,7 +522,7 @@
             // 
             // datatext4
             // 
-            this.datatext4.Location = new System.Drawing.Point(64, 282);
+            this.datatext4.Location = new System.Drawing.Point(75, 281);
             this.datatext4.Name = "datatext4";
             this.datatext4.Size = new System.Drawing.Size(72, 25);
             this.datatext4.TabIndex = 45;
@@ -543,7 +554,7 @@
             // 
             // datatext0
             // 
-            this.datatext0.Location = new System.Drawing.Point(64, 28);
+            this.datatext0.Location = new System.Drawing.Point(75, 27);
             this.datatext0.Name = "datatext0";
             this.datatext0.Size = new System.Drawing.Size(72, 25);
             this.datatext0.TabIndex = 37;
@@ -575,7 +586,7 @@
             // 
             // datatext1
             // 
-            this.datatext1.Location = new System.Drawing.Point(64, 91);
+            this.datatext1.Location = new System.Drawing.Point(75, 90);
             this.datatext1.Name = "datatext1";
             this.datatext1.Size = new System.Drawing.Size(72, 25);
             this.datatext1.TabIndex = 39;
@@ -607,7 +618,7 @@
             // 
             // datatext2
             // 
-            this.datatext2.Location = new System.Drawing.Point(64, 155);
+            this.datatext2.Location = new System.Drawing.Point(75, 154);
             this.datatext2.Name = "datatext2";
             this.datatext2.Size = new System.Drawing.Size(72, 25);
             this.datatext2.TabIndex = 41;
@@ -639,7 +650,7 @@
             // 
             // datatext3
             // 
-            this.datatext3.Location = new System.Drawing.Point(64, 218);
+            this.datatext3.Location = new System.Drawing.Point(75, 217);
             this.datatext3.Name = "datatext3";
             this.datatext3.Size = new System.Drawing.Size(72, 25);
             this.datatext3.TabIndex = 43;
@@ -671,6 +682,8 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.button5);
+            this.tabPage2.Controls.Add(this.Save_img);
             this.tabPage2.Controls.Add(this.button3);
             this.tabPage2.Controls.Add(this.PlayMode);
             this.tabPage2.Controls.Add(this.tabControl3);
@@ -693,9 +706,30 @@
             this.tabPage2.Text = "记录";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
+            // button5
+            // 
+            this.button5.Location = new System.Drawing.Point(463, 463);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(75, 23);
+            this.button5.TabIndex = 17;
+            this.button5.Text = "open";
+            this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
+            // 
+            // Save_img
+            // 
+            this.Save_img.Location = new System.Drawing.Point(561, 452);
+            this.Save_img.Name = "Save_img";
+            this.Save_img.Size = new System.Drawing.Size(75, 23);
+            this.Save_img.TabIndex = 16;
+            this.Save_img.Text = "Save_img";
+            this.Save_img.UseVisualStyleBackColor = true;
+            this.Save_img.Click += new System.EventHandler(this.Save_img_Click);
+            this.Save_img.MouseDown += new System.Windows.Forms.MouseEventHandler(this.button5_MouseDown);
+            // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(634, 457);
+            this.button3.Location = new System.Drawing.Point(701, 456);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(75, 23);
             this.button3.TabIndex = 15;
@@ -769,36 +803,36 @@
             // 
             // chart1
             // 
-            chartArea2.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea2);
-            legend2.Name = "Legend1";
-            this.chart1.Legends.Add(legend2);
+            chartArea6.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea6);
+            legend6.Name = "Legend1";
+            this.chart1.Legends.Add(legend6);
             this.chart1.Location = new System.Drawing.Point(10, 9);
             this.chart1.Name = "chart1";
-            series5.ChartArea = "ChartArea1";
-            series5.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series5.Legend = "Legend1";
-            series5.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Square;
-            series5.Name = "Series1";
-            series6.ChartArea = "ChartArea1";
-            series6.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series6.Legend = "Legend1";
-            series6.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Circle;
-            series6.Name = "Series2";
-            series7.ChartArea = "ChartArea1";
-            series7.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series7.Legend = "Legend1";
-            series7.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Triangle;
-            series7.Name = "Series3";
-            series8.ChartArea = "ChartArea1";
-            series8.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series8.Legend = "Legend1";
-            series8.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Star4;
-            series8.Name = "Series4";
-            this.chart1.Series.Add(series5);
-            this.chart1.Series.Add(series6);
-            this.chart1.Series.Add(series7);
-            this.chart1.Series.Add(series8);
+            series21.ChartArea = "ChartArea1";
+            series21.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series21.Legend = "Legend1";
+            series21.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Square;
+            series21.Name = "Series1";
+            series22.ChartArea = "ChartArea1";
+            series22.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series22.Legend = "Legend1";
+            series22.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Circle;
+            series22.Name = "Series2";
+            series23.ChartArea = "ChartArea1";
+            series23.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series23.Legend = "Legend1";
+            series23.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Triangle;
+            series23.Name = "Series3";
+            series24.ChartArea = "ChartArea1";
+            series24.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series24.Legend = "Legend1";
+            series24.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Star4;
+            series24.Name = "Series4";
+            this.chart1.Series.Add(series21);
+            this.chart1.Series.Add(series22);
+            this.chart1.Series.Add(series23);
+            this.chart1.Series.Add(series24);
             this.chart1.Size = new System.Drawing.Size(515, 334);
             this.chart1.TabIndex = 3;
             this.chart1.Text = "chart1";
@@ -1192,6 +1226,72 @@
             this.label14.TabIndex = 64;
             this.label14.Text = "label14";
             // 
+            // menuStrip1
+            // 
+            this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.文件ToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(1304, 28);
+            this.menuStrip1.TabIndex = 65;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // 文件ToolStripMenuItem
+            // 
+            this.文件ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.配置文件ToolStripMenuItem,
+            this.记录文件ToolStripMenuItem});
+            this.文件ToolStripMenuItem.Name = "文件ToolStripMenuItem";
+            this.文件ToolStripMenuItem.Size = new System.Drawing.Size(51, 24);
+            this.文件ToolStripMenuItem.Text = "文件";
+            // 
+            // 配置文件ToolStripMenuItem
+            // 
+            this.配置文件ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.打开配置文件ToolStripMenuItem,
+            this.重新生成配置文件ToolStripMenuItem});
+            this.配置文件ToolStripMenuItem.Name = "配置文件ToolStripMenuItem";
+            this.配置文件ToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
+            this.配置文件ToolStripMenuItem.Text = "配置文件";
+            // 
+            // 打开配置文件ToolStripMenuItem
+            // 
+            this.打开配置文件ToolStripMenuItem.Name = "打开配置文件ToolStripMenuItem";
+            this.打开配置文件ToolStripMenuItem.Size = new System.Drawing.Size(204, 26);
+            this.打开配置文件ToolStripMenuItem.Text = "打开配置文件";
+            this.打开配置文件ToolStripMenuItem.Click += new System.EventHandler(this.打开配置文件ToolStripMenuItem_Click);
+            // 
+            // 重新生成配置文件ToolStripMenuItem
+            // 
+            this.重新生成配置文件ToolStripMenuItem.Name = "重新生成配置文件ToolStripMenuItem";
+            this.重新生成配置文件ToolStripMenuItem.Size = new System.Drawing.Size(204, 26);
+            this.重新生成配置文件ToolStripMenuItem.Text = "重新生成配置文件";
+            this.重新生成配置文件ToolStripMenuItem.Click += new System.EventHandler(this.重新生成配置文件ToolStripMenuItem_Click);
+            // 
+            // 记录文件ToolStripMenuItem
+            // 
+            this.记录文件ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.保存记录文件ToolStripMenuItem,
+            this.打开记录文件ToolStripMenuItem});
+            this.记录文件ToolStripMenuItem.Name = "记录文件ToolStripMenuItem";
+            this.记录文件ToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
+            this.记录文件ToolStripMenuItem.Text = "记录文件";
+            // 
+            // 保存记录文件ToolStripMenuItem
+            // 
+            this.保存记录文件ToolStripMenuItem.Name = "保存记录文件ToolStripMenuItem";
+            this.保存记录文件ToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
+            this.保存记录文件ToolStripMenuItem.Text = "保存记录文件";
+            this.保存记录文件ToolStripMenuItem.Click += new System.EventHandler(this.保存记录文件ToolStripMenuItem_Click);
+            // 
+            // 打开记录文件ToolStripMenuItem
+            // 
+            this.打开记录文件ToolStripMenuItem.Name = "打开记录文件ToolStripMenuItem";
+            this.打开记录文件ToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
+            this.打开记录文件ToolStripMenuItem.Text = "打开记录文件";
+            this.打开记录文件ToolStripMenuItem.Click += new System.EventHandler(this.打开记录文件ToolStripMenuItem_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
@@ -1210,6 +1310,8 @@
             this.Controls.Add(this.comboBoxBaudRate);
             this.Controls.Add(this.comboBoxSerialPortName);
             this.Controls.Add(this.button1);
+            this.Controls.Add(this.menuStrip1);
+            this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -1238,6 +1340,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.ElecTrack1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.play_bar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).EndInit();
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1354,6 +1458,16 @@
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Button Save_img;
+        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem 文件ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 配置文件ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 打开配置文件ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 重新生成配置文件ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 记录文件ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 保存记录文件ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 打开记录文件ToolStripMenuItem;
     }
 }
 

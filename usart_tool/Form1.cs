@@ -9,6 +9,8 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
+using System.Runtime.InteropServices;
 namespace usart_tool
 {
     public struct Datas
@@ -19,7 +21,7 @@ namespace usart_tool
     public struct points
     {
         public float[] value;
-        public int[] img;
+        public byte[] img;
         public float elecnum1;
         public float elecnum2;
     }
@@ -36,7 +38,7 @@ namespace usart_tool
         points[] fps = new points[600];//600帧数据
         //10个记录变量ID
         int ID1 = 0, ID2 = 0, ID3 = 0, ID4 = 0, ID5 = 0, ID6 = 0, ID7 = 0, ID8 = 0, ID9 = 0, ID10 = 0;
-        int[] buff = new int[600];//串口读出的图像
+        byte[] buff = new byte[600];//串口读出的图像
         int[,] map = new int[80, 60];//解压后图像
         int imgbuffnum = 0;//接受到的图像数组数
         public int time = 0, retime = 0;//记录时间和回放时间
@@ -45,15 +47,24 @@ namespace usart_tool
         string replaystate = "record";//记录状态
         long renum = 0;
         int imgnumn = 0;
-        bool savestrflag = false;
+        bool savestrflag = false, filestrflag = false;
         string portstr = "";
         char[] strend = { (char)0xaa, (char)0xbb, (char)0xcc };
         List<byte> strlist = new List<byte>();
         List<byte> strhandler = new List<byte>();
+        byte[] start = { 0xaa, 0xbb, (byte)'*' };
+        byte[] end = { 0xcc, 0xdd, 0xee };
+        List<byte> readList = new List<byte>();
+        List<byte> readTemp = new List<byte>();
         Chart table = new Chart();
         Scope Displayer;
         /*****************************************************************/
-
+        [DllImport("kernel32")]
+        private static extern int GetPrivateProfileString(string section, string key, string defVal, StringBuilder retVal, int size, string filePath);
+        [DllImport("kernel32")]
+        private static extern long WritePrivateProfileString(string section, string key, string val, string filePath);
+        string inifilePath = AppDomain.CurrentDomain.BaseDirectory + "Config.ini";
+        StringBuilder initemp = new StringBuilder(255);
         //**************************参数初始化与定义************************//
         //参数初始化与定义
         //在这里设置参数的编号和显示值
@@ -63,20 +74,13 @@ namespace usart_tool
         //！！！注意:90，91为两个电感专用ID
         void data_init()
         {
-            data[11].name = "kp";
-            data[11].num = -59;
-            data[12].name = "ki";
-            data[12].num = 20.56f;
-            data[13].name = "kd";
-            data[13].num = 57;
-            data[21].name = "speed";
-            data[21].num = 10;
-            data[22].name = "power";
-            data[22].num = 1000;
-            data[90].name = "elec1";
-            data[90].num = elec1;
-            data[91].name = "elec2";
-            data[91].num = elec2;
+            for (int i = 0; i < 100; i++)
+            {
+                GetPrivateProfileString("ID." + i.ToString(), "name", "unnamed", initemp, 255, inifilePath);
+                data[i].name = initemp.ToString();
+                GetPrivateProfileString("ID." + i.ToString(), "value", "0", initemp, 255, inifilePath);
+                data[i].num = float.Parse(initemp.ToString());
+            }
         }
         private void Button1_Click(object sender, EventArgs e)
         {
@@ -162,21 +166,24 @@ namespace usart_tool
             string portRead = Encoding.UTF8.GetString(portbyte);
             for (int i = 0; i < n; i++)
             {
-                if (portbyte[i] == '*' || portbyte[i] == '$') savestrflag = true;
+                if (i + 2 < n)
+                    if (portbyte[i] == 0xaa && portbyte[i + 1] == 0xbb)
+                        if (portbyte[i + 2] == '*' || portbyte[i + 2] == '$') savestrflag = true;
                 if (savestrflag)
                     strlist.Add(portbyte[i]);
-                if (strlist.Count == 599)
-                {
-                    ;
-                }
-                if (strlist[strlist.Count-1] == 0xcc && strlist[strlist.Count - 2] == 0xbb && strlist[strlist.Count - 3] == 0xaa)
-                {
-                    savestrflag = false;
-                    byte[] bytehandler = strlist.ToArray();
-                    Readstring(bytehandler, bytehandler.Length-3);
-                    strlist.Clear();
-                    break;
-                }
+                //if (strlist.Count == 599)
+                //{
+                //    ;
+                //}
+                if (strlist.Count > 3)
+                    if (strlist[strlist.Count - 1] == 0xee && strlist[strlist.Count - 2] == 0xdd && strlist[strlist.Count - 3] == 0xcc)
+                    {
+                        savestrflag = false;
+                        byte[] bytehandler = strlist.ToArray();
+                        Readstring(bytehandler, bytehandler.Length - 3);
+                        strlist.Clear();
+                        break;
+                    }
             }
 
             //string[] portReadArr = portRead.Split(strend);
@@ -193,7 +200,7 @@ namespace usart_tool
                 label3.Text = renum.ToString();
             };
             this.Invoke(showReceive);
-                
+
 
 
         }
@@ -201,7 +208,7 @@ namespace usart_tool
         void Readstring(byte[] str, int n)
         {
             int group, no, num = 0, k = 1, end = 0, start = 0, ID;
-            if (str[0] == '$')
+            if (str[2] == '$')
             {
                 while (end < n - 5)
                 {
@@ -239,7 +246,7 @@ namespace usart_tool
                     start++;
                 }
             }
-            else if (str[0] == '*')
+            else if (str[2] == '*')
             {
                 Readpic(str, n);
             }
@@ -253,7 +260,7 @@ namespace usart_tool
                 //if (str[i] != 0xaa && str[i + 1] != 0xbb)
                 // if(imgnumn+n<=600&&str[i]>=48&&str[i]<=57)
                 if (i < 600)
-                    buff[i] = str[i + 1] + 11;
+                    buff[i] = (byte)(str[i + 3] + 11);
                 //else
                 //    break;
             }
@@ -342,7 +349,7 @@ namespace usart_tool
             }
         }
         //解压图像
-        void Changemap(int[] imgbuff)
+        void Changemap(byte[] imgbuff)
         {
             for (int i = 0; i < 60; i++)
             {
@@ -481,6 +488,9 @@ namespace usart_tool
             data_init();
             for (int i = 0; i < 100; i++)
                 table.chartdata[i].name = data[i].name;
+            //label14.Text = AppDomain.CurrentDomain.BaseDirectory;
+            GetPrivateProfileString("data", "value2", "null", initemp, 255, inifilePath);
+            //label14.Text = initemp.ToString();
         }
 
         void Display(int[,] image_buff)
@@ -507,7 +517,13 @@ namespace usart_tool
 
         private void button2_Click(object sender, EventArgs e)
         {
-            send_elec(30, 40);
+            //send_elec(30, 40);
+            //for (int i = 0; i < 100; i++)
+            //{
+            //    WritePrivateProfileString("ID."+i.ToString(), "value", "0", inifilePath);
+            //    WritePrivateProfileString("ID." + i.ToString(), "name", "unnamed", inifilePath);
+            //}
+            System.Diagnostics.Process.Start(inifilePath);
         }
 
         private void tabPage6_Click(object sender, EventArgs e)
@@ -543,6 +559,160 @@ namespace usart_tool
             Display(map);
         }
 
+        private void button5_MouseDown(object sender, MouseEventArgs e)
+        {
+
+        }
+
+        private void Save_img_Click(object sender, EventArgs e)
+        {
+            Save_image(time);
+        }
+        public void Save_image(int fpsnum)
+        {
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "txt文件|*.txt";//过滤文件。。。
+                                                  //saveFileDialog.FileName = "Lanny.raw";//默认文件名
+            
+            DialogResult result = saveFileDialog.ShowDialog();
+            string localFilePath = "";
+            if (result == DialogResult.OK)
+            {
+                //获得文件路径
+                localFilePath = saveFileDialog.FileName.ToString();
+            }
+                FileStream fs = new FileStream(localFilePath, FileMode.Create);
+            //获得字节数组
+            //开始写入
+            for (int i = 0; i < fpsnum; i++)
+            {
+                fs.Write(start, 0, 3);
+                fs.Write(fps[i].img, 0, 600);
+                fs.Write(end, 0, 3);
+            }
+            //清空缓冲区、关闭流
+            fs.Flush();
+            fs.Close();
+        }
+        public void Read()
+        {
+
+            try
+            {
+                OpenFileDialog openFileDialog = new OpenFileDialog();
+                openFileDialog.Filter = "txt文件|*.txt";//过滤文件。。。
+                                                      //saveFileDialog.FileName = "Lanny.raw";//默认文件名
+
+                DialogResult result = openFileDialog.ShowDialog();
+                string localFilePath = "";
+                if (result == DialogResult.OK)
+                {
+                    //获得文件路径
+                    localFilePath = openFileDialog.FileName.ToString();
+                }
+                FileStream file = new FileStream(localFilePath, FileMode.Open);
+                byte[] readByte = new byte[file.Length];
+                file.Seek(0, SeekOrigin.Begin);
+                file.Read(readByte, 0, readByte.Length); //byData传进来的字节数组,用以接受FileStream对象中的数据,第2个参数是字节数组中开始写入数据的位置,它通常是0,表示从数组的开端文件中向数组写数据,最后一个参数规定从文件读多少字符.
+                //Decoder d = Encoding.Default.GetDecoder();
+                //d.GetChars(byData, 0, byData.Length, charData, 0);
+                //Console.WriteLine(charData);
+                receive_text.Text = System.Text.Encoding.ASCII.GetString(readByte);
+                Read_imgFile(readByte, readByte.Length);
+                file.Close();
+            }
+            catch (IOException e)
+            {
+                Console.WriteLine(e.ToString());
+            }
+        }
+        void Read_imgFile(byte[] str, int fpsLength)
+        {
+            fps[time].img = new byte[600];
+            fps[time].value = new float[102];
+            for (int i = 0; i < fpsLength; i++)
+            {
+                if (str[i] == 0xaa && str[i + 1] == 0xbb)
+                    if (str[i + 2] == '*' || str[i + 2] == '$') filestrflag = true;
+                if (filestrflag)
+                    readList.Add(str[i]);
+                if (readList.Count > 3)
+                    if (readList[readList.Count - 1] == 0xee && readList[readList.Count - 2] == 0xdd && readList[readList.Count - 3] == 0xcc)
+                    {
+                        filestrflag = false;
+                        byte[] bytehandler = readList.ToArray();
+                        Readstring(bytehandler, bytehandler.Length - 3);
+                        for (int j = 0; j < 600; j++)
+                        {
+                            fps[time].img[j] = buff[j];
+                        }
+                        play_pro.Text = time.ToString();
+                        Changemap(fps[time].img);
+                        Display(map);
+                        readList.Clear();
+                        time++;
+                        fps[time].img = new byte[600];
+                        fps[time].value = new float[102];
+                    }
+            }
+        }
+
+        private void 打开配置文件ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start(inifilePath);
+        }
+
+        private void 重新生成配置文件ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            for (int i = 0; i < 100; i++)
+            {
+                WritePrivateProfileString("ID." + i.ToString(), "value", "0", inifilePath);
+                WritePrivateProfileString("ID." + i.ToString(), "name", "unnamed", inifilePath);
+            }
+        }
+
+        private void 保存记录文件ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Save_image(time);
+        }
+
+        private void 打开记录文件ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                OpenFileDialog openFileDialog = new OpenFileDialog();
+                openFileDialog.Filter = "txt文件|*.txt";//过滤文件。。。
+                                                      //saveFileDialog.FileName = "Lanny.raw";//默认文件名
+
+                DialogResult result = openFileDialog.ShowDialog();
+                string localFilePath = "";
+                if (result == DialogResult.OK)
+                {
+                    //获得文件路径
+                    localFilePath = openFileDialog.FileName.ToString();
+                }
+                FileStream file = new FileStream(localFilePath, FileMode.Open);
+                byte[] readByte = new byte[file.Length];
+                file.Seek(0, SeekOrigin.Begin);
+                file.Read(readByte, 0, readByte.Length); //byData传进来的字节数组,用以接受FileStream对象中的数据,第2个参数是字节数组中开始写入数据的位置,它通常是0,表示从数组的开端文件中向数组写数据,最后一个参数规定从文件读多少字符.
+                //Decoder d = Encoding.Default.GetDecoder();
+                //d.GetChars(byData, 0, byData.Length, charData, 0);
+                //Console.WriteLine(charData);
+                receive_text.Text = System.Text.Encoding.ASCII.GetString(readByte);
+                Read_imgFile(readByte, readByte.Length);
+                file.Close();
+            }
+            catch (IOException err)
+            {
+                Console.WriteLine(err.ToString());
+            }
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            Read();
+        }
+
         private void Record_timer_Tick(object sender, EventArgs e)
         {
             if (replaystate == "record")
@@ -558,7 +728,7 @@ namespace usart_tool
                     data[22].num -= 10f;
                     elec1 += 10;
                     elec2 -= 10;
-                    Displayer.AddData(elec1);
+                    // Displayer.AddData(elec1);
                 }
                 Recorddata(time);
                 time++;
@@ -567,9 +737,6 @@ namespace usart_tool
             {
                 if (retime < time)
                 {
-                    play_bar.Maximum = time;
-                    play_bar.Value = retime;
-                    play_pro.Text = retime.ToString() + "/" + time.ToString();
                     play(retime);
                     if (ChartEng.Checked)
                         Reflashchartdata(retime);
@@ -580,7 +747,7 @@ namespace usart_tool
 
         void Recorddata(int num)
         {
-            fps[time].img = new int[600];
+            fps[time].img = new byte[600];
             fps[time].value = new float[100];
             for (int i = 0; i < 100; i++)
             {
@@ -601,6 +768,9 @@ namespace usart_tool
         {
             if (ImgEng.Checked)
             {
+                play_bar.Maximum = time;
+                play_bar.Value = retime;
+                play_pro.Text = retime.ToString() + "/" + time.ToString();
                 if (PlayMode.Text == "摄像头")
                 {
                     Changemap(fps[num].img);
@@ -628,20 +798,20 @@ namespace usart_tool
 
         private void PnUp_Click(object sender, EventArgs e)
         {
-            retime--;
-            if (play_pause.Text == "play" && retime < time && retime > 0)
+            
+            if (play_pause.Text == "play"  && retime > 0)
             {
-                play_pro.Text = retime.ToString() + "/" + time.ToString();
+                retime--;
                 play(retime);
             }
         }
 
         private void UgDn_Click(object sender, EventArgs e)
         {
-            retime++;
+            
             if (play_pause.Text == "play" && retime < time)
             {
-                play_pro.Text = retime.ToString() + "/" + time.ToString();
+                retime++;
                 play(retime);
             }
         }
