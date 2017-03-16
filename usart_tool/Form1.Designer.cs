@@ -29,12 +29,12 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea6 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend6 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series21 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series22 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series23 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series24 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.button1 = new System.Windows.Forms.Button();
             this.serialPort1 = new System.IO.Ports.SerialPort(this.components);
             this.comboBoxSerialPortName = new System.Windows.Forms.ComboBox();
@@ -92,7 +92,6 @@
             this.dataname5 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.button5 = new System.Windows.Forms.Button();
-            this.Save_img = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.PlayMode = new System.Windows.Forms.ComboBox();
             this.tabControl3 = new System.Windows.Forms.TabControl();
@@ -142,13 +141,12 @@
             this.Record_timer = new System.Windows.Forms.Timer(this.components);
             this.label3 = new System.Windows.Forms.Label();
             this.Datatimer = new System.Windows.Forms.Timer(this.components);
-            this.button2 = new System.Windows.Forms.Button();
             this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
-            this.button4 = new System.Windows.Forms.Button();
             this.label14 = new System.Windows.Forms.Label();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.文件ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.配置文件ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.更新配置文件ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.打开配置文件ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.重新生成配置文件ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.记录文件ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -499,7 +497,6 @@
             this.Enabledatashow.Text = "show";
             this.Enabledatashow.UseVisualStyleBackColor = true;
             this.Enabledatashow.CheckedChanged += new System.EventHandler(this.Enabledatashow_CheckedChanged);
-            this.Enabledatashow.EnabledChanged += new System.EventHandler(this.Enabledatashow_EnabledChanged);
             // 
             // comboBox1
             // 
@@ -683,7 +680,6 @@
             // tabPage2
             // 
             this.tabPage2.Controls.Add(this.button5);
-            this.tabPage2.Controls.Add(this.Save_img);
             this.tabPage2.Controls.Add(this.button3);
             this.tabPage2.Controls.Add(this.PlayMode);
             this.tabPage2.Controls.Add(this.tabControl3);
@@ -712,20 +708,9 @@
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(75, 23);
             this.button5.TabIndex = 17;
-            this.button5.Text = "open";
+            this.button5.Text = "Clear";
             this.button5.UseVisualStyleBackColor = true;
             this.button5.Click += new System.EventHandler(this.button5_Click);
-            // 
-            // Save_img
-            // 
-            this.Save_img.Location = new System.Drawing.Point(561, 452);
-            this.Save_img.Name = "Save_img";
-            this.Save_img.Size = new System.Drawing.Size(75, 23);
-            this.Save_img.TabIndex = 16;
-            this.Save_img.Text = "Save_img";
-            this.Save_img.UseVisualStyleBackColor = true;
-            this.Save_img.Click += new System.EventHandler(this.Save_img_Click);
-            this.Save_img.MouseDown += new System.Windows.Forms.MouseEventHandler(this.button5_MouseDown);
             // 
             // button3
             // 
@@ -803,36 +788,36 @@
             // 
             // chart1
             // 
-            chartArea6.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea6);
-            legend6.Name = "Legend1";
-            this.chart1.Legends.Add(legend6);
+            chartArea1.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea1);
+            legend1.Name = "Legend1";
+            this.chart1.Legends.Add(legend1);
             this.chart1.Location = new System.Drawing.Point(10, 9);
             this.chart1.Name = "chart1";
-            series21.ChartArea = "ChartArea1";
-            series21.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series21.Legend = "Legend1";
-            series21.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Square;
-            series21.Name = "Series1";
-            series22.ChartArea = "ChartArea1";
-            series22.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series22.Legend = "Legend1";
-            series22.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Circle;
-            series22.Name = "Series2";
-            series23.ChartArea = "ChartArea1";
-            series23.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series23.Legend = "Legend1";
-            series23.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Triangle;
-            series23.Name = "Series3";
-            series24.ChartArea = "ChartArea1";
-            series24.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series24.Legend = "Legend1";
-            series24.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Star4;
-            series24.Name = "Series4";
-            this.chart1.Series.Add(series21);
-            this.chart1.Series.Add(series22);
-            this.chart1.Series.Add(series23);
-            this.chart1.Series.Add(series24);
+            series1.ChartArea = "ChartArea1";
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series1.Legend = "Legend1";
+            series1.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Square;
+            series1.Name = "Series1";
+            series2.ChartArea = "ChartArea1";
+            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series2.Legend = "Legend1";
+            series2.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Circle;
+            series2.Name = "Series2";
+            series3.ChartArea = "ChartArea1";
+            series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series3.Legend = "Legend1";
+            series3.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Triangle;
+            series3.Name = "Series3";
+            series4.ChartArea = "ChartArea1";
+            series4.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series4.Legend = "Legend1";
+            series4.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Star4;
+            series4.Name = "Series4";
+            this.chart1.Series.Add(series1);
+            this.chart1.Series.Add(series2);
+            this.chart1.Series.Add(series3);
+            this.chart1.Series.Add(series4);
             this.chart1.Size = new System.Drawing.Size(515, 334);
             this.chart1.TabIndex = 3;
             this.chart1.Text = "chart1";
@@ -866,7 +851,6 @@
             this.tabPage6.TabIndex = 1;
             this.tabPage6.Text = "数值";
             this.tabPage6.UseVisualStyleBackColor = true;
-            this.tabPage6.Click += new System.EventHandler(this.tabPage6_Click);
             // 
             // label9
             // 
@@ -1197,26 +1181,6 @@
             // 
             this.Datatimer.Tick += new System.EventHandler(this.Datatimer_Tick);
             // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(70, 551);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 62;
-            this.button2.Text = "text";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
-            // 
-            // button4
-            // 
-            this.button4.Location = new System.Drawing.Point(250, 523);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(75, 23);
-            this.button4.TabIndex = 63;
-            this.button4.Text = "button4";
-            this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
-            // 
             // label14
             // 
             this.label14.AutoSize = true;
@@ -1249,11 +1213,19 @@
             // 配置文件ToolStripMenuItem
             // 
             this.配置文件ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.更新配置文件ToolStripMenuItem,
             this.打开配置文件ToolStripMenuItem,
             this.重新生成配置文件ToolStripMenuItem});
             this.配置文件ToolStripMenuItem.Name = "配置文件ToolStripMenuItem";
-            this.配置文件ToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
+            this.配置文件ToolStripMenuItem.Size = new System.Drawing.Size(144, 26);
             this.配置文件ToolStripMenuItem.Text = "配置文件";
+            // 
+            // 更新配置文件ToolStripMenuItem
+            // 
+            this.更新配置文件ToolStripMenuItem.Name = "更新配置文件ToolStripMenuItem";
+            this.更新配置文件ToolStripMenuItem.Size = new System.Drawing.Size(204, 26);
+            this.更新配置文件ToolStripMenuItem.Text = "更新配置文件";
+            this.更新配置文件ToolStripMenuItem.Click += new System.EventHandler(this.更新配置文件ToolStripMenuItem_Click);
             // 
             // 打开配置文件ToolStripMenuItem
             // 
@@ -1275,20 +1247,20 @@
             this.保存记录文件ToolStripMenuItem,
             this.打开记录文件ToolStripMenuItem});
             this.记录文件ToolStripMenuItem.Name = "记录文件ToolStripMenuItem";
-            this.记录文件ToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
+            this.记录文件ToolStripMenuItem.Size = new System.Drawing.Size(144, 26);
             this.记录文件ToolStripMenuItem.Text = "记录文件";
             // 
             // 保存记录文件ToolStripMenuItem
             // 
             this.保存记录文件ToolStripMenuItem.Name = "保存记录文件ToolStripMenuItem";
-            this.保存记录文件ToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
+            this.保存记录文件ToolStripMenuItem.Size = new System.Drawing.Size(174, 26);
             this.保存记录文件ToolStripMenuItem.Text = "保存记录文件";
             this.保存记录文件ToolStripMenuItem.Click += new System.EventHandler(this.保存记录文件ToolStripMenuItem_Click);
             // 
             // 打开记录文件ToolStripMenuItem
             // 
             this.打开记录文件ToolStripMenuItem.Name = "打开记录文件ToolStripMenuItem";
-            this.打开记录文件ToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
+            this.打开记录文件ToolStripMenuItem.Size = new System.Drawing.Size(174, 26);
             this.打开记录文件ToolStripMenuItem.Text = "打开记录文件";
             this.打开记录文件ToolStripMenuItem.Click += new System.EventHandler(this.打开记录文件ToolStripMenuItem_Click);
             // 
@@ -1298,8 +1270,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1304, 583);
             this.Controls.Add(this.label14);
-            this.Controls.Add(this.button4);
-            this.Controls.Add(this.button2);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.label2);
@@ -1449,16 +1419,13 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.TextBox textBox5;
         private System.Windows.Forms.ComboBox PlayMode;
-        private System.Windows.Forms.Button button2;
         private System.Windows.Forms.TextBox textBox14;
         private System.Windows.Forms.TextBox textBox13;
         private System.Windows.Forms.TextBox textBox12;
         private System.Windows.Forms.TextBox textBox11;
         private System.Windows.Forms.BindingSource bindingSource1;
         private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Label label14;
-        private System.Windows.Forms.Button Save_img;
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem 文件ToolStripMenuItem;
@@ -1468,6 +1435,7 @@
         private System.Windows.Forms.ToolStripMenuItem 记录文件ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 保存记录文件ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 打开记录文件ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 更新配置文件ToolStripMenuItem;
     }
 }
 
