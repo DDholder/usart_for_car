@@ -122,7 +122,7 @@ namespace usart_tool
                     portNamesLength = portNames.Length;
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.ToString());
             }
@@ -494,7 +494,7 @@ namespace usart_tool
         {
             SaveFileDialog saveFileDialog = new SaveFileDialog();
             saveFileDialog.Filter = "txt文件|*.txt";//过滤文件。。。
-            
+
             DialogResult result = saveFileDialog.ShowDialog();
             string localFilePath = "";
             if (result == DialogResult.OK)
@@ -502,7 +502,7 @@ namespace usart_tool
                 //获得文件路径
                 localFilePath = saveFileDialog.FileName.ToString();
             }
-                FileStream fs = new FileStream(localFilePath, FileMode.Create);
+            FileStream fs = new FileStream(localFilePath, FileMode.Create);
             //获得字节数组
             //开始写入
             for (int i = 0; i < fpsnum; i++)
@@ -634,6 +634,11 @@ namespace usart_tool
             }
         }
 
+        private void 图像播放器ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start("F:\\vs project\\usart_tool\\img_player\\img_player\\bin\\Debug\\img_player.exe");
+        }
+
         private void 更新配置文件ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             data_init();
@@ -652,7 +657,7 @@ namespace usart_tool
             {
                 if (time < 6000)
                 {
-                    record_pro.Text = time.ToString() + "/"+(time/600*600+600).ToString();
+                    record_pro.Text = time.ToString() + "/" + (time / 600 * 600 + 600).ToString();
                     progressBar1.Value = time;
                     // buff[time] = 1;
                     data[11].num += 20f;
@@ -733,8 +738,8 @@ namespace usart_tool
         //****************************上一帧*************************************//
         private void PnUp_Click(object sender, EventArgs e)
         {
-            
-            if (play_pause.Text == "play"  && retime > 0)
+
+            if (play_pause.Text == "play" && retime > 0)
             {
                 retime--;
                 play(retime);
@@ -743,7 +748,7 @@ namespace usart_tool
         //*******************************下一帧********************************//
         private void UgDn_Click(object sender, EventArgs e)
         {
-            
+
             if (play_pause.Text == "play" && retime < time)
             {
                 retime++;

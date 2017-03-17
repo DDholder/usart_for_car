@@ -152,6 +152,8 @@
             this.记录文件ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.保存记录文件ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.打开记录文件ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.工具ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.图像播放器ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -1194,7 +1196,8 @@
             // 
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.文件ToolStripMenuItem});
+            this.文件ToolStripMenuItem,
+            this.工具ToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(1304, 28);
@@ -1217,7 +1220,7 @@
             this.打开配置文件ToolStripMenuItem,
             this.重新生成配置文件ToolStripMenuItem});
             this.配置文件ToolStripMenuItem.Name = "配置文件ToolStripMenuItem";
-            this.配置文件ToolStripMenuItem.Size = new System.Drawing.Size(144, 26);
+            this.配置文件ToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
             this.配置文件ToolStripMenuItem.Text = "配置文件";
             // 
             // 更新配置文件ToolStripMenuItem
@@ -1247,7 +1250,7 @@
             this.保存记录文件ToolStripMenuItem,
             this.打开记录文件ToolStripMenuItem});
             this.记录文件ToolStripMenuItem.Name = "记录文件ToolStripMenuItem";
-            this.记录文件ToolStripMenuItem.Size = new System.Drawing.Size(144, 26);
+            this.记录文件ToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
             this.记录文件ToolStripMenuItem.Text = "记录文件";
             // 
             // 保存记录文件ToolStripMenuItem
@@ -1263,6 +1266,21 @@
             this.打开记录文件ToolStripMenuItem.Size = new System.Drawing.Size(174, 26);
             this.打开记录文件ToolStripMenuItem.Text = "打开记录文件";
             this.打开记录文件ToolStripMenuItem.Click += new System.EventHandler(this.打开记录文件ToolStripMenuItem_Click);
+            // 
+            // 工具ToolStripMenuItem
+            // 
+            this.工具ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.图像播放器ToolStripMenuItem});
+            this.工具ToolStripMenuItem.Name = "工具ToolStripMenuItem";
+            this.工具ToolStripMenuItem.Size = new System.Drawing.Size(51, 24);
+            this.工具ToolStripMenuItem.Text = "工具";
+            // 
+            // 图像播放器ToolStripMenuItem
+            // 
+            this.图像播放器ToolStripMenuItem.Name = "图像播放器ToolStripMenuItem";
+            this.图像播放器ToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
+            this.图像播放器ToolStripMenuItem.Text = "图像播放器";
+            this.图像播放器ToolStripMenuItem.Click += new System.EventHandler(this.图像播放器ToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -1436,6 +1454,8 @@
         private System.Windows.Forms.ToolStripMenuItem 保存记录文件ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 打开记录文件ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 更新配置文件ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 工具ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 图像播放器ToolStripMenuItem;
     }
 }
 
