@@ -13,6 +13,7 @@ using System.IO;
 using System.Runtime.InteropServices;
 namespace usart_tool
 {
+    
     public struct Datas
     {
         public string name;
@@ -27,6 +28,7 @@ namespace usart_tool
     }
     public partial class mainForm : Form
     {
+    
         public mainForm()
         {
 
@@ -46,7 +48,7 @@ namespace usart_tool
         long renum = 0;//接收到的字节数
         bool savestrflag = false, filestrflag = false;
         List<byte> strlist = new List<byte>();//串口读取缓存链表
-        byte[] start = { 0xaa, 0xbb, (byte)'*' };//包头
+        byte[] start = { 0xaa, 0xbb };//包头
         byte[] end = { 0xcc, 0xdd, 0xee };//包尾
         List<byte> readList = new List<byte>();//文件读取缓存链表
         Chart table = new Chart();//图表窗口
@@ -54,6 +56,8 @@ namespace usart_tool
         img_player.Form1 player = new img_player.Form1();
         bool bConnect = false;
         /*****************************************************************/
+        //////////////////////////调试变量/////////////////////////////////
+        float kp = 0;
         /*****************************************************************/
         /// /////////////////////ini所需函数////////////////////////////////
         [DllImport("kernel32")]
@@ -189,38 +193,22 @@ namespace usart_tool
             this.Invoke(showReceive);
         }
         //解读参数
-        //数据解读暂不能使用
+        //数据解读已能用
         void Readstring(byte[] str, int n)
         {
-            int group, no, num = 0, k = 1, end = 0, start = 0, ID;
+            byte ID;
+            byte[] ch = { str[5], str[6], str[7], str[8] };
+           
             if (str[2] == '$')
             {
-                while (end < n - 5)
+                ID = str[3];
+                unsafe
                 {
-                    for (int i = start; str[i] != '$'; i++)
+                    fixed (byte* pData = ch)   //正确，使用fixed固定 
                     {
-                        start = i + 1;
+                       // *(float*)(pData) = 11.5f;
+                        data[ID].num = *(float*)pData;
                     }
-                    group = str[start + 1] - 48;
-                    no = str[start + 3] - 48;
-                    num = 0; k = 1;
-                    ID = group * 10 + no;
-                    for (int i = end + 2; str[i] != '!'; i++)
-                    {
-                        end = i;
-                        if (i >= n - 1) break;
-                    }
-                    for (int i = end; str[i] != '@'; i--)
-                    {
-                        if (str[i] == '-') num *= -1;
-                        else
-                        {
-                            num += (str[i] - 48) * k;
-                            k *= 10;
-                        }
-                    }
-                    data[ID].num = num;
-                    start++;
                 }
             }
             else if (str[2] == '*')
@@ -283,36 +271,36 @@ namespace usart_tool
 
         private void Senddata_Click(object sender, EventArgs e)
         {
-            int id = 0, n = 0;
+            int id = 0; float n = 0;
             if (sendID0.Text != "error")
             {
                 id = int.Parse(sendID0.Text);
-                n = int.Parse(sendnum0.Text);
-                serialPort1.WriteLine(sendnum(id / 10, id % 10, n));
+                n = float.Parse(sendnum0.Text);
+                sendnum((byte)id, n);
             }
             if (sendID1.Text != "error")
             {
                 id = int.Parse(sendID1.Text);
-                n = int.Parse(sendnum1.Text);
-                serialPort1.WriteLine(sendnum(id / 10, id % 10, n));
+                n = float.Parse(sendnum1.Text);
+                sendnum((byte)id, n);
             }
             if (sendID2.Text != "error")
             {
                 id = int.Parse(sendID2.Text);
-                n = int.Parse(sendnum2.Text);
-                serialPort1.WriteLine(sendnum(id / 10, id % 10, n));
+                n = float.Parse(sendnum2.Text);
+                sendnum((byte)id, n);
             }
             if (sendID3.Text != "error")
             {
                 id = int.Parse(sendID3.Text);
-                n = int.Parse(sendnum3.Text);
-                serialPort1.WriteLine(sendnum(id / 10, id % 10, n));
+                n = float.Parse(sendnum3.Text);
+                sendnum((byte)id, n);
             }
             if (sendID4.Text != "error")
             {
                 id = int.Parse(sendID4.Text);
-                n = int.Parse(sendnum4.Text);
-                serialPort1.WriteLine(sendnum(id / 10, id % 10, n));
+                n = float.Parse(sendnum4.Text);
+                sendnum((byte)id, n);
             }
         }
         //解压图像
@@ -338,15 +326,28 @@ namespace usart_tool
 
         }
         //*******************按格式整合参数******************************//
-        //按格式整合参数
-        //sendnum(ID十位, ID个位, 数值)
-        //输出   "$ID十位.ID个位@数值! "
+        //按格式整合发送参数
+        //sendnum(ID, 数值)
         //例：ID为56数值为74
-        //sendnum(5,6,74);
-        string sendnum(int group, int no, float num)
+        //sendnum(56,74);
+        //格式：包头+'$'+ID+'@'+数值+包尾
+        void sendnum(byte ID, float num)
         {
-            string str = "$" + group.ToString() + "." + no.ToString() + "@" + num.ToString() + "!";
-            return str;
+            byte[] ch = new byte[4];
+            byte[] b = { ID, 0 };
+            unsafe
+            {
+                fixed (byte* pData = ch)   //正确，使用fixed固定 
+                {
+                    *(float*)(pData) = num;
+                }
+            }
+            serialPort1.Write(start, 0, 2);
+            serialPort1.Write("$");
+            serialPort1.Write(b, 0, 1);
+            serialPort1.Write("@");
+            serialPort1.Write(ch, 0, 4);
+            serialPort1.Write(end, 0, 3);
         }
         //********************发送电感值********************************//
         //发送电感值
@@ -355,9 +356,9 @@ namespace usart_tool
         //send_elec(15,68);
         void send_elec(float ad1, float ad2)
         {
-            serialPort1.Write(sendnum(9, 0, ad1) + '\n');
+            sendnum(90, ad1);
             Thread.Sleep(10);
-            serialPort1.Write(sendnum(9, 1, ad2) + '\n');
+           sendnum(91, ad2);
         }
         private void play_pause_Click(object sender, EventArgs e)
         {
@@ -789,8 +790,12 @@ namespace usart_tool
             }
         }
         //*****************************定时器——更新显示数据**********************//
+        //将想显示的参数添加到此定时器内
+        //例：想显示speed
+        //添加speed=changenum("speed");
         private void Datatimer_Tick(object sender, EventArgs e)
         {
+            kp = changenum("kp");
             showdatas();
         }
 
