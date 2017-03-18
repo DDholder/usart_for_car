@@ -75,6 +75,7 @@ namespace usart_tool
             }
         }
         //********************************************************************//
+
         //打开——关闭串口
         private void Button1_Click(object sender, EventArgs e)
         {
