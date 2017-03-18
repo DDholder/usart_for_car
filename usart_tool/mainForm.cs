@@ -199,12 +199,13 @@ namespace usart_tool
         void Readstring(byte[] str, int n)
         {
             byte ID;
-            byte[] ch = { str[5], str[6], str[7], str[8] };
+            
             for (int s = 1; s < n; s++)
             {
                 if (str[s] == 0xba&&str[s-1]==0xab)
                 {
                     ID = str[s + 1];
+                    byte[] ch = { str[s + 2], str[s + 3], str[s + 4], str[s + 5] };
                     unsafe
                     {
                         fixed (byte* pData = ch)   //正确，使用fixed固定 
@@ -214,22 +215,18 @@ namespace usart_tool
                         }
                     }
                 }
-                if (str[s] == 0xdc && str[s - 1] == 0xcd)
+                if (str[s] == 0xdc && str[s - 1] == 0xcd&& str[s - 2] == 0xcc)
                 {
-                    byte[] temp = new byte[n];
-                    str.CopyTo(temp, s + 1);
-                    Readpic(temp);
-                    temp.CopyTo(str, s + 600);
+                    Readpic(str,s);
                 }
             }
         }
         //串口解读图像
-        void Readpic(byte[] str)
+        void Readpic(byte[] str,int n)
         {
-            for (int i = 0; i < 600; i++)
+            for (int i = n+1; i <n+1+600; i++)
             {
-                if (i < 600)
-                    buff[i] = str[i + 3];
+                    buff[i-n-1] = str[i];
             }
         }
         //**********************刷新待发送参数*******************************//
@@ -677,12 +674,14 @@ namespace usart_tool
 
         private void 图像播放器ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            player.ShowDialog();
+            player = new img_player.Form1();
+            player.fps[0].img = new int[600];
+            player.Show();
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            player.ShowDialog();
+            player.Show();
           
         }
 
