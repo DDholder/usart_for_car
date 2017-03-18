@@ -25,9 +25,9 @@ namespace usart_tool
         public float elecnum1;
         public float elecnum2;
     }
-    public partial class Form1 : Form
+    public partial class mainForm : Form
     {
-        public Form1()
+        public mainForm()
         {
 
             InitializeComponent();
@@ -51,6 +51,8 @@ namespace usart_tool
         List<byte> readList = new List<byte>();//文件读取缓存链表
         Chart table = new Chart();//图表窗口
         Scope Displayer;//示波窗口
+        img_player.Form1 player = new img_player.Form1();
+        bool bConnect = false;
         /*****************************************************************/
         /*****************************************************************/
         /// /////////////////////ini所需函数////////////////////////////////
@@ -167,6 +169,14 @@ namespace usart_tool
                         strlist.Clear();
                         break;
                     }
+            }
+            if (checkConnect.Checked)
+            {
+                player.bConnect = true;
+                for (int i = 0; i < 600; i++)
+                {
+                    player.fps[0].img[i] = buff[i];
+                }
             }
             renum += portRead.Length;
             Action showReceive = () =>
@@ -440,7 +450,11 @@ namespace usart_tool
             data_init();
             for (int i = 0; i < 100; i++)
                 table.chartdata[i].name = data[i].name;
+            player.fps[0].img = new int[600];
             GetPrivateProfileString("data", "value2", "null", initemp, 255, inifilePath);
+            comboBoxBaudRate.SelectedIndex = 1;
+            PlayMode.SelectedIndex = 0;
+            ImgEng.Checked = true;
         }
 
         void Display(int[,] image_buff)
@@ -636,7 +650,23 @@ namespace usart_tool
 
         private void 图像播放器ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            System.Diagnostics.Process.Start("F:\\vs project\\usart_tool\\img_player\\img_player\\bin\\Debug\\img_player.exe");
+            player.ShowDialog();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            player.ShowDialog();
+          
+        }
+
+        private void button2_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void checkConnect_CheckedChanged(object sender, EventArgs e)
+        {
+            player.bConnect = checkConnect.Checked;
         }
 
         private void 更新配置文件ToolStripMenuItem_Click(object sender, EventArgs e)
@@ -653,6 +683,7 @@ namespace usart_tool
         //****************************记录，播放用定时器**************************//
         private void Record_timer_Tick(object sender, EventArgs e)
         {
+
             if (replaystate == "record")
             {
                 if (time < 6000)
@@ -681,6 +712,7 @@ namespace usart_tool
                     retime++;
                 }
             }
+
         }
         //***************************记录数据************************************//
         void Recorddata(int num)

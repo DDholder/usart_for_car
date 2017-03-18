@@ -1,6 +1,6 @@
 ﻿namespace usart_tool
 {
-    partial class Form1
+    partial class mainForm
     {
         /// <summary>
         /// 必需的设计器变量。
@@ -29,12 +29,12 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series5 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series6 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series7 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series8 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.button1 = new System.Windows.Forms.Button();
             this.serialPort1 = new System.IO.Ports.SerialPort(this.components);
             this.comboBoxSerialPortName = new System.Windows.Forms.ComboBox();
@@ -91,6 +91,7 @@
             this.dataname4 = new System.Windows.Forms.Label();
             this.dataname5 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.checkConnect = new System.Windows.Forms.CheckBox();
             this.button5 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.PlayMode = new System.Windows.Forms.ComboBox();
@@ -681,6 +682,7 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.checkConnect);
             this.tabPage2.Controls.Add(this.button5);
             this.tabPage2.Controls.Add(this.button3);
             this.tabPage2.Controls.Add(this.PlayMode);
@@ -703,6 +705,17 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "记录";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // checkConnect
+            // 
+            this.checkConnect.AutoSize = true;
+            this.checkConnect.Location = new System.Drawing.Point(578, 472);
+            this.checkConnect.Name = "checkConnect";
+            this.checkConnect.Size = new System.Drawing.Size(104, 19);
+            this.checkConnect.TabIndex = 18;
+            this.checkConnect.Text = "连接播放器";
+            this.checkConnect.UseVisualStyleBackColor = true;
+            this.checkConnect.CheckedChanged += new System.EventHandler(this.checkConnect_CheckedChanged);
             // 
             // button5
             // 
@@ -790,36 +803,36 @@
             // 
             // chart1
             // 
-            chartArea1.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea1);
-            legend1.Name = "Legend1";
-            this.chart1.Legends.Add(legend1);
+            chartArea2.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea2);
+            legend2.Name = "Legend1";
+            this.chart1.Legends.Add(legend2);
             this.chart1.Location = new System.Drawing.Point(10, 9);
             this.chart1.Name = "chart1";
-            series1.ChartArea = "ChartArea1";
-            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series1.Legend = "Legend1";
-            series1.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Square;
-            series1.Name = "Series1";
-            series2.ChartArea = "ChartArea1";
-            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series2.Legend = "Legend1";
-            series2.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Circle;
-            series2.Name = "Series2";
-            series3.ChartArea = "ChartArea1";
-            series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series3.Legend = "Legend1";
-            series3.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Triangle;
-            series3.Name = "Series3";
-            series4.ChartArea = "ChartArea1";
-            series4.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series4.Legend = "Legend1";
-            series4.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Star4;
-            series4.Name = "Series4";
-            this.chart1.Series.Add(series1);
-            this.chart1.Series.Add(series2);
-            this.chart1.Series.Add(series3);
-            this.chart1.Series.Add(series4);
+            series5.ChartArea = "ChartArea1";
+            series5.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series5.Legend = "Legend1";
+            series5.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Square;
+            series5.Name = "Series1";
+            series6.ChartArea = "ChartArea1";
+            series6.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series6.Legend = "Legend1";
+            series6.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Circle;
+            series6.Name = "Series2";
+            series7.ChartArea = "ChartArea1";
+            series7.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series7.Legend = "Legend1";
+            series7.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Triangle;
+            series7.Name = "Series3";
+            series8.ChartArea = "ChartArea1";
+            series8.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series8.Legend = "Legend1";
+            series8.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Star4;
+            series8.Name = "Series4";
+            this.chart1.Series.Add(series5);
+            this.chart1.Series.Add(series6);
+            this.chart1.Series.Add(series7);
+            this.chart1.Series.Add(series8);
             this.chart1.Size = new System.Drawing.Size(515, 334);
             this.chart1.TabIndex = 3;
             this.chart1.Text = "chart1";
@@ -1220,7 +1233,7 @@
             this.打开配置文件ToolStripMenuItem,
             this.重新生成配置文件ToolStripMenuItem});
             this.配置文件ToolStripMenuItem.Name = "配置文件ToolStripMenuItem";
-            this.配置文件ToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
+            this.配置文件ToolStripMenuItem.Size = new System.Drawing.Size(144, 26);
             this.配置文件ToolStripMenuItem.Text = "配置文件";
             // 
             // 更新配置文件ToolStripMenuItem
@@ -1250,7 +1263,7 @@
             this.保存记录文件ToolStripMenuItem,
             this.打开记录文件ToolStripMenuItem});
             this.记录文件ToolStripMenuItem.Name = "记录文件ToolStripMenuItem";
-            this.记录文件ToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
+            this.记录文件ToolStripMenuItem.Size = new System.Drawing.Size(144, 26);
             this.记录文件ToolStripMenuItem.Text = "记录文件";
             // 
             // 保存记录文件ToolStripMenuItem
@@ -1278,11 +1291,11 @@
             // 图像播放器ToolStripMenuItem
             // 
             this.图像播放器ToolStripMenuItem.Name = "图像播放器ToolStripMenuItem";
-            this.图像播放器ToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
+            this.图像播放器ToolStripMenuItem.Size = new System.Drawing.Size(159, 26);
             this.图像播放器ToolStripMenuItem.Text = "图像播放器";
             this.图像播放器ToolStripMenuItem.Click += new System.EventHandler(this.图像播放器ToolStripMenuItem_Click);
             // 
-            // Form1
+            // mainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -1300,7 +1313,7 @@
             this.Controls.Add(this.button1);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
-            this.Name = "Form1";
+            this.Name = "mainForm";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.tabControl1.ResumeLayout(false);
@@ -1456,6 +1469,7 @@
         private System.Windows.Forms.ToolStripMenuItem 更新配置文件ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 工具ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 图像播放器ToolStripMenuItem;
+        private System.Windows.Forms.CheckBox checkConnect;
     }
 }
 
