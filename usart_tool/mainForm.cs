@@ -161,8 +161,10 @@ namespace usart_tool
             for (int i = 0; i < n; i++)
             {
                 if (i + 2 < n)
+                {
                     if (portbyte[i] == 0xaa && portbyte[i + 1] == 0xbb)
-                        if (portbyte[i + 2] == '*' || portbyte[i + 2] == '$') savestrflag = true;
+                       savestrflag = true;
+                }
                 if (savestrflag)
                     strlist.Add(portbyte[i]);
                 if (strlist.Count > 3)
@@ -198,29 +200,33 @@ namespace usart_tool
         {
             byte ID;
             byte[] ch = { str[5], str[6], str[7], str[8] };
-           
-            if (str[2] == '$')
+            for (int s = 1; s < n; s++)
             {
-                ID = str[3];
-                unsafe
+                if (str[s] == 0xba&&str[s-1]==0xab)
                 {
-                    fixed (byte* pData = ch)   //正确，使用fixed固定 
+                    ID = str[s + 1];
+                    unsafe
                     {
-                       // *(float*)(pData) = 11.5f;
-                        data[ID].num = *(float*)pData;
+                        fixed (byte* pData = ch)   //正确，使用fixed固定 
+                        {
+                            // *(float*)(pData) = 11.5f;
+                            data[ID].num = *(float*)pData;
+                        }
                     }
                 }
+                if (str[s] == 0xdc && str[s - 1] == 0xcd)
+                {
+                    byte[] temp = new byte[n];
+                    str.CopyTo(temp, s + 1);
+                    Readpic(temp);
+                    temp.CopyTo(str, s + 600);
+                }
             }
-            else if (str[2] == '*')
-            {
-                Readpic(str, n);
-            }
-
         }
         //串口解读图像
-        void Readpic(byte[] str, int n)
+        void Readpic(byte[] str)
         {
-            for (int i = 0; i < n; i++)
+            for (int i = 0; i < 600; i++)
             {
                 if (i < 600)
                     buff[i] = str[i + 3];
@@ -331,6 +337,8 @@ namespace usart_tool
         //例：ID为56数值为74
         //sendnum(56,74);
         //格式：包头+'$'+ID+'@'+数值+包尾
+                              
+        
         void sendnum(byte ID, float num)
         {
             byte[] ch = new byte[4];
@@ -693,10 +701,10 @@ namespace usart_tool
                     record_pro.Text = time.ToString() + "/" + (time / 600 * 600 + 600).ToString();
                     progressBar1.Value = time;
                     // buff[time] = 1;
-                    data[11].num += 20f;
-                    data[12].num += 10f;
-                    data[21].num -= 20f;
-                    data[22].num -= 10f;
+                    //data[11].num += 20f;
+                    //data[12].num += 10f;
+                    //data[21].num -= 20f;
+                    //data[22].num -= 10f;
                     elec1 += 10;
                     elec2 -= 10;
                     // Displayer.AddData(elec1);
