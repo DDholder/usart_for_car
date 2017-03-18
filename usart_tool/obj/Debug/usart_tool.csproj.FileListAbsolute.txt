@@ -19,3 +19,16 @@ F:\vs project\usart_tool\usart_for_car\usart_tool\obj\Debug\usart_tool.Scope.res
 F:\vs project\usart_tool\usart_for_car\usart_tool\obj\Debug\usart_tool.mainForm.resources
 F:\vs project\usart_tool\usart_for_car\usart_tool\bin\Debug\img_player.exe
 F:\vs project\usart_tool\usart_for_car\usart_tool\bin\Debug\img_player.pdb
+E:\_27_第十二届智能车\usart_for_car\usart_tool\bin\Debug\usart_tool.exe.config
+E:\_27_第十二届智能车\usart_for_car\usart_tool\obj\Debug\usart_tool.exe
+E:\_27_第十二届智能车\usart_for_car\usart_tool\bin\Debug\usart_tool.exe
+E:\_27_第十二届智能车\usart_for_car\usart_tool\bin\Debug\usart_tool.pdb
+E:\_27_第十二届智能车\usart_for_car\usart_tool\bin\Debug\img_player.exe
+E:\_27_第十二届智能车\usart_for_car\usart_tool\bin\Debug\img_player.pdb
+E:\_27_第十二届智能车\usart_for_car\usart_tool\obj\Debug\usart_tool.csprojResolveAssemblyReference.cache
+E:\_27_第十二届智能车\usart_for_car\usart_tool\obj\Debug\usart_tool.mainForm.resources
+E:\_27_第十二届智能车\usart_for_car\usart_tool\obj\Debug\usart_tool.Properties.Resources.resources
+E:\_27_第十二届智能车\usart_for_car\usart_tool\obj\Debug\usart_tool.Scope.resources
+E:\_27_第十二届智能车\usart_for_car\usart_tool\obj\Debug\usart_tool.csproj.GenerateResource.Cache
+E:\_27_第十二届智能车\usart_for_car\usart_tool\obj\Debug\usart_tool.pdb
+E:\_27_第十二届智能车\usart_for_car\usart_tool\bin\Debug\img_player.exe.config

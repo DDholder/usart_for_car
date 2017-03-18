@@ -508,27 +508,36 @@ namespace usart_tool
         public void Save_image(int fpsnum)
         {
             SaveFileDialog saveFileDialog = new SaveFileDialog();
-            saveFileDialog.Filter = "txt文件|*.txt";//过滤文件。。。
 
-            DialogResult result = saveFileDialog.ShowDialog();
-            string localFilePath = "";
-            if (result == DialogResult.OK)
+            saveFileDialog.Filter = "txt文件|*.txt";//过滤文件。。。
+            string SaveFileName = string.Format("{0:MMddHHmm}", System.DateTime.Now);
+            
+            //DialogResult result = saveFileDialog.ShowDialog();
+            //string localFilePath = "";
+            //if (result == DialogResult.OK)
+            //{
+            //    //获得文件路径
+            //    localFilePath = saveFileDialog.FileName.ToString();
+            //}
+            string localFilePath = saveFileDialog.FileName.ToString();
+            saveFileDialog.FileName = localFilePath +"摄像头数据"+SaveFileName + ".txt";
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
             {
-                //获得文件路径
-                localFilePath = saveFileDialog.FileName.ToString();
+
+                FileStream fs = new FileStream(localFilePath + SaveFileName + ".txt", FileMode.Create);
+
+                //获得字节数组
+                //开始写入
+                for (int i = 0; i < fpsnum; i++)
+                {
+                    fs.Write(start, 0, 3);
+                    fs.Write(fps[i].img, 0, 600);
+                    fs.Write(end, 0, 3);
+                }
+                //清空缓冲区、关闭流
+                fs.Flush();
+                fs.Close();
             }
-            FileStream fs = new FileStream(localFilePath, FileMode.Create);
-            //获得字节数组
-            //开始写入
-            for (int i = 0; i < fpsnum; i++)
-            {
-                fs.Write(start, 0, 3);
-                fs.Write(fps[i].img, 0, 600);
-                fs.Write(end, 0, 3);
-            }
-            //清空缓冲区、关闭流
-            fs.Flush();
-            fs.Close();
         }
         //**************************读取txt图像文件****************************//
         public void Read()
@@ -651,12 +660,14 @@ namespace usart_tool
 
         private void 图像播放器ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            player.ShowDialog();
+            player = new img_player.Form1();
+            player.fps[0].img = new int[600];
+            player.Show();
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            player.ShowDialog();
+            player.Show();
           
         }
 
@@ -690,6 +701,8 @@ namespace usart_tool
                 if (time < 6000)
                 {
                     record_pro.Text = time.ToString() + "/" + (time / 600 * 600 + 600).ToString();
+                    if(time>= progressBar1.Maximum)
+                    progressBar1.Maximum += 600;
                     progressBar1.Value = time;
                     // buff[time] = 1;
                     data[11].num += 20f;
