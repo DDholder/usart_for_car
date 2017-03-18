@@ -1,0 +1,12 @@
+F:\vs project\usart_tool\usart_for_car\usart_tool\bin\Release\usart_tool.exe.config
+F:\vs project\usart_tool\usart_for_car\usart_tool\bin\Release\usart_tool.exe
+F:\vs project\usart_tool\usart_for_car\usart_tool\bin\Release\usart_tool.pdb
+F:\vs project\usart_tool\usart_for_car\usart_tool\bin\Release\img_player.exe
+F:\vs project\usart_tool\usart_for_car\usart_tool\bin\Release\img_player.pdb
+F:\vs project\usart_tool\usart_for_car\usart_tool\obj\Release\usart_tool.csprojResolveAssemblyReference.cache
+F:\vs project\usart_tool\usart_for_car\usart_tool\obj\Release\usart_tool.mainForm.resources
+F:\vs project\usart_tool\usart_for_car\usart_tool\obj\Release\usart_tool.Properties.Resources.resources
+F:\vs project\usart_tool\usart_for_car\usart_tool\obj\Release\usart_tool.Scope.resources
+F:\vs project\usart_tool\usart_for_car\usart_tool\obj\Release\usart_tool.csproj.GenerateResource.Cache
+F:\vs project\usart_tool\usart_for_car\usart_tool\obj\Release\usart_tool.exe
+F:\vs project\usart_tool\usart_for_car\usart_tool\obj\Release\usart_tool.pdb
