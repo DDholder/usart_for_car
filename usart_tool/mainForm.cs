@@ -1,19 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
+using System.IO;
 using System.IO.Ports;
-using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.IO;
-using System.Runtime.InteropServices;
 namespace usart_tool
 {
-    
+
     public struct Datas
     {
         public string name;
@@ -28,7 +24,7 @@ namespace usart_tool
     }
     public partial class mainForm : Form
     {
-    
+
         public mainForm()
         {
 
@@ -54,12 +50,11 @@ namespace usart_tool
         Chart table = new Chart();//图表窗口
         Scope Displayer;//示波窗口
         img_player.Form1 player = new img_player.Form1();
-        bool bConnect = false;
         /*****************************************************************/
         //////////////////////////调试变量/////////////////////////////////
         float kp = 0;
         /*****************************************************************/
-        /// /////////////////////ini所需函数////////////////////////////////
+        ////////////////////////ini所需函数////////////////////////////////
         [DllImport("kernel32")]
         private static extern int GetPrivateProfileString(string section, string key, string defVal, StringBuilder retVal, int size, string filePath);
         [DllImport("kernel32")]
@@ -163,7 +158,7 @@ namespace usart_tool
                 if (i + 2 < n)
                 {
                     if (portbyte[i] == 0xaa && portbyte[i + 1] == 0xbb)
-                       savestrflag = true;
+                        savestrflag = true;
                 }
                 if (savestrflag)
                     strlist.Add(portbyte[i]);
@@ -196,13 +191,15 @@ namespace usart_tool
         }
         //解读参数
         //数据解读已能用
+        //图像包头：0xcc,0xcd,0xdc
+        //数据包头：0xab,0xba
         void Readstring(byte[] str, int n)
         {
             byte ID;
-            
+
             for (int s = 1; s < n; s++)
             {
-                if (str[s] == 0xba&&str[s-1]==0xab)
+                if (str[s] == 0xba && str[s - 1] == 0xab)
                 {
                     ID = str[s + 1];
                     byte[] ch = { str[s + 2], str[s + 3], str[s + 4], str[s + 5] };
@@ -210,23 +207,22 @@ namespace usart_tool
                     {
                         fixed (byte* pData = ch)   //正确，使用fixed固定 
                         {
-                            // *(float*)(pData) = 11.5f;
                             data[ID].num = *(float*)pData;
                         }
                     }
                 }
-                if (str[s] == 0xdc && str[s - 1] == 0xcd&& str[s - 2] == 0xcc)
+                if (str[s] == 0xdc && str[s - 1] == 0xcd && str[s - 2] == 0xcc)
                 {
-                    Readpic(str,s);
+                    Readpic(str, s);
                 }
             }
         }
         //串口解读图像
-        void Readpic(byte[] str,int n)
+        void Readpic(byte[] str, int n)
         {
-            for (int i = n+1; i <n+1+600; i++)
+            for (int i = n + 1; i < n + 1 + 600; i++)
             {
-                    buff[i-n-1] = str[i];
+                buff[i - n - 1] = str[i];
             }
         }
         //**********************刷新待发送参数*******************************//
@@ -334,8 +330,8 @@ namespace usart_tool
         //例：ID为56数值为74
         //sendnum(56,74);
         //格式：包头+'$'+ID+'@'+数值+包尾
-                              
-        
+
+
         void sendnum(byte ID, float num)
         {
             byte[] ch = new byte[4];
@@ -363,7 +359,7 @@ namespace usart_tool
         {
             sendnum(90, ad1);
             Thread.Sleep(10);
-           sendnum(91, ad2);
+            sendnum(91, ad2);
         }
         private void play_pause_Click(object sender, EventArgs e)
         {
@@ -514,37 +510,17 @@ namespace usart_tool
         public void Save_image(int fpsnum)
         {
             SaveFileDialog saveFileDialog = new SaveFileDialog();
-            //saveFileDialog.Filter = "txt文件|*.txt";//过滤文件。。。
-
-            //DialogResult result = saveFileDialog.ShowDialog();
-            //string localFilePath = "";
-            //if (result == DialogResult.OK)
-            //{
-            //    //获得文件路径
-            //    localFilePath = saveFileDialog.FileName.ToString();
-            //}
-            //FileStream fs = new FileStream(localFilePath, FileMode.Create);
-            //获得字节数组
-            //开始写入
             saveFileDialog.Filter = "txt文件|*.txt";//过滤文件。。。
             string SaveFileName = string.Format("{0:MMddHHmm}", System.DateTime.Now);
-
-            //DialogResult result = saveFileDialog.ShowDialog();
-            //string localFilePath = "";
-            //if (result == DialogResult.OK)
-            //{
-            //    //获得文件路径
-            //    localFilePath = saveFileDialog.FileName.ToString();
-            //}
             string localFilePath = saveFileDialog.FileName.ToString();
             saveFileDialog.FileName = localFilePath + "摄像头数据" + SaveFileName + ".txt";
             if (saveFileDialog.ShowDialog() == DialogResult.OK)
             {
-
+                byte[] imgstart = { 0xaa, 0xbb, (byte)'*' };
                 FileStream fs = new FileStream(localFilePath + SaveFileName + ".txt", FileMode.Create);
                 for (int i = 0; i < fpsnum; i++)
                 {
-                    fs.Write(start, 0, 3);
+                    fs.Write(imgstart, 0, 3);
                     fs.Write(fps[i].img, 0, 600);
                     fs.Write(end, 0, 3);
                 }
@@ -672,17 +648,11 @@ namespace usart_tool
             }
         }
 
-        private void 图像播放器ToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            player = new img_player.Form1();
-            player.fps[0].img = new int[600];
-            player.Show();
-        }
 
         private void button2_Click(object sender, EventArgs e)
         {
             player.Show();
-          
+
         }
 
         private void button2_Click_1(object sender, EventArgs e)
@@ -693,6 +663,13 @@ namespace usart_tool
         private void checkConnect_CheckedChanged(object sender, EventArgs e)
         {
             player.bConnect = checkConnect.Checked;
+        }
+
+        private void 工具ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            player = new img_player.Form1();
+            player.fps[0].img = new int[600];
+            player.Show();
         }
 
         private void 更新配置文件ToolStripMenuItem_Click(object sender, EventArgs e)
@@ -715,6 +692,7 @@ namespace usart_tool
                 if (time < 6000)
                 {
                     record_pro.Text = time.ToString() + "/" + (time / 600 * 600 + 600).ToString();
+                    if (time >= progressBar1.Maximum) progressBar1.Maximum += 600;
                     progressBar1.Value = time;
                     // buff[time] = 1;
                     //data[11].num += 20f;
