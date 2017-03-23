@@ -41,6 +41,11 @@ namespace usart_tool
         //public GetMainWidth GetMainWidth;//定义获取主窗口宽度(自动对齐)
         private bool KeyShift, KeyShowMain, KeyHideMain, KeyExit, KeyOpen, KeyClose, KeyStepUp, KeyStepDown;
 
+        private void Scope_Load(object sender, EventArgs e)
+        {
+
+        }
+
         private void Scope_MouseMove(object sender, MouseEventArgs e)
         {
             Invalidate();

@@ -35,6 +35,7 @@
             this.ClientSize = new System.Drawing.Size(1007, 516);
             this.Cursor = System.Windows.Forms.Cursors.Cross;
             this.Name = "Scope";
+            this.Load += new System.EventHandler(this.Scope_Load);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.Scope_Paint);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Scope_KeyDown);
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Scope_KeyUp);
