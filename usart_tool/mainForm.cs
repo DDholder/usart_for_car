@@ -516,8 +516,9 @@ namespace usart_tool
             saveFileDialog.FileName = localFilePath + "摄像头数据" + SaveFileName + ".txt";
             if (saveFileDialog.ShowDialog() == DialogResult.OK)
             {
+                SaveFileName = saveFileDialog.FileName;
                 byte[] imgstart = { 0xaa, 0xbb, (byte)'*' };
-                FileStream fs = new FileStream(localFilePath + SaveFileName + ".txt", FileMode.Create);
+                FileStream fs = new FileStream(localFilePath + SaveFileName , FileMode.Create);
                 for (int i = 0; i < fpsnum; i++)
                 {
                     fs.Write(imgstart, 0, 3);
