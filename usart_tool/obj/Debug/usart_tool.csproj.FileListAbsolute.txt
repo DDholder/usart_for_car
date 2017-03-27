@@ -25,7 +25,6 @@ F:\vs project\usart_tool\usart_for_car\usart_tool\bin\Debug\usart_tool.exe
 F:\vs project\usart_tool\usart_for_car\usart_tool\bin\Debug\usart_tool.pdb
 F:\vs project\usart_tool\usart_for_car\usart_tool\bin\Debug\img_player.exe
 F:\vs project\usart_tool\usart_for_car\usart_tool\bin\Debug\img_player.pdb
-F:\vs project\usart_tool\usart_for_car\usart_tool\bin\Debug\img_player.exe.config
 F:\vs project\usart_tool\usart_for_car\usart_tool\obj\Debug\usart_tool.mainForm.resources
 F:\vs project\usart_tool\usart_for_car\usart_tool\obj\Debug\usart_tool.Properties.Resources.resources
 F:\vs project\usart_tool\usart_for_car\usart_tool\obj\Debug\usart_tool.Scope.resources
@@ -33,3 +32,4 @@ F:\vs project\usart_tool\usart_for_car\usart_tool\obj\Debug\usart_tool.csproj.Ge
 F:\vs project\usart_tool\usart_for_car\usart_tool\obj\Debug\usart_tool.exe
 F:\vs project\usart_tool\usart_for_car\usart_tool\obj\Debug\usart_tool.pdb
 F:\vs project\usart_tool\usart_for_car\usart_tool\obj\Debug\usart_tool.csprojResolveAssemblyReference.cache
+F:\vs project\usart_tool\usart_for_car\usart_tool\bin\Debug\img_player.exe.config
