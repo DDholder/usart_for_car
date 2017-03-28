@@ -50,6 +50,7 @@ namespace usart_tool
         Chart table = new Chart();//图表窗口
         Scope Displayer;//示波窗口
         img_player.Form1 player = new img_player.Form1();
+        校赛用.Form1 Scoper = new 校赛用.Form1();
         /*****************************************************************/
         //////////////////////////调试变量/////////////////////////////////
         float kp = 0;
@@ -665,11 +666,22 @@ namespace usart_tool
             player.bConnect = checkConnect.Checked;
         }
 
-        private void 工具ToolStripMenuItem_Click(object sender, EventArgs e)
+        private void 示波器ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            player = new img_player.Form1();
-            player.fps[0].img = new int[600];
-            player.Show();
+            Scoper = new 校赛用.Form1();
+            Scoper.Show();
+        }
+        int ddn = 0;
+        private void timerUpdate_Tick(object sender, EventArgs e)
+        {
+            Scoper.data.Add(ddn);
+            ddn++;
+            Scoper.pictureBox1.Refresh();
+        }
+
+        private void button2_Click_2(object sender, EventArgs e)
+        {
+            timerUpdate.Enabled = true;
         }
 
         private void 更新配置文件ToolStripMenuItem_Click(object sender, EventArgs e)

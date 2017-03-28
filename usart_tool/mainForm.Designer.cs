@@ -154,8 +154,9 @@
             this.记录文件ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.保存记录文件ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.打开记录文件ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.工具ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.timerUpdate = new System.Windows.Forms.Timer(this.components);
+            this.示波器ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.button2 = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -1211,7 +1212,7 @@
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.文件ToolStripMenuItem,
-            this.工具ToolStripMenuItem});
+            this.示波器ToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(1304, 28);
@@ -1234,7 +1235,7 @@
             this.打开配置文件ToolStripMenuItem,
             this.重新生成配置文件ToolStripMenuItem});
             this.配置文件ToolStripMenuItem.Name = "配置文件ToolStripMenuItem";
-            this.配置文件ToolStripMenuItem.Size = new System.Drawing.Size(144, 26);
+            this.配置文件ToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
             this.配置文件ToolStripMenuItem.Text = "配置文件";
             // 
             // 更新配置文件ToolStripMenuItem
@@ -1264,7 +1265,7 @@
             this.保存记录文件ToolStripMenuItem,
             this.打开记录文件ToolStripMenuItem});
             this.记录文件ToolStripMenuItem.Name = "记录文件ToolStripMenuItem";
-            this.记录文件ToolStripMenuItem.Size = new System.Drawing.Size(144, 26);
+            this.记录文件ToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
             this.记录文件ToolStripMenuItem.Text = "记录文件";
             // 
             // 保存记录文件ToolStripMenuItem
@@ -1281,18 +1282,33 @@
             this.打开记录文件ToolStripMenuItem.Text = "打开记录文件";
             this.打开记录文件ToolStripMenuItem.Click += new System.EventHandler(this.打开记录文件ToolStripMenuItem_Click);
             // 
-            // 工具ToolStripMenuItem
+            // timerUpdate
             // 
-            this.工具ToolStripMenuItem.Name = "工具ToolStripMenuItem";
-            this.工具ToolStripMenuItem.Size = new System.Drawing.Size(96, 24);
-            this.工具ToolStripMenuItem.Text = "图像播放器";
-            this.工具ToolStripMenuItem.Click += new System.EventHandler(this.工具ToolStripMenuItem_Click);
+            this.timerUpdate.Tick += new System.EventHandler(this.timerUpdate_Tick);
+            // 
+            // 示波器ToolStripMenuItem
+            // 
+            this.示波器ToolStripMenuItem.Name = "示波器ToolStripMenuItem";
+            this.示波器ToolStripMenuItem.Size = new System.Drawing.Size(66, 24);
+            this.示波器ToolStripMenuItem.Text = "示波器";
+            this.示波器ToolStripMenuItem.Click += new System.EventHandler(this.示波器ToolStripMenuItem_Click);
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(283, 336);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(75, 23);
+            this.button2.TabIndex = 66;
+            this.button2.Text = "button2";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click_2);
             // 
             // mainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1304, 583);
+            this.Controls.Add(this.button2);
             this.Controls.Add(this.label14);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.tabControl1);
@@ -1461,9 +1477,10 @@
         private System.Windows.Forms.ToolStripMenuItem 保存记录文件ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 打开记录文件ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 更新配置文件ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 工具ToolStripMenuItem;
         private System.Windows.Forms.CheckBox checkConnect;
         private System.Windows.Forms.Timer timerUpdate;
+        private System.Windows.Forms.ToolStripMenuItem 示波器ToolStripMenuItem;
+        private System.Windows.Forms.Button button2;
     }
 }
 

@@ -33,3 +33,6 @@ F:\vs project\usart_tool\usart_for_car\usart_tool\obj\Debug\usart_tool.csproj.Ge
 F:\vs project\usart_tool\usart_for_car\usart_tool\obj\Debug\usart_tool.exe
 F:\vs project\usart_tool\usart_for_car\usart_tool\obj\Debug\usart_tool.pdb
 F:\vs project\usart_tool\usart_for_car\usart_tool\obj\Debug\usart_tool.csprojResolveAssemblyReference.cache
+F:\vs project\usart_tool\usart_for_car\usart_tool\bin\Debug\校赛用.exe
+F:\vs project\usart_tool\usart_for_car\usart_tool\bin\Debug\校赛用.pdb
+F:\vs project\usart_tool\usart_for_car\usart_tool\bin\Debug\校赛用.exe.config
