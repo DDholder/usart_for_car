@@ -51,6 +51,7 @@ namespace usart_tool
         Scope Displayer;//示波窗口
         img_player.Form1 player = new img_player.Form1();
         校赛用.Form1 Scoper = new 校赛用.Form1();
+        float Angle = 0;
         /*****************************************************************/
         //////////////////////////调试变量/////////////////////////////////
         float kp = 0;
@@ -196,8 +197,8 @@ namespace usart_tool
         //数据包头：0xab,0xba
         void Readstring(byte[] str, int n)
         {
-            byte ID;
-
+            byte ID=0;
+            if (n >= 8) 
             for (int s = 1; s < n; s++)
             {
                 if (str[s] == 0xba && str[s - 1] == 0xab)
@@ -216,6 +217,15 @@ namespace usart_tool
                 {
                     Readpic(str, s);
                 }
+            }
+            if(ID==99)
+            {
+                Scoper.data.Add(data[ID].num);
+                Action showReceive = () =>
+                {
+                    Scoper.pictureBox1.Refresh();
+                };
+                
             }
         }
         //串口解读图像
@@ -674,7 +684,6 @@ namespace usart_tool
         int ddn = 0;
         private void timerUpdate_Tick(object sender, EventArgs e)
         {
-            Scoper.data.Add(ddn);
             ddn++;
             Scoper.pictureBox1.Refresh();
         }
@@ -810,6 +819,7 @@ namespace usart_tool
         private void Datatimer_Tick(object sender, EventArgs e)
         {
             kp = changenum("kp");
+            Angle = changenum("Angle");
             showdatas();
         }
 
