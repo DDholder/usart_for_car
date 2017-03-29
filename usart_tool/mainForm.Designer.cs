@@ -717,7 +717,7 @@
             this.checkConnect.TabIndex = 18;
             this.checkConnect.Text = "连接播放器";
             this.checkConnect.UseVisualStyleBackColor = true;
-            this.checkConnect.CheckedChanged += new System.EventHandler(this.checkConnect_CheckedChanged);
+            this.checkConnect.CheckedChanged += new System.EventHandler(this.CheckConnect_CheckedChanged);
             // 
             // button5
             // 
@@ -727,7 +727,7 @@
             this.button5.TabIndex = 17;
             this.button5.Text = "Clear";
             this.button5.UseVisualStyleBackColor = true;
-            this.button5.Click += new System.EventHandler(this.button5_Click);
+            this.button5.Click += new System.EventHandler(this.Button5_Click);
             // 
             // button3
             // 
@@ -737,7 +737,7 @@
             this.button3.TabIndex = 15;
             this.button3.Text = "button3";
             this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
+            this.button3.Click += new System.EventHandler(this.Button3_Click);
             // 
             // PlayMode
             // 
@@ -1151,7 +1151,7 @@
             this.play_bar.Name = "play_bar";
             this.play_bar.Size = new System.Drawing.Size(353, 56);
             this.play_bar.TabIndex = 5;
-            this.play_bar.Scroll += new System.EventHandler(this.play_bar_Scroll);
+            this.play_bar.Scroll += new System.EventHandler(this.Play_bar_Scroll);
             // 
             // Record
             // 
@@ -1171,7 +1171,7 @@
             this.play_pause.TabIndex = 2;
             this.play_pause.Text = "play";
             this.play_pause.UseVisualStyleBackColor = true;
-            this.play_pause.Click += new System.EventHandler(this.play_pause_Click);
+            this.play_pause.Click += new System.EventHandler(this.Play_pause_Click);
             // 
             // progressBar1
             // 
@@ -1284,7 +1284,7 @@
             // 
             // timerUpdate
             // 
-            this.timerUpdate.Tick += new System.EventHandler(this.timerUpdate_Tick);
+            this.timerUpdate.Tick += new System.EventHandler(this.TimerUpdate_Tick);
             // 
             // 示波器ToolStripMenuItem
             // 
@@ -1301,7 +1301,7 @@
             this.button2.TabIndex = 66;
             this.button2.Text = "button2";
             this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click_2);
+            this.button2.Click += new System.EventHandler(this.Button2_Click_2);
             // 
             // mainForm
             // 
