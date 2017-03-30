@@ -458,6 +458,7 @@ namespace usart_tool
             comboBoxBaudRate.SelectedIndex = 1;
             PlayMode.SelectedIndex = 0;
             ImgEng.Checked = true;
+            tabControl1.SelectedIndex = 1;        //选项卡默认设置为摄像头选项卡   
         }
 
         void Display(int[,] image_buff)
@@ -683,6 +684,7 @@ namespace usart_tool
         private void button5_Click(object sender, EventArgs e)
         {
             imgdatainit();
+            progressBar1.Value = 0;
         }
         //****************************记录，播放用定时器**************************//
         private void Record_timer_Tick(object sender, EventArgs e)
