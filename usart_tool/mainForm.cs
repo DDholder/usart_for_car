@@ -45,6 +45,8 @@ namespace usart_tool
         bool savestrflag = false, filestrflag = false;
         List<byte> strlist = new List<byte>();//串口读取缓存链表
         byte[] start = { 0xaa, 0xbb };//包头
+        byte[] datastart = { 0xab, 0xba };//包头
+        byte[] dataend = { 0xcc, 0xdd };//包头
         byte[] end = { 0xcc, 0xdd, 0xee };//包尾
         List<byte> readList = new List<byte>();//文件读取缓存链表
         Chart table = new Chart();//图表窗口
@@ -52,7 +54,7 @@ namespace usart_tool
         img_player.Form1 player = new img_player.Form1();
         /*****************************************************************/
         //////////////////////////调试变量/////////////////////////////////
-        float kp = 0;
+        float kp = 0,ki=0,kd=0;
         /*****************************************************************/
         ////////////////////////ini所需函数////////////////////////////////
         [DllImport("kernel32")]
@@ -158,7 +160,10 @@ namespace usart_tool
                 if (i + 2 < n)
                 {
                     if (portbyte[i] == 0xaa && portbyte[i + 1] == 0xbb)
+                    {
                         savestrflag = true;
+                        i+=2;
+                    }
                 }
                 if (savestrflag)
                     strlist.Add(portbyte[i]);
@@ -199,7 +204,7 @@ namespace usart_tool
 
             for (int s = 1; s < n; s++)
             {
-                if (str[s] == 0xba && str[s - 1] == 0xab)
+                if (str[s] == 0xba && str[s - 1] == 0xab&&s+5<=str.Length)
                 {
                     ID = str[s + 1];
                     byte[] ch = { str[s + 2], str[s + 3], str[s + 4], str[s + 5] };
@@ -210,6 +215,7 @@ namespace usart_tool
                             data[ID].num = *(float*)pData;
                         }
                     }
+                    s += 5;
                 }
                 if (str[s] == 0xdc && str[s - 1] == 0xcd && str[s - 2] == 0xcc)
                 {
@@ -270,36 +276,48 @@ namespace usart_tool
 
         private void Senddata_Click(object sender, EventArgs e)
         {
-            int id = 0; float n = 0;
-            if (sendID0.Text != "error")
+            try
             {
-                id = int.Parse(sendID0.Text);
-                n = float.Parse(sendnum0.Text);
-                sendnum((byte)id, n);
+                int id = 0; float n = 0;
+                if (sendID0.Text != "error")
+                {
+                    id = int.Parse(sendID0.Text);
+                    n = float.Parse(sendnum0.Text);
+                    sendnum((byte)id, n);
+                    Thread.Sleep(50);
+                }
+                if (sendID1.Text != "error")
+                {
+                    id = int.Parse(sendID1.Text);
+                    n = float.Parse(sendnum1.Text);
+                    sendnum((byte)id, n);
+                    Thread.Sleep(50);
+                }
+                if (sendID2.Text != "error")
+                {
+                    id = int.Parse(sendID2.Text);
+                    n = float.Parse(sendnum2.Text);
+                    sendnum((byte)id, n);
+                    Thread.Sleep(50);
+                }
+                if (sendID3.Text != "error")
+                {
+                    id = int.Parse(sendID3.Text);
+                    n = float.Parse(sendnum3.Text);
+                    sendnum((byte)id, n);
+                    Thread.Sleep(50);
+                }
+                if (sendID4.Text != "error")
+                {
+                    id = int.Parse(sendID4.Text);
+                    n = float.Parse(sendnum4.Text);
+                    sendnum((byte)id, n);
+                    Thread.Sleep(50);
+                }
             }
-            if (sendID1.Text != "error")
+            catch (Exception ex)
             {
-                id = int.Parse(sendID1.Text);
-                n = float.Parse(sendnum1.Text);
-                sendnum((byte)id, n);
-            }
-            if (sendID2.Text != "error")
-            {
-                id = int.Parse(sendID2.Text);
-                n = float.Parse(sendnum2.Text);
-                sendnum((byte)id, n);
-            }
-            if (sendID3.Text != "error")
-            {
-                id = int.Parse(sendID3.Text);
-                n = float.Parse(sendnum3.Text);
-                sendnum((byte)id, n);
-            }
-            if (sendID4.Text != "error")
-            {
-                id = int.Parse(sendID4.Text);
-                n = float.Parse(sendnum4.Text);
-                sendnum((byte)id, n);
+                MessageBox.Show(ex.ToString());
             }
         }
         //解压图像
@@ -343,12 +361,17 @@ namespace usart_tool
                     *(float*)(pData) = num;
                 }
             }
-            serialPort1.Write(start, 0, 2);
-            serialPort1.Write("$");
-            serialPort1.Write(b, 0, 1);
-            serialPort1.Write("@");
-            serialPort1.Write(ch, 0, 4);
-            serialPort1.Write(end, 0, 3);
+            try
+            {
+                serialPort1.Write(datastart, 0, 2);
+                serialPort1.Write(b, 0, 1);
+                serialPort1.Write(ch, 0, 4);
+                serialPort1.Write(dataend, 0, 2);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
         }
         //********************发送电感值********************************//
         //发送电感值
@@ -450,7 +473,9 @@ namespace usart_tool
         }
         private void Form1_Load(object sender, EventArgs e)
         {
+            this.KeyPreview = true;
             data_init();
+            comboBox1.SelectedItem = 0;
             for (int i = 0; i < 100; i++)
                 table.chartdata[i].name = data[i].name;
             player.fps[0].img = new int[600];
@@ -518,7 +543,7 @@ namespace usart_tool
             {
                 SaveFileName = saveFileDialog.FileName;
                 byte[] imgstart = { 0xaa, 0xbb, (byte)'*' };
-                FileStream fs = new FileStream(localFilePath + SaveFileName , FileMode.Create);
+                FileStream fs = new FileStream(localFilePath + SaveFileName, FileMode.Create);
                 for (int i = 0; i < fpsnum; i++)
                 {
                     fs.Write(imgstart, 0, 3);
@@ -671,6 +696,25 @@ namespace usart_tool
             player = new img_player.Form1();
             player.fps[0].img = new int[600];
             player.Show();
+        }
+        bool flag_key = false;
+        private void mainForm_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.ControlKey) flag_key = true;
+            if (flag_key)
+                if (e.KeyCode == Keys.Space) sendnum(0, 0);
+        }
+
+        private void mainForm_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Control) flag_key = false;
+        }
+
+        private void timerUpdate_Tick(object sender, EventArgs e)
+        {
+            kp = data[10].num;
+            ki = data[11].num;
+            kd = data[12].num;
         }
 
         private void 更新配置文件ToolStripMenuItem_Click(object sender, EventArgs e)
