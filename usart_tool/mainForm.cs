@@ -284,35 +284,35 @@ namespace usart_tool
                     id = int.Parse(sendID0.Text);
                     n = float.Parse(sendnum0.Text);
                     sendnum((byte)id, n);
-                    Thread.Sleep(50);
+                    Thread.Sleep(100);
                 }
                 if (sendID1.Text != "error")
                 {
                     id = int.Parse(sendID1.Text);
                     n = float.Parse(sendnum1.Text);
                     sendnum((byte)id, n);
-                    Thread.Sleep(50);
+                    Thread.Sleep(100);
                 }
                 if (sendID2.Text != "error")
                 {
                     id = int.Parse(sendID2.Text);
                     n = float.Parse(sendnum2.Text);
                     sendnum((byte)id, n);
-                    Thread.Sleep(50);
+                    Thread.Sleep(100);
                 }
                 if (sendID3.Text != "error")
                 {
                     id = int.Parse(sendID3.Text);
                     n = float.Parse(sendnum3.Text);
                     sendnum((byte)id, n);
-                    Thread.Sleep(50);
+                    Thread.Sleep(100);
                 }
                 if (sendID4.Text != "error")
                 {
                     id = int.Parse(sendID4.Text);
                     n = float.Parse(sendnum4.Text);
                     sendnum((byte)id, n);
-                    Thread.Sleep(50);
+                    Thread.Sleep(100);
                 }
             }
             catch (Exception ex)
