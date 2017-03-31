@@ -52,6 +52,7 @@ namespace usart_tool
         Chart table = new Chart();//图表窗口
         Scope Displayer;//示波窗口
         img_player.Form1 player = new img_player.Form1();
+        校赛用.Form1 scoper = new 校赛用.Form1();
         /*****************************************************************/
         //////////////////////////调试变量/////////////////////////////////
         float kp = 0,ki=0,kd=0;
@@ -284,35 +285,35 @@ namespace usart_tool
                     id = int.Parse(sendID0.Text);
                     n = float.Parse(sendnum0.Text);
                     sendnum((byte)id, n);
-                    Thread.Sleep(100);
+                    Thread.Sleep(200);
                 }
                 if (sendID1.Text != "error")
                 {
                     id = int.Parse(sendID1.Text);
                     n = float.Parse(sendnum1.Text);
                     sendnum((byte)id, n);
-                    Thread.Sleep(100);
+                    Thread.Sleep(200);
                 }
                 if (sendID2.Text != "error")
                 {
                     id = int.Parse(sendID2.Text);
                     n = float.Parse(sendnum2.Text);
                     sendnum((byte)id, n);
-                    Thread.Sleep(100);
+                    Thread.Sleep(200);
                 }
                 if (sendID3.Text != "error")
                 {
                     id = int.Parse(sendID3.Text);
                     n = float.Parse(sendnum3.Text);
                     sendnum((byte)id, n);
-                    Thread.Sleep(100);
+                    Thread.Sleep(200);
                 }
                 if (sendID4.Text != "error")
                 {
                     id = int.Parse(sendID4.Text);
                     n = float.Parse(sendnum4.Text);
                     sendnum((byte)id, n);
-                    Thread.Sleep(100);
+                    Thread.Sleep(200);
                 }
             }
             catch (Exception ex)
