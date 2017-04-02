@@ -15,7 +15,7 @@ namespace usart_tool
         public string name;
         public float num;
     }
-    public struct points
+    public struct Points
     {
         public float[] value;
         public byte[] img;
@@ -32,7 +32,7 @@ namespace usart_tool
         }
         //// //////////////////变量声明/////////////////////////////////////
         Datas[] data = new Datas[102];//变量数值
-        points[] fps = new points[6000];//6000帧数据
+        Points[] fps = new Points[6000];//6000帧数据
         //10个记录变量ID
         int ID1 = 0, ID2 = 0, ID3 = 0, ID4 = 0, ID5 = 0, ID6 = 0, ID7 = 0, ID8 = 0, ID9 = 0, ID10 = 0;
         byte[] buff = new byte[600];//串口读出的图像
@@ -66,7 +66,7 @@ namespace usart_tool
         StringBuilder initemp = new StringBuilder(255);
         //**************************参数初始化与定义************************//
         //通过ini配置文件来初始化参数
-        void data_init()
+        void Data_init()
         {
             for (int i = 0; i < 100; i++)
             {
@@ -284,35 +284,35 @@ namespace usart_tool
                 {
                     id = int.Parse(sendID0.Text);
                     n = float.Parse(sendnum0.Text);
-                    sendnum((byte)id, n);
+                    Sendnum((byte)id, n);
                     Thread.Sleep(200);
                 }
                 if (sendID1.Text != "error")
                 {
                     id = int.Parse(sendID1.Text);
                     n = float.Parse(sendnum1.Text);
-                    sendnum((byte)id, n);
+                    Sendnum((byte)id, n);
                     Thread.Sleep(200);
                 }
                 if (sendID2.Text != "error")
                 {
                     id = int.Parse(sendID2.Text);
                     n = float.Parse(sendnum2.Text);
-                    sendnum((byte)id, n);
+                    Sendnum((byte)id, n);
                     Thread.Sleep(200);
                 }
                 if (sendID3.Text != "error")
                 {
                     id = int.Parse(sendID3.Text);
                     n = float.Parse(sendnum3.Text);
-                    sendnum((byte)id, n);
+                    Sendnum((byte)id, n);
                     Thread.Sleep(200);
                 }
                 if (sendID4.Text != "error")
                 {
                     id = int.Parse(sendID4.Text);
                     n = float.Parse(sendnum4.Text);
-                    sendnum((byte)id, n);
+                    Sendnum((byte)id, n);
                     Thread.Sleep(200);
                 }
             }
@@ -351,7 +351,7 @@ namespace usart_tool
         //格式：包头+'$'+ID+'@'+数值+包尾
 
 
-        void sendnum(byte ID, float num)
+        void Sendnum(byte ID, float num)
         {
             byte[] ch = new byte[4];
             byte[] b = { ID, 0 };
@@ -379,13 +379,13 @@ namespace usart_tool
         //send_elec(第一个值,第二个值);
         //例：第一个值15，第二个值68
         //send_elec(15,68);
-        void send_elec(float ad1, float ad2)
+        void Send_elec(float ad1, float ad2)
         {
-            sendnum(90, ad1);
+            Sendnum(90, ad1);
             Thread.Sleep(10);
-            sendnum(91, ad2);
+            Sendnum(91, ad2);
         }
-        private void play_pause_Click(object sender, EventArgs e)
+        private void Play_pause_Click(object sender, EventArgs e)
         {
             if (Record_timer.Enabled == false)
             {
@@ -432,7 +432,7 @@ namespace usart_tool
         //更改参数
         //待改参数=changenum(待改参数名）;
         //例：Speed_Kd=changenum("Speed_Kd");
-        float changenum(string name)
+        float Changenum(string name)
         {
             float n = 0;
             for (int i = 0; i < 102; i++)
@@ -448,7 +448,7 @@ namespace usart_tool
         //****************************显示参数*****************************//
         //显示参数
         //只显示ID十位为下拉列表的参数
-        void showdatas()
+        void Showdatas()
         {
             int group = int.Parse(comboBox1.Text);
             dataname0.Text = data[group * 10].name;
@@ -475,7 +475,7 @@ namespace usart_tool
         private void Form1_Load(object sender, EventArgs e)
         {
             this.KeyPreview = true;
-            data_init();
+            Data_init();
             comboBox1.SelectedItem = 0;
             for (int i = 0; i < 100; i++)
                 table.chartdata[i].name = data[i].name;
@@ -527,7 +527,7 @@ namespace usart_tool
             Rectangle Rect = Screen.GetWorkingArea(this);
             Displayer.SetWindow(Rect.Width - this.Width, new Point(this.Width, this.Top));//设置绘制窗口宽度，以及坐标
         }
-        private void button3_Click(object sender, EventArgs e)
+        private void Button3_Click(object sender, EventArgs e)
         {
             CreateDisplayer();
         }
@@ -536,8 +536,10 @@ namespace usart_tool
         //**************************储存图像为txt文件**************************//
         public void Save_image(int fpsnum)
         {
-            SaveFileDialog saveFileDialog = new SaveFileDialog();
-            saveFileDialog.Filter = "txt文件|*.txt";//过滤文件。。。
+            SaveFileDialog saveFileDialog = new SaveFileDialog()
+            {
+                Filter = "txt文件|*.txt"//过滤文件。。。
+            };
             string SaveFileName = string.Format("{0:MMddHHmm}", System.DateTime.Now);
             string localFilePath = saveFileDialog.FileName.ToString();
             saveFileDialog.FileName = localFilePath + "摄像头数据" + SaveFileName + ".txt";
@@ -563,9 +565,10 @@ namespace usart_tool
 
             try
             {
-                OpenFileDialog openFileDialog = new OpenFileDialog();
-                openFileDialog.Filter = "txt文件|*.txt";//过滤文件。。。
-
+                OpenFileDialog openFileDialog = new OpenFileDialog()
+                {
+                    Filter = "txt文件|*.txt"//过滤文件。。。
+                };
                 DialogResult result = openFileDialog.ShowDialog();
                 string localFilePath = "";
                 if (result == DialogResult.OK)
@@ -634,7 +637,7 @@ namespace usart_tool
             Save_image(time);
         }
         //********************************清空初始化图像***************************//
-        void imgdatainit()
+        void Imgdatainit()
         {
             for (int i = 0; i < time; i++)
             {
@@ -648,12 +651,14 @@ namespace usart_tool
         }
         private void 打开记录文件ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            imgdatainit();
+            Imgdatainit();
             try
             {
-                OpenFileDialog openFileDialog = new OpenFileDialog();
-                openFileDialog.Filter = "txt文件|*.txt";//过滤文件。。。
-                                                      //saveFileDialog.FileName = "Lanny.raw";//默认文件名
+                OpenFileDialog openFileDialog = new OpenFileDialog()
+                {
+                    Filter = "txt文件|*.txt"//过滤文件。。。
+                };
+                //saveFileDialog.FileName = "Lanny.raw";//默认文件名
 
                 DialogResult result = openFileDialog.ShowDialog();
                 string localFilePath = "";
@@ -675,20 +680,7 @@ namespace usart_tool
                 Console.WriteLine(err.ToString());
             }
         }
-
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-            player.Show();
-
-        }
-
-        private void button2_Click_1(object sender, EventArgs e)
-        {
-
-        }
-
-        private void checkConnect_CheckedChanged(object sender, EventArgs e)
+        private void CheckConnect_CheckedChanged(object sender, EventArgs e)
         {
             player.bConnect = checkConnect.Checked;
         }
@@ -700,19 +692,19 @@ namespace usart_tool
             player.Show();
         }
         bool flag_key = false;
-        private void mainForm_KeyDown(object sender, KeyEventArgs e)
+        private void MainForm_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.ControlKey) flag_key = true;
             if (flag_key)
-                if (e.KeyCode == Keys.Space) sendnum(0, 0);
+                if (e.KeyCode == Keys.Space) Sendnum(0, 0);
         }
 
-        private void mainForm_KeyUp(object sender, KeyEventArgs e)
+        private void MainForm_KeyUp(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Control) flag_key = false;
         }
 
-        private void timerUpdate_Tick(object sender, EventArgs e)
+        private void TimerUpdate_Tick(object sender, EventArgs e)
         {
             kp = data[10].num;
             ki = data[11].num;
@@ -721,14 +713,14 @@ namespace usart_tool
 
         private void 更新配置文件ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            data_init();
+            Data_init();
             for (int i = 0; i < 100; i++)
                 table.chartdata[i].name = data[i].name;
         }
         //*****************************初始化图像********************************//
-        private void button5_Click(object sender, EventArgs e)
+        private void Button5_Click(object sender, EventArgs e)
         {
-            imgdatainit();
+            Imgdatainit();
             progressBar1.Value = 0;
         }
         //****************************记录，播放用定时器**************************//
@@ -758,7 +750,7 @@ namespace usart_tool
             {
                 if (retime < time)
                 {
-                    play(retime);
+                    Play(retime);
                     if (ChartEng.Checked)
                         Reflashchartdata(retime);
                     retime++;
@@ -787,7 +779,7 @@ namespace usart_tool
             }
         }
         //******************************播放****************************************//
-        void play(int num)
+        void Play(int num)
         {
             if (ImgEng.Checked)
             {
@@ -810,13 +802,13 @@ namespace usart_tool
             DataReplay(num);
         }
         //****************************拖动进度条*********************************//
-        private void play_bar_Scroll(object sender, EventArgs e)
+        private void Play_bar_Scroll(object sender, EventArgs e)
         {
             retime = play_bar.Value;
             if (play_pause.Text == "play" && retime < time)
             {
                 play_pro.Text = retime.ToString() + "/" + time.ToString();
-                play(retime);
+                Play(retime);
             }
         }
         //****************************上一帧*************************************//
@@ -826,7 +818,7 @@ namespace usart_tool
             if (play_pause.Text == "play" && retime > 0)
             {
                 retime--;
-                play(retime);
+                Play(retime);
             }
         }
         //*******************************下一帧********************************//
@@ -836,7 +828,7 @@ namespace usart_tool
             if (play_pause.Text == "play" && retime < time)
             {
                 retime++;
-                play(retime);
+                Play(retime);
             }
         }
         //*****************************定时器——更新显示数据**********************//
@@ -845,8 +837,8 @@ namespace usart_tool
         //添加speed=changenum("speed");
         private void Datatimer_Tick(object sender, EventArgs e)
         {
-            kp = changenum("kp");
-            showdatas();
+            kp = Changenum("kp");
+            Showdatas();
         }
 
 

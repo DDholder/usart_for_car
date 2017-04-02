@@ -183,7 +183,6 @@ namespace usart_tool
         }
         private void Scope_Paint(object sender, PaintEventArgs e)
         {
-            String Str = "";
             System.Drawing.Drawing2D.GraphicsPath gp = new System.Drawing.Drawing2D.GraphicsPath();
             e.Graphics.FillRectangle(Brushes.White, e.Graphics.ClipBounds);
 
