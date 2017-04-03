@@ -55,7 +55,7 @@ namespace usart_tool
         校赛用.Form1 scoper = new 校赛用.Form1();
         /*****************************************************************/
         //////////////////////////调试变量/////////////////////////////////
-        float kp = 0,ki=0,kd=0;
+        float kp = 0, ki = 0, kd = 0;
         /*****************************************************************/
         ////////////////////////ini所需函数////////////////////////////////
         [DllImport("kernel32")]
@@ -163,7 +163,7 @@ namespace usart_tool
                     if (portbyte[i] == 0xaa && portbyte[i + 1] == 0xbb)
                     {
                         savestrflag = true;
-                        i+=2;
+                        i += 2;
                     }
                 }
                 if (savestrflag)
@@ -193,7 +193,7 @@ namespace usart_tool
                 receive_text.ScrollToCaret();
                 label3.Text = renum.ToString();
             };
-            this.Invoke(showReceive);
+            this.BeginInvoke(showReceive);
         }
         //解读参数
         //数据解读已能用
@@ -205,7 +205,7 @@ namespace usart_tool
 
             for (int s = 1; s < n; s++)
             {
-                if (str[s] == 0xba && str[s - 1] == 0xab&&s+5<=str.Length)
+                if (str[s] == 0xba && str[s - 1] == 0xab && s + 5 < str.Length)
                 {
                     ID = str[s + 1];
                     byte[] ch = { str[s + 2], str[s + 3], str[s + 4], str[s + 5] };
@@ -213,10 +213,22 @@ namespace usart_tool
                     {
                         fixed (byte* pData = ch)   //正确，使用fixed固定 
                         {
+                            if(ID<100)
                             data[ID].num = *(float*)pData;
                         }
                     }
                     s += 5;
+                    if (ID == 99)
+                    {
+                        Action SendDataToSco = () =>
+                        {
+                           // if(ID==99)
+                            scoper.data.Add(data[99].num);
+                            scoper.RefreshSco();
+                        };
+                        this.BeginInvoke(SendDataToSco);
+
+                    }
                 }
                 if (str[s] == 0xdc && str[s - 1] == 0xcd && str[s - 2] == 0xcc)
                 {
@@ -244,26 +256,31 @@ namespace usart_tool
                 if (data[i].name == sendname0.Text)
                 {
                     sendID0.Text = i.ToString();
+                    sendnum0.Text = data[i].num.ToString();
                     flag0 = false;
                 }
                 if (data[i].name == sendname1.Text)
                 {
                     sendID1.Text = i.ToString();
+                    sendnum1.Text = data[i].num.ToString();
                     flag1 = false;
                 }
                 if (data[i].name == sendname2.Text)
                 {
                     sendID2.Text = i.ToString();
+                    sendnum2.Text = data[i].num.ToString();
                     flag2 = false;
                 }
                 if (data[i].name == sendname3.Text)
                 {
                     sendID3.Text = i.ToString();
+                    sendnum3.Text = data[i].num.ToString();
                     flag3 = false;
                 }
                 if (data[i].name == sendname4.Text)
                 {
                     sendID4.Text = i.ToString();
+                    sendnum4.Text = data[i].num.ToString();
                     flag4 = false;
                 }
 
@@ -699,6 +716,22 @@ namespace usart_tool
                 if (e.KeyCode == Keys.Space) Sendnum(0, 0);
         }
 
+        private void 示波器ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            scoper = new 校赛用.Form1();
+            scoper.Show();
+        }
+
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            serialPort1.Close();
+        }
+
+        private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            serialPort1.Close();
+        }
+
         private void MainForm_KeyUp(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Control) flag_key = false;
@@ -863,10 +896,14 @@ namespace usart_tool
                 if (data[i].name == name3) cID3 = i;
                 if (data[i].name == name4) cID4 = i;
             }
-            chart1.Series[0].Name = data[cID1].name;
-            chart1.Series[1].Name = data[cID2].name;
-            chart1.Series[2].Name = data[cID3].name;
-            chart1.Series[3].Name = data[cID4].name;
+            if (textBox1.Text !="")
+                chart1.Series[0].Name = data[cID1].name;
+            if (textBox2.Text != "")
+                chart1.Series[1].Name = data[cID2].name;
+            if (textBox3.Text != "")
+                chart1.Series[2].Name = data[cID3].name;
+            if (textBox4.Text != "")
+                chart1.Series[3].Name = data[cID4].name;
             table.reflashChart(chart1, num, cID1, cID2, cID3, cID4);
         }
         //****************************更新显示图表数据***********************//

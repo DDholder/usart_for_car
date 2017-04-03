@@ -158,6 +158,7 @@
             this.timerUpdate = new System.Windows.Forms.Timer(this.components);
             this.label15 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
+            this.示波器ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -1291,7 +1292,8 @@
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.文件ToolStripMenuItem,
-            this.工具ToolStripMenuItem});
+            this.工具ToolStripMenuItem,
+            this.示波器ToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Padding = new System.Windows.Forms.Padding(5, 2, 0, 2);
@@ -1389,6 +1391,13 @@
             this.label16.TabIndex = 67;
             this.label16.Text = "串口发送";
             // 
+            // 示波器ToolStripMenuItem
+            // 
+            this.示波器ToolStripMenuItem.Name = "示波器ToolStripMenuItem";
+            this.示波器ToolStripMenuItem.Size = new System.Drawing.Size(66, 24);
+            this.示波器ToolStripMenuItem.Text = "示波器";
+            this.示波器ToolStripMenuItem.Click += new System.EventHandler(this.示波器ToolStripMenuItem_Click);
+            // 
             // mainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
@@ -1413,6 +1422,8 @@
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "mainForm";
             this.Text = "中国民航大学智能车队";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainForm_FormClosed);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MainForm_KeyDown);
             this.tabControl1.ResumeLayout(false);
@@ -1571,6 +1582,7 @@
         private System.Windows.Forms.Timer timerUpdate;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.ToolStripMenuItem 示波器ToolStripMenuItem;
     }
 }
 

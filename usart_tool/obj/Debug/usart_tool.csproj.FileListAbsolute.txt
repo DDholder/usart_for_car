@@ -44,3 +44,6 @@ F:\_27_第十二届智能车\usart_for_car\usart_tool\obj\Debug\usart_tool.mainF
 F:\_27_第十二届智能车\usart_for_car\usart_tool\obj\Debug\usart_tool.Properties.Resources.resources
 F:\_27_第十二届智能车\usart_for_car\usart_tool\obj\Debug\usart_tool.Scope.resources
 F:\_27_第十二届智能车\usart_for_car\usart_tool\obj\Debug\usart_tool.csproj.GenerateResource.Cache
+F:\vs project\usart_tool\usart_for_car\usart_tool\bin\Debug\校赛用.exe
+F:\vs project\usart_tool\usart_for_car\usart_tool\bin\Debug\校赛用.pdb
+F:\vs project\usart_tool\usart_for_car\usart_tool\bin\Debug\校赛用.exe.config
