@@ -50,9 +50,10 @@ namespace usart_tool
         byte[] end = { 0xcc, 0xdd, 0xee };//包尾
         List<byte> readList = new List<byte>();//文件读取缓存链表
         Chart table = new Chart();//图表窗口
-        Scope Displayer;//示波窗口
+        Thread thread_sendnum;//线程：发送数据
+        bool enSend = false;
         img_player.Form1 player = new img_player.Form1();
-        校赛用.Form1 scoper = new 校赛用.Form1();
+        Scope.Form1 scoper = new Scope.Form1();
         /*****************************************************************/
         //////////////////////////调试变量/////////////////////////////////
         float kp = 0, ki = 0, kd = 0;
@@ -213,8 +214,8 @@ namespace usart_tool
                     {
                         fixed (byte* pData = ch)   //正确，使用fixed固定 
                         {
-                            if(ID<100)
-                            data[ID].num = *(float*)pData;
+                            if (ID < 100)
+                                data[ID].num = *(float*)pData;
                         }
                     }
                     s += 5;
@@ -222,9 +223,9 @@ namespace usart_tool
                     {
                         Action SendDataToSco = () =>
                         {
-                           // if(ID==99)
+                            // if(ID==99)
                             scoper.data.Add(data[99].num);
-                            scoper.RefreshSco();
+                            scoper.Invalidate();
                         };
                         this.BeginInvoke(SendDataToSco);
 
@@ -294,49 +295,7 @@ namespace usart_tool
 
         private void Senddata_Click(object sender, EventArgs e)
         {
-            try
-            {
-                int id = 0; float n = 0;
-                if (sendID0.Text != "error")
-                {
-                    id = int.Parse(sendID0.Text);
-                    n = float.Parse(sendnum0.Text);
-                    Sendnum((byte)id, n);
-                    Thread.Sleep(200);
-                }
-                if (sendID1.Text != "error")
-                {
-                    id = int.Parse(sendID1.Text);
-                    n = float.Parse(sendnum1.Text);
-                    Sendnum((byte)id, n);
-                    Thread.Sleep(200);
-                }
-                if (sendID2.Text != "error")
-                {
-                    id = int.Parse(sendID2.Text);
-                    n = float.Parse(sendnum2.Text);
-                    Sendnum((byte)id, n);
-                    Thread.Sleep(200);
-                }
-                if (sendID3.Text != "error")
-                {
-                    id = int.Parse(sendID3.Text);
-                    n = float.Parse(sendnum3.Text);
-                    Sendnum((byte)id, n);
-                    Thread.Sleep(200);
-                }
-                if (sendID4.Text != "error")
-                {
-                    id = int.Parse(sendID4.Text);
-                    n = float.Parse(sendnum4.Text);
-                    Sendnum((byte)id, n);
-                    Thread.Sleep(200);
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.ToString());
-            }
+            enSend = true;
         }
         //解压图像
         void Changemap(byte[] imgbuff)
@@ -502,6 +461,61 @@ namespace usart_tool
             PlayMode.SelectedIndex = 0;
             ImgEng.Checked = true;
             tabControl1.SelectedIndex = 1;        //选项卡默认设置为摄像头选项卡   
+            thread_sendnum = new Thread(new ThreadStart(Pro_sendnum));
+            thread_sendnum.Start();
+        }
+        void Pro_sendnum()
+        {
+            while (true)
+            {
+                if (enSend)
+                {
+                    try
+                    {
+                        int id = 0; float n = 0;
+                        if (sendID0.Text != "error")
+                        {
+                            id = int.Parse(sendID0.Text);
+                            n = float.Parse(sendnum0.Text);
+                            Sendnum((byte)id, n);
+                            Thread.Sleep(200);
+                        }
+                        if (sendID1.Text != "error")
+                        {
+                            id = int.Parse(sendID1.Text);
+                            n = float.Parse(sendnum1.Text);
+                            Sendnum((byte)id, n);
+                            Thread.Sleep(200);
+                        }
+                        if (sendID2.Text != "error")
+                        {
+                            id = int.Parse(sendID2.Text);
+                            n = float.Parse(sendnum2.Text);
+                            Sendnum((byte)id, n);
+                            Thread.Sleep(200);
+                        }
+                        if (sendID3.Text != "error")
+                        {
+                            id = int.Parse(sendID3.Text);
+                            n = float.Parse(sendnum3.Text);
+                            Sendnum((byte)id, n);
+                            Thread.Sleep(200);
+                        }
+                        if (sendID4.Text != "error")
+                        {
+                            id = int.Parse(sendID4.Text);
+                            n = float.Parse(sendnum4.Text);
+                            Sendnum((byte)id, n);
+                            Thread.Sleep(200);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.ToString());
+                    }
+                    enSend = false;
+                }
+            }
         }
 
         void Display(int[,] image_buff)
@@ -528,21 +542,21 @@ namespace usart_tool
 
         private void CreateNewDrawer()//创建ADC绘制窗口
         {
-            Displayer = new Scope();//创建新对象
+           //Displayer = new Scope();//创建新对象
             //Displayer.ShowMainWindow = new ShowWindow(ShowMe);//初始化类成员委托
             //Displayer.HideMainWindow = new HideWindow(HideMe);
             //Displayer.GetMainPos = new GetMainPos(GetMyPos);
             //Displayer.CloseSerialPort = new ClosePort(ClosePort);
             //Displayer.OpenSerialPort = new OpenPort(OpenPort);
             //Displayer.GetMainWidth = new GetMainWidth(GetMyWidth);
-            Displayer.Show();//显示窗口
+            //Displayer.Show();//显示窗口
         }
         private void CreateDisplayer()
         {
             this.Left = 0;
             CreateNewDrawer();
             Rectangle Rect = Screen.GetWorkingArea(this);
-            Displayer.SetWindow(Rect.Width - this.Width, new Point(this.Width, this.Top));//设置绘制窗口宽度，以及坐标
+            //Displayer.SetWindow(Rect.Width - this.Width, new Point(this.Width, this.Top));//设置绘制窗口宽度，以及坐标
         }
         private void Button3_Click(object sender, EventArgs e)
         {
@@ -718,18 +732,20 @@ namespace usart_tool
 
         private void 示波器ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            scoper = new 校赛用.Form1();
+            scoper = new Scope.Form1();
             scoper.Show();
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             serialPort1.Close();
+            thread_sendnum.Abort();
         }
 
         private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
         {
             serialPort1.Close();
+            thread_sendnum.Abort();
         }
 
         private void MainForm_KeyUp(object sender, KeyEventArgs e)
@@ -896,7 +912,7 @@ namespace usart_tool
                 if (data[i].name == name3) cID3 = i;
                 if (data[i].name == name4) cID4 = i;
             }
-            if (textBox1.Text !="")
+            if (textBox1.Text != "")
                 chart1.Series[0].Name = data[cID1].name;
             if (textBox2.Text != "")
                 chart1.Series[1].Name = data[cID2].name;
@@ -945,5 +961,6 @@ namespace usart_tool
             label12.Text = fps[num].value[ID9].ToString();
             label13.Text = fps[num].value[ID10].ToString();
         }
+
     }
 }

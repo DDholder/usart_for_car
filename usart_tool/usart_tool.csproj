@@ -43,6 +43,9 @@
       <HintPath>..\..\img_player\img_player\bin\Debug\img_player.exe</HintPath>
       <EmbedInteropTypes>False</EmbedInteropTypes>
     </Reference>
+    <Reference Include="Scope">
+      <HintPath>..\..\Scope\Scope\bin\Debug\Scope.exe</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Windows.Forms.DataVisualization" />
@@ -55,9 +58,6 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
-    <Reference Include="校赛用">
-      <HintPath>..\..\校赛用\校赛用\bin\Debug\校赛用.exe</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Chart.cs" />
@@ -69,12 +69,6 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Scope.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Scope.Designer.cs">
-      <DependentUpon>Scope.cs</DependentUpon>
-    </Compile>
     <EmbeddedResource Include="mainForm.resx">
       <DependentUpon>mainForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -88,9 +82,6 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="Scope.resx">
-      <DependentUpon>Scope.cs</DependentUpon>
-    </EmbeddedResource>
     <None Include="Properties\DataSources\datas.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
