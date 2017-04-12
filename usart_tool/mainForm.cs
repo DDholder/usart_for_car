@@ -295,7 +295,8 @@ namespace usart_tool
 
         private void Senddata_Click(object sender, EventArgs e)
         {
-            enSend = true;
+            thread_sendnum = new Thread(new ThreadStart(Pro_sendnum));
+            thread_sendnum.Start();
         }
         //解压图像
         void Changemap(byte[] imgbuff)
@@ -461,61 +462,54 @@ namespace usart_tool
             PlayMode.SelectedIndex = 0;
             ImgEng.Checked = true;
             tabControl1.SelectedIndex = 1;        //选项卡默认设置为摄像头选项卡   
-            thread_sendnum = new Thread(new ThreadStart(Pro_sendnum));
-            thread_sendnum.Start();
         }
         void Pro_sendnum()
         {
-            while (true)
+            try
             {
-                if (enSend)
+                int id = 0; float n = 0;
+                if (sendID0.Text != "error")
                 {
-                    try
-                    {
-                        int id = 0; float n = 0;
-                        if (sendID0.Text != "error")
-                        {
-                            id = int.Parse(sendID0.Text);
-                            n = float.Parse(sendnum0.Text);
-                            Sendnum((byte)id, n);
-                            Thread.Sleep(200);
-                        }
-                        if (sendID1.Text != "error")
-                        {
-                            id = int.Parse(sendID1.Text);
-                            n = float.Parse(sendnum1.Text);
-                            Sendnum((byte)id, n);
-                            Thread.Sleep(200);
-                        }
-                        if (sendID2.Text != "error")
-                        {
-                            id = int.Parse(sendID2.Text);
-                            n = float.Parse(sendnum2.Text);
-                            Sendnum((byte)id, n);
-                            Thread.Sleep(200);
-                        }
-                        if (sendID3.Text != "error")
-                        {
-                            id = int.Parse(sendID3.Text);
-                            n = float.Parse(sendnum3.Text);
-                            Sendnum((byte)id, n);
-                            Thread.Sleep(200);
-                        }
-                        if (sendID4.Text != "error")
-                        {
-                            id = int.Parse(sendID4.Text);
-                            n = float.Parse(sendnum4.Text);
-                            Sendnum((byte)id, n);
-                            Thread.Sleep(200);
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.ToString());
-                    }
-                    enSend = false;
+                    id = int.Parse(sendID0.Text);
+                    n = float.Parse(sendnum0.Text);
+                    Sendnum((byte)id, n);
+                    Thread.Sleep(200);
+                }
+                if (sendID1.Text != "error")
+                {
+                    id = int.Parse(sendID1.Text);
+                    n = float.Parse(sendnum1.Text);
+                    Sendnum((byte)id, n);
+                    Thread.Sleep(200);
+                }
+                if (sendID2.Text != "error")
+                {
+                    id = int.Parse(sendID2.Text);
+                    n = float.Parse(sendnum2.Text);
+                    Sendnum((byte)id, n);
+                    Thread.Sleep(200);
+                }
+                if (sendID3.Text != "error")
+                {
+                    id = int.Parse(sendID3.Text);
+                    n = float.Parse(sendnum3.Text);
+                    Sendnum((byte)id, n);
+                    Thread.Sleep(200);
+                }
+                if (sendID4.Text != "error")
+                {
+                    id = int.Parse(sendID4.Text);
+                    n = float.Parse(sendnum4.Text);
+                    Sendnum((byte)id, n);
+                    Thread.Sleep(200);
                 }
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+            enSend = false;
+            thread_sendnum.Abort();
         }
 
         void Display(int[,] image_buff)
@@ -542,7 +536,7 @@ namespace usart_tool
 
         private void CreateNewDrawer()//创建ADC绘制窗口
         {
-           //Displayer = new Scope();//创建新对象
+            //Displayer = new Scope();//创建新对象
             //Displayer.ShowMainWindow = new ShowWindow(ShowMe);//初始化类成员委托
             //Displayer.HideMainWindow = new HideWindow(HideMe);
             //Displayer.GetMainPos = new GetMainPos(GetMyPos);
