@@ -203,7 +203,6 @@ namespace usart_tool
         void Readstring(byte[] str, int n)
         {
             byte ID;
-
             for (int s = 1; s < n; s++)
             {
                 if (str[s] == 0xba && str[s - 1] == 0xab && s + 5 < str.Length)
@@ -215,21 +214,30 @@ namespace usart_tool
                         fixed (byte* pData = ch)   //正确，使用fixed固定 
                         {
                             if (ID < 100)
+                            {
                                 data[ID].num = *(float*)pData;
+                                scoper.member[ID].num = data[ID].num;
+                                if (scoper.enGo)
+                                {
+                                    scoper.Add_data();
+                                    scoper.Invalidate();
+                                }
+                            }
                         }
                     }
                     s += 5;
-                    if (ID == 99)
-                    {
-                        Action SendDataToSco = () =>
-                        {
-                            // if(ID==99)
-                            scoper.data.Add(data[99].num);
-                            scoper.Invalidate();
-                        };
-                        this.BeginInvoke(SendDataToSco);
+                    
+                    //if (ID == 99)
+                    //{
+                    //    Action SendDataToSco = () =>
+                    //    {
+                    //        // if(ID==99)
+                    //        scoper.data.Add(data[99].num);
+                    //        scoper.Invalidate();
+                    //    };
+                    //    this.BeginInvoke(SendDataToSco);
 
-                    }
+                    //}
                 }
                 if (str[s] == 0xdc && str[s - 1] == 0xcd && str[s - 2] == 0xcc)
                 {
@@ -462,6 +470,7 @@ namespace usart_tool
             PlayMode.SelectedIndex = 0;
             ImgEng.Checked = true;
             tabControl1.SelectedIndex = 1;        //选项卡默认设置为摄像头选项卡   
+            comboBox1.SelectedIndex = 0;
         }
         void Pro_sendnum()
         {
@@ -733,6 +742,7 @@ namespace usart_tool
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             serialPort1.Close();
+            thread_sendnum = new Thread(new ThreadStart(Pro_sendnum));
             thread_sendnum.Abort();
         }
 
