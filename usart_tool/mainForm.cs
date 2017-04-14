@@ -151,12 +151,18 @@ namespace usart_tool
             }
         }
         //**************************串口数据接受******************************************//
+        bool bBusy = false;
         private void SerialPort1_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
             int n = serialPort1.BytesToRead;
             byte[] portbyte = new byte[n];
             serialPort1.Read(portbyte, 0, n);
             string portRead = Encoding.UTF8.GetString(portbyte);
+            Action gggw = () =>
+            {
+                label17.Text = "wait";
+            };
+            BeginInvoke(gggw);
             for (int i = 0; i < n; i++)
             {
                 if (i + 2 < n)
@@ -174,7 +180,23 @@ namespace usart_tool
                     {
                         savestrflag = false;
                         byte[] bytehandler = strlist.ToArray();
-                        Readstring(bytehandler, bytehandler.Length - 3);
+                        // Readstring(bytehandler, bytehandler.Length - 3);
+                        if (!backgroundWorker1.IsBusy)
+                            backgroundWorker1.RunWorkerAsync(bytehandler);
+                        else if (!backgroundWorker3.IsBusy)
+                            backgroundWorker3.RunWorkerAsync(bytehandler);
+                        else if (!backgroundWorker4.IsBusy)
+                            backgroundWorker4.RunWorkerAsync(bytehandler);
+                        else if (!backgroundWorker5.IsBusy)
+                            backgroundWorker5.RunWorkerAsync(bytehandler);
+                        else
+                        {
+                            Action ggg = () =>
+                             {
+                                 label17.Text = "busy";
+                             };
+                            BeginInvoke(ggg);
+                        }
                         strlist.Clear();
                         break;
                     }
@@ -188,13 +210,13 @@ namespace usart_tool
                 }
             }
             renum += portRead.Length;
-            Action showReceive = () =>
-            {
-                receive_text.AppendText(portRead);
-                receive_text.ScrollToCaret();
-                label3.Text = renum.ToString();
-            };
-            this.BeginInvoke(showReceive);
+            //Action showReceive = () =>
+            //{
+            //    receive_text.AppendText( portRead);
+            //    receive_text.ScrollToCaret();
+            //    //label3.Text = renum.ToString();
+            //};
+            //this.BeginInvoke(showReceive);
         }
         //解读参数
         //数据解读已能用
@@ -219,14 +241,20 @@ namespace usart_tool
                                 scoper.member[ID].num = data[ID].num;
                                 if (scoper.enGo)
                                 {
-                                    scoper.Add_data();
-                                    scoper.Invalidate();
+                                    //Action SendDataToSco = () =>
+                                    //{
+                                    //    scoper.Add_data();
+                                    //    scoper.Invalidate();
+                                    //};
+                                    //this.Invoke(SendDataToSco);
+                                    if (!backgroundWorker2.IsBusy)
+                                        backgroundWorker2.RunWorkerAsync();
                                 }
                             }
                         }
                     }
                     s += 5;
-                    
+
                     //if (ID == 99)
                     //{
                     //    Action SendDataToSco = () =>
@@ -741,6 +769,7 @@ namespace usart_tool
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
+
             serialPort1.Close();
             thread_sendnum = new Thread(new ThreadStart(Pro_sendnum));
             thread_sendnum.Abort();
@@ -750,6 +779,32 @@ namespace usart_tool
         {
             serialPort1.Close();
             thread_sendnum.Abort();
+        }
+
+        private void backgroundWorker1_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
+        {
+            Readstring((byte[])e.Argument, ((byte[])e.Argument).Length);
+        }
+
+        private void backgroundWorker2_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
+        {
+            scoper.Add_data();
+            scoper.Invalidate();
+        }
+
+        private void backgroundWorker3_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
+        {
+            Readstring((byte[])e.Argument, ((byte[])e.Argument).Length);
+        }
+
+        private void backgroundWorker4_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
+        {
+            Readstring((byte[])e.Argument, ((byte[])e.Argument).Length);
+        }
+
+        private void backgroundWorker5_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
+        {
+            Readstring((byte[])e.Argument, ((byte[])e.Argument).Length);
         }
 
         private void MainForm_KeyUp(object sender, KeyEventArgs e)
