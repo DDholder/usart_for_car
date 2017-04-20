@@ -51,7 +51,6 @@ namespace usart_tool
         List<byte> readList = new List<byte>();//文件读取缓存链表
         Chart table = new Chart();//图表窗口
         Thread thread_sendnum;//线程：发送数据
-        bool enSend = false;
         img_player.Form1 player = new img_player.Form1();
         Scope.Form1 scoper = new Scope.Form1();
         /*****************************************************************/
@@ -151,18 +150,21 @@ namespace usart_tool
             }
         }
         //**************************串口数据接受******************************************//
-        bool bBusy = false;
+
         private void SerialPort1_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
             int n = serialPort1.BytesToRead;
             byte[] portbyte = new byte[n];
             serialPort1.Read(portbyte, 0, n);
             string portRead = Encoding.UTF8.GetString(portbyte);
-            Action gggw = () =>
+            if (label17.Text == "busy")
             {
-                label17.Text = "wait";
-            };
-            BeginInvoke(gggw);
+                Action gggw = () =>
+                {
+                    label17.Text = "wait";
+                };
+                BeginInvoke(gggw);
+            }
             for (int i = 0; i < n; i++)
             {
                 if (i + 2 < n)
@@ -176,6 +178,7 @@ namespace usart_tool
                 if (savestrflag)
                     strlist.Add(portbyte[i]);
                 if (strlist.Count > 3)
+                {
                     if (strlist[strlist.Count - 1] == 0xee && strlist[strlist.Count - 2] == 0xdd && strlist[strlist.Count - 3] == 0xcc)
                     {
                         savestrflag = false;
@@ -200,6 +203,7 @@ namespace usart_tool
                         strlist.Clear();
                         break;
                     }
+                }
             }
             if (checkConnect.Checked)
             {
@@ -210,13 +214,16 @@ namespace usart_tool
                 }
             }
             renum += portRead.Length;
-            //Action showReceive = () =>
-            //{
-            //    receive_text.AppendText( portRead);
-            //    receive_text.ScrollToCaret();
-            //    //label3.Text = renum.ToString();
-            //};
-            //this.BeginInvoke(showReceive);
+            if (!savestrflag)
+            {
+                Action showReceive = () =>
+                            {
+                                receive_text.AppendText(portRead);
+                                receive_text.ScrollToCaret();
+                                label3.Text = renum.ToString();
+                            };
+                this.BeginInvoke(showReceive);
+            }
         }
         //解读参数
         //数据解读已能用
@@ -545,7 +552,6 @@ namespace usart_tool
             {
                 MessageBox.Show(ex.ToString());
             }
-            enSend = false;
             thread_sendnum.Abort();
         }
 
