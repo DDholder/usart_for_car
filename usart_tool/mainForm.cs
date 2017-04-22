@@ -201,7 +201,14 @@ namespace usart_tool
                             BeginInvoke(ggg);
                         }
                         strlist.Clear();
-                        break;
+                        if (i + 2 < n)
+                        {
+                            if (portbyte[i] == 0xaa && portbyte[i + 1] == 0xbb)
+                            {
+                                savestrflag = true;
+                                i += 2;
+                            }
+                        }
                     }
                 }
             }
@@ -225,6 +232,7 @@ namespace usart_tool
                 this.BeginInvoke(showReceive);
             }
         }
+        bool flag_AddData = false;
         //解读参数
         //数据解读已能用
         //图像包头：0xcc,0xcd,0xdc
@@ -232,6 +240,7 @@ namespace usart_tool
         void Readstring(byte[] str, int n)
         {
             byte ID;
+            flag_AddData = false;
             for (int s = 1; s < n; s++)
             {
                 if (str[s] == 0xba && str[s - 1] == 0xab && s + 5 < str.Length)
@@ -248,14 +257,7 @@ namespace usart_tool
                                 scoper.member[ID].num = data[ID].num;
                                 if (scoper.enGo)
                                 {
-                                    //Action SendDataToSco = () =>
-                                    //{
-                                    //    scoper.Add_data();
-                                    //    scoper.Invalidate();
-                                    //};
-                                    //this.Invoke(SendDataToSco);
-                                    if (!backgroundWorker2.IsBusy)
-                                        backgroundWorker2.RunWorkerAsync();
+                                    flag_AddData = true;
                                 }
                             }
                         }
@@ -274,10 +276,11 @@ namespace usart_tool
 
                     //}
                 }
-                if (str[s] == 0xdc && str[s - 1] == 0xcd && str[s - 2] == 0xcc)
-                {
-                    Readpic(str, s);
-                }
+                if (s - 2 >= 0)
+                    if (str[s] == 0xdc && str[s - 1] == 0xcd && str[s - 2] == 0xcc)
+                    {
+                        Readpic(str, s);
+                    }
             }
         }
         //串口解读图像
@@ -790,27 +793,97 @@ namespace usart_tool
         private void backgroundWorker1_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
         {
             Readstring((byte[])e.Argument, ((byte[])e.Argument).Length);
+            if (flag_AddData)
+            {
+                if (!backgroundWorker2.IsBusy)
+                {
+                    backgroundWorker2.RunWorkerAsync();
+                }
+                flag_AddData = false;
+            }
         }
 
         private void backgroundWorker2_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
         {
-            scoper.Add_data();
-            scoper.Invalidate();
+            Action SendDataToSco = () =>
+            {
+                scoper.Add_data();
+                scoper.Invalidate();
+            };
+            if (!scoper.IsDisposed)
+                this.Invoke(SendDataToSco);
         }
 
         private void backgroundWorker3_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
         {
             Readstring((byte[])e.Argument, ((byte[])e.Argument).Length);
+            if (flag_AddData)
+            {
+                if (!backgroundWorker6.IsBusy)
+                {
+                    backgroundWorker6.RunWorkerAsync();
+                }
+                flag_AddData = false;
+            }
         }
 
         private void backgroundWorker4_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
         {
             Readstring((byte[])e.Argument, ((byte[])e.Argument).Length);
+            if (flag_AddData)
+            {
+                if (!backgroundWorker7.IsBusy)
+                {
+                    backgroundWorker7.RunWorkerAsync();
+                }
+                flag_AddData = false;
+            }
         }
 
         private void backgroundWorker5_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
         {
             Readstring((byte[])e.Argument, ((byte[])e.Argument).Length);
+            if (flag_AddData)
+            {
+                if (!backgroundWorker8.IsBusy)
+                {
+                    backgroundWorker8.RunWorkerAsync();
+                }
+                flag_AddData = false;
+            }
+        }
+
+        private void backgroundWorker6_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
+        {
+            Action SendDataToSco = () =>
+            {
+                scoper.Add_data();
+                scoper.Invalidate();
+            };
+            if (!scoper.IsDisposed)
+                this.Invoke(SendDataToSco);
+        }
+
+        private void backgroundWorker7_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
+        {
+            Action SendDataToSco = () =>
+            {
+                scoper.Add_data();
+                scoper.Invalidate();
+            };
+            if (!scoper.IsDisposed)
+                this.Invoke(SendDataToSco);
+        }
+
+        private void backgroundWorker8_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
+        {
+            Action SendDataToSco = () =>
+            {
+                scoper.Add_data();
+                scoper.Invalidate();
+            };
+            if (!scoper.IsDisposed)
+                this.Invoke(SendDataToSco);
         }
 
         private void MainForm_KeyUp(object sender, KeyEventArgs e)
