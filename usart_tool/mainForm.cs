@@ -886,6 +886,20 @@ namespace usart_tool
                 this.Invoke(SendDataToSco);
         }
 
+        private void button2_Click(object sender, EventArgs e)
+        {
+            int i = 0;
+            foreach (Control myControls in groupBox3.Controls)
+            {
+                if (myControls.ToString().IndexOf("TextBox") > 0)
+                {
+
+                    myControls.Text = i.ToString();
+                    i++;
+                }
+            }
+        }
+
         private void MainForm_KeyUp(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Control) flag_key = false;

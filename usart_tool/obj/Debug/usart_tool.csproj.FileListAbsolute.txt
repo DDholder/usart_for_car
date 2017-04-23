@@ -46,3 +46,17 @@ F:\_27_第十二届智能车\usart_for_car\usart_tool\obj\Debug\usart_tool.cspro
 F:\vs project\usart_tool\usart_for_car\usart_tool\bin\Debug\Scope.exe
 F:\vs project\usart_tool\usart_for_car\usart_tool\bin\Debug\Scope.pdb
 F:\vs project\usart_tool\usart_for_car\usart_tool\bin\Debug\Scope.exe.config
+D:\文档\GitHub\usart_for_car\usart_tool\bin\Debug\usart_tool.exe.config
+D:\文档\GitHub\usart_for_car\usart_tool\bin\Debug\usart_tool.exe
+D:\文档\GitHub\usart_for_car\usart_tool\bin\Debug\usart_tool.pdb
+D:\文档\GitHub\usart_for_car\usart_tool\bin\Debug\img_player.exe
+D:\文档\GitHub\usart_for_car\usart_tool\bin\Debug\img_player.pdb
+D:\文档\GitHub\usart_for_car\usart_tool\bin\Debug\img_player.exe.config
+D:\文档\GitHub\usart_for_car\usart_tool\bin\Debug\Scope.pdb
+D:\文档\GitHub\usart_for_car\usart_tool\bin\Debug\Scope.exe.config
+D:\文档\GitHub\usart_for_car\usart_tool\obj\Debug\usart_tool.csprojResolveAssemblyReference.cache
+D:\文档\GitHub\usart_for_car\usart_tool\obj\Debug\usart_tool.mainForm.resources
+D:\文档\GitHub\usart_for_car\usart_tool\obj\Debug\usart_tool.Properties.Resources.resources
+D:\文档\GitHub\usart_for_car\usart_tool\obj\Debug\usart_tool.csproj.GenerateResource.Cache
+D:\文档\GitHub\usart_for_car\usart_tool\obj\Debug\usart_tool.exe
+D:\文档\GitHub\usart_for_car\usart_tool\obj\Debug\usart_tool.pdb
