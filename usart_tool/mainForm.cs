@@ -39,7 +39,6 @@ namespace usart_tool
         int[,] map = new int[80, 60];//解压后图像
         public int time = 0, retime = 0;//记录时间和回放时间
         float elec1 = 10, elec2 = 20;//两个电感值
-        int area = 1000;//电感范围
         string replaystate = "record";//记录状态
         long renum = 0;//接收到的字节数
         bool savestrflag = false, filestrflag = false;
@@ -55,7 +54,6 @@ namespace usart_tool
         Scope.Form1 scoper = new Scope.Form1();
         /*****************************************************************/
         //////////////////////////调试变量/////////////////////////////////
-        float kp = 0, ki = 0, kd = 0;
         /*****************************************************************/
         ////////////////////////ini所需函数////////////////////////////////
         [DllImport("kernel32")]
@@ -129,7 +127,9 @@ namespace usart_tool
             }
             catch (Exception ex)
             {
+                Timerscanserial.Enabled = false;
                 MessageBox.Show(ex.ToString());
+                
             }
         }
 
@@ -402,12 +402,6 @@ namespace usart_tool
         //send_elec(第一个值,第二个值);
         //例：第一个值15，第二个值68
         //send_elec(15,68);
-        void Send_elec(float ad1, float ad2)
-        {
-            Sendnum(90, ad1);
-            Thread.Sleep(10);
-            Sendnum(91, ad2);
-        }
         private void Play_pause_Click(object sender, EventArgs e)
         {
             if (Record_timer.Enabled == false)
@@ -450,23 +444,6 @@ namespace usart_tool
                 Record.Text = "record";
                 Record_timer.Enabled = false;
             }
-        }
-        //*********************更改参数//////////////////////////////////////
-        //更改参数
-        //待改参数=changenum(待改参数名）;
-        //例：Speed_Kd=changenum("Speed_Kd");
-        float Changenum(string name)
-        {
-            float n = 0;
-            for (int i = 0; i < 102; i++)
-            {
-                if (data[i].name == name)
-                {
-                    n = data[i].num;
-                    break;
-                }
-            }
-            return n;
         }
         //****************************显示参数*****************************//
         //显示参数
@@ -580,27 +557,10 @@ namespace usart_tool
             }
         }
 
-        private void CreateNewDrawer()//创建ADC绘制窗口
-        {
-            //Displayer = new Scope();//创建新对象
-            //Displayer.ShowMainWindow = new ShowWindow(ShowMe);//初始化类成员委托
-            //Displayer.HideMainWindow = new HideWindow(HideMe);
-            //Displayer.GetMainPos = new GetMainPos(GetMyPos);
-            //Displayer.CloseSerialPort = new ClosePort(ClosePort);
-            //Displayer.OpenSerialPort = new OpenPort(OpenPort);
-            //Displayer.GetMainWidth = new GetMainWidth(GetMyWidth);
-            //Displayer.Show();//显示窗口
-        }
-        private void CreateDisplayer()
-        {
-            this.Left = 0;
-            CreateNewDrawer();
-            Rectangle Rect = Screen.GetWorkingArea(this);
-            //Displayer.SetWindow(Rect.Width - this.Width, new Point(this.Width, this.Top));//设置绘制窗口宽度，以及坐标
-        }
+
         private void Button3_Click(object sender, EventArgs e)
         {
-            CreateDisplayer();
+            //CreateDisplayer();
         }
 
 
@@ -657,7 +617,7 @@ namespace usart_tool
             }
             catch (IOException e)
             {
-                Console.WriteLine(e.ToString());
+                MessageBox.Show(e.ToString());
             }
         }
         //**************************解压txt图像文件****************************//
@@ -742,13 +702,13 @@ namespace usart_tool
                 byte[] readByte = new byte[file.Length];
                 file.Seek(0, SeekOrigin.Begin);
                 file.Read(readByte, 0, readByte.Length); //byData传进来的字节数组,用以接受FileStream对象中的数据,第2个参数是字节数组中开始写入数据的位置,它通常是0,表示从数组的开端文件中向数组写数据,最后一个参数规定从文件读多少字符.
-                receive_text.Text = System.Text.Encoding.ASCII.GetString(readByte);
+                receive_text.Text = Encoding.ASCII.GetString(readByte);
                 Read_imgFile(readByte, readByte.Length);
                 file.Close();
             }
             catch (IOException err)
             {
-                Console.WriteLine(err.ToString());
+                MessageBox.Show(err.ToString());
             }
         }
         private void CheckConnect_CheckedChanged(object sender, EventArgs e)
@@ -790,7 +750,7 @@ namespace usart_tool
             thread_sendnum.Abort();
         }
 
-        private void backgroundWorker1_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
+        private void BackgroundWorker1_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
         {
             Readstring((byte[])e.Argument, ((byte[])e.Argument).Length);
             if (flag_AddData)
@@ -803,7 +763,7 @@ namespace usart_tool
             }
         }
 
-        private void backgroundWorker2_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
+        private void BackgroundWorker2_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
         {
             Action SendDataToSco = () =>
             {
@@ -814,7 +774,7 @@ namespace usart_tool
                 this.Invoke(SendDataToSco);
         }
 
-        private void backgroundWorker3_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
+        private void BackgroundWorker3_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
         {
             Readstring((byte[])e.Argument, ((byte[])e.Argument).Length);
             if (flag_AddData)
@@ -827,7 +787,7 @@ namespace usart_tool
             }
         }
 
-        private void backgroundWorker4_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
+        private void BackgroundWorker4_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
         {
             Readstring((byte[])e.Argument, ((byte[])e.Argument).Length);
             if (flag_AddData)
@@ -840,7 +800,7 @@ namespace usart_tool
             }
         }
 
-        private void backgroundWorker5_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
+        private void BackgroundWorker5_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
         {
             Readstring((byte[])e.Argument, ((byte[])e.Argument).Length);
             if (flag_AddData)
@@ -853,7 +813,7 @@ namespace usart_tool
             }
         }
 
-        private void backgroundWorker6_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
+        private void BackgroundWorker6_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
         {
             Action SendDataToSco = () =>
             {
@@ -864,7 +824,7 @@ namespace usart_tool
                 this.Invoke(SendDataToSco);
         }
 
-        private void backgroundWorker7_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
+        private void BackgroundWorker7_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
         {
             Action SendDataToSco = () =>
             {
@@ -875,7 +835,7 @@ namespace usart_tool
                 this.Invoke(SendDataToSco);
         }
 
-        private void backgroundWorker8_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
+        private void BackgroundWorker8_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
         {
             Action SendDataToSco = () =>
             {
@@ -886,7 +846,7 @@ namespace usart_tool
                 this.Invoke(SendDataToSco);
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void Button2_Click(object sender, EventArgs e)
         {
             int i = 0;
             foreach (Control myControls in groupBox3.Controls)
@@ -907,9 +867,6 @@ namespace usart_tool
 
         private void TimerUpdate_Tick(object sender, EventArgs e)
         {
-            kp = data[10].num;
-            ki = data[11].num;
-            kd = data[12].num;
         }
 
         private void 更新配置文件ToolStripMenuItem_Click(object sender, EventArgs e)
@@ -973,11 +930,7 @@ namespace usart_tool
                 {
                     fps[time].img[i] = buff[i];
                 }
-            if (PlayMode.Text == "电感")
-            {
-                fps[time].elecnum1 = elec1;
-                fps[time].elecnum2 = elec2;
-            }
+          
         }
         //******************************播放****************************************//
         void Play(int num)
@@ -992,13 +945,7 @@ namespace usart_tool
                     Changemap(fps[num].img);
                     Display(map);
                 }
-                if (PlayMode.Text == "电感")
-                {
-                    if (fps[num].elecnum1 < area && fps[num].elecnum1 > -area)
-                        ElecTrack1.Value = (int)fps[num].elecnum1 + area;
-                    if (fps[num].elecnum2 < area && fps[num].elecnum2 > -area)
-                        ElecTrack2.Value = (int)fps[num].elecnum2 + area;
-                }
+               
             }
             DataReplay(num);
         }
@@ -1038,7 +985,6 @@ namespace usart_tool
         //添加speed=changenum("speed");
         private void Datatimer_Tick(object sender, EventArgs e)
         {
-            kp = Changenum("kp");
             Showdatas();
         }
 
